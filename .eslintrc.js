@@ -43,7 +43,7 @@ module.exports = {
     'no-console': 'warn',
     'no-constant-condition': ['error', { checkLoops: false }],
     'no-unneeded-ternary': 'warn',
-    '@typescript-eslint/indent': ['warn', 4, { SwitchCase: 1 }],
+    '@typescript-eslint/indent': ['warn', 2, { SwitchCase: 1 }],
     'import/no-absolute-path': 'error',
     'import/no-useless-path-segments': ['warn', { noUselessIndex: true }],
     'import/no-deprecated': 'warn',
