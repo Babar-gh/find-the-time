@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API_ROOT_PATH } from './path';
+import { API_ROOT_PATH } from './constants/path';
 import {
   IUserCreationRequest,
   IUserLoginRequest,

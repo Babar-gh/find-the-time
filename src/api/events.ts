@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Guid } from 'types/common';
-import { API_ROOT_PATH } from './path';
+import { API_ROOT_PATH } from './constants/path';
 import {
   IEventSearchRequest,
   IEventSearchResponse,
