@@ -13,8 +13,8 @@ import {
 
 const baseUrl = `${API_ROOT_PATH}/events`;
 
-export const searchEvents = (config: IEventSearchRequest) =>
-  axios.post<IEventSearchResponse>(`${baseUrl}`, config);
+export const searchEvents = (constraints: IEventSearchRequest) =>
+  axios.post<IEventSearchResponse>(`${baseUrl}`, constraints);
 
 export const getEventDetails = (id: Guid) =>
   axios.get<IEventDetailsResponse>(`${baseUrl}`, {
@@ -23,8 +23,8 @@ export const getEventDetails = (id: Guid) =>
     },
   });
 
-export const createEvent = (eventDetails: IEventCreationRequest) =>
-  axios.post<IEventCreationResponse>(`${baseUrl}/new`, eventDetails);
+export const createEvent = (details: IEventCreationRequest) =>
+  axios.post<IEventCreationResponse>(`${baseUrl}/new`, details);
 
 export const subscribeToEvent = (
   id: Guid,

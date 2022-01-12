@@ -1,6 +1,6 @@
 import { Guid } from 'types/common';
 import { IUser } from 'types/user';
-import { ISearchConfig, ISearchResult, SortDirection } from './common';
+import { ISearchConstraints, ISearchResult } from './common';
 
 interface ITimeInterval {
   start: string;
@@ -23,22 +23,18 @@ interface IEvent {
 }
 
 type EventStatus = 'pending' | 'past';
-type EventSortableBy = 'created' | 'chosenInterval' | 'initialIntervals';
 
-interface IEventSearchFilter {
+interface IEventFilter {
   isOrganizer: boolean | null;
   title: string | null;
   location: string | null;
   status: EventStatus[] | null;
 }
 
-interface IEventSearchSorter {
-  sortBy: EventSortableBy;
-  direction: SortDirection;
-}
+type EventSortableBy = 'created' | 'chosenInterval' | 'initialIntervals';
 
 export interface IEventSearchRequest
-  extends ISearchConfig<IEventSearchFilter, IEventSearchSorter> {}
+  extends ISearchConstraints<IEventFilter, EventSortableBy> {}
 
 export interface IEventSearchResponse
   extends ISearchResult<Omit<IEvent, 'subscriptions'>> {}

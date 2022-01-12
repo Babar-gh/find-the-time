@@ -1,7 +1,7 @@
-export type SortDirection = 'ascending' | 'descending';
+type SortDirection = 'ascending' | 'descending';
 
-export interface ISorter {
-  sortBy: string;
+export interface ISorter<SortableBy> {
+  sortBy: SortableBy;
   direction: SortDirection;
 }
 
@@ -10,9 +10,9 @@ export interface IPagination {
   pageSize: number;
 }
 
-export interface ISearchConfig<Filter, Sorter extends ISorter> {
+export interface ISearchConstraints<Filter, SortableBy> {
   filter?: Filter;
-  sorter?: Sorter;
+  sorter?: ISorter<SortableBy>;
   pagination: IPagination;
 }
 
