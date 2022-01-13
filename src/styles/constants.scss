@@ -1,0 +1,26 @@
+@use 'sass:map';
+
+$dark-theme: (
+  'canvas-primary': rgb(54, 57, 63),
+  'canvas-primary-highlighted': rgb(50, 53, 59),
+  'canvas-secondary': rgb(47, 49, 54),
+  'canvas-secondary-deep': rgb(41, 43, 47),
+  'canvas-secondary-deeper': rgb(32, 34, 37),
+  'text-primary': rgb(220, 221, 222),
+  'text-secondary': rgb(255, 255, 255),
+  'ui-accent': rgb(88, 101, 242),
+  'ui-accent-aggressive': rgb(237, 66, 69),
+  'ui-backdrop': rgb(64, 68, 75),
+);
+$light-theme: (
+  'canvas-primary': rgb(255, 255, 255),
+  'canvas-primary-highlighted': rgb(250, 250, 250),
+  'canvas-secondary': rgb(242, 243, 245),
+  'canvas-secondary-deep': rgb(235, 237, 239),
+  'canvas-secondary-deeper': rgb(227, 229, 232),
+  'text-primary': rgb(46, 51, 56),
+  'text-secondary': rgb(6, 6, 7),
+  'ui-accent': rgb(88, 101, 242),
+  'ui-accent-aggressive': rgb(237, 66, 69),
+  'ui-backdrop': rgb(235, 237, 239),
+);
