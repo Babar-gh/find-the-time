@@ -30,14 +30,14 @@ export const subscribeToEvent = (
   id: Guid,
   intervals: IEventSubscriptionRequest
 ) =>
-  axios.post(`${baseUrl}/subscribe`, intervals, {
+  axios.post<void>(`${baseUrl}/subscribe`, intervals, {
     params: {
       event_id: id,
     },
   });
 
 export const unsubscribeFromEvent = (id: Guid) =>
-  axios.post(
+  axios.post<void>(
     `${baseUrl}/unsubscribe`,
     {},
     {
@@ -51,14 +51,14 @@ export const chooseEventIntervals = (
   id: Guid,
   intervals: IEventIntervalsChoiceRequest
 ) =>
-  axios.post(`${baseUrl}/choose-interval`, intervals, {
+  axios.post<void>(`${baseUrl}/choose-interval`, intervals, {
     params: {
       event_id: id,
     },
   });
 
 export const removeUserFromEvent = (eventId: Guid, userId: Guid) =>
-  axios.post(
+  axios.post<void>(
     `${baseUrl}/remove-subscription`,
     {},
     {
@@ -70,7 +70,7 @@ export const removeUserFromEvent = (eventId: Guid, userId: Guid) =>
   );
 
 export const removeEvent = (id: Guid) =>
-  axios.post(
+  axios.post<void>(
     `${baseUrl}/remove`,
     {},
     {
