@@ -10,3 +10,5 @@ export const createUser = (credentials: IUserCreationRequest) =>
 
 export const logUserIn = (credentials: IUserLoginRequest) =>
   axios.post<Token>(`${baseUrl}/login`, credentials);
+
+export const refreshUserToken = () => axios.get<Token>(`${baseUrl}/refresh`);
