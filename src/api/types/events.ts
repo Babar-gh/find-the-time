@@ -31,7 +31,7 @@ interface IEventFilter {
   status: EventStatus[] | null;
 }
 
-type EventSortableBy = 'created' | 'chosenInterval' | 'initialIntervals';
+type EventSortableBy = 'created' | 'chosenInterval' | 'subscriptions';
 
 export interface IEventSearchRequest
   extends ISearchConstraints<IEventFilter, EventSortableBy> {}
