@@ -1,26 +1,44 @@
 @use 'sass:map';
 
-$dark-theme: (
-  'canvas-primary': #36393f,
-  'canvas-primary-highlighted': #32353b,
-  'canvas-secondary': #2f3136,
-  'canvas-secondary-deep': #292b2f,
-  'canvas-secondary-deeper': #202225,
-  'text-primary': #dcddde,
-  'text-secondary': #fff,
-  'ui-accent': #5865f2,
-  'ui-accent-aggressive': #ed4245,
-  'ui-backdrop': #40444b,
-);
-$light-theme: (
-  'canvas-primary': #fff,
-  'canvas-primary-highlighted': #fafafa,
-  'canvas-secondary': #f2f3f5,
-  'canvas-secondary-deep': #ebedef,
-  'canvas-secondary-deeper': #e3e5e8,
-  'text-primary': #2e3338,
-  'text-secondary': #060607,
-  'ui-accent': #5865f2,
-  'ui-accent-aggressive': #ed4245,
-  'ui-backdrop': #ebedef,
+$colors: (
+  'canvas-primary': (
+    'dark': #36393f,
+    'light': #fff,
+  ),
+  'canvas-primary-highlighted': (
+    'dark': #32353b,
+    'light': #fafafa,
+  ),
+  'canvas-secondary': (
+    'dark': #2f3136,
+    'light': #f2f3f5,
+  ),
+  'canvas-secondary-deep': (
+    'dark': #292b2f,
+    'light': #ebedef,
+  ),
+  'canvas-secondary-deeper': (
+    'dark': #202225,
+    'light': #e3e5e8,
+  ),
+  'text-primary': (
+    'dark': #dcddde,
+    'light': #2e3338,
+  ),
+  'text-secondary': (
+    'dark': #fff,
+    'light': #060607,
+  ),
+  'ui-accent': (
+    'dark': #5865f2,
+    'light': #5865f2,
+  ),
+  'ui-accent-aggressive': (
+    'dark': #ed4245,
+    'light': #ed4245,
+  ),
+  'ui-backdrop': (
+    'dark': #40444b,
+    'light': #ebedef,
+  ),
 );
