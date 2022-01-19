@@ -1,0 +1,8 @@
+@use 'sass:map';
+
+@mixin theme-colors($theme, $colors) {
+  @each $name, $color in $colors {
+    /* stylelint-disable-next-line custom-property-pattern */
+    --#{$name}: #{map.get($colors, $name, $theme)};
+  }
+}
