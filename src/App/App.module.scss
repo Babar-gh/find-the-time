@@ -1,0 +1,10 @@
+@use '/src/styles/constants' as *;
+@use '/src/styles/mixins' as *;
+
+.Root_theme_dark {
+  @include theme-colors('dark', $colors);
+}
+
+.Root_theme_light {
+  @include theme-colors('light', $colors);
+}
