@@ -1,19 +1,33 @@
-import useLocalStorage from 'use-local-storage';
+import { useCallback, useEffect, useState } from 'react';
 
 type Theme = 'dark' | 'light';
 
-const useTheme = (): [Theme, () => void] => {
+const inferDefaultTheme = () => {
   const darkIsDefault = window.matchMedia(
     '(prefers-color-scheme: dark)'
   ).matches;
-  const defaultTheme = darkIsDefault ? 'dark' : 'light';
 
-  const [theme, setTheme] = useLocalStorage<Theme>('theme', defaultTheme);
+  return darkIsDefault ? 'dark' : 'light';
+};
 
-  const switchTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
-  };
+const useTheme = (): [Theme, () => void] => {
+  const [theme, setTheme] = useState<Theme>(() => {
+    const storedTheme = window.localStorage.getItem('theme');
+
+    return storedTheme === 'dark' || storedTheme === 'light'
+      ? storedTheme
+      : inferDefaultTheme();
+  });
+
+  const switchTheme = useCallback(() => {
+    setTheme((currentTheme) => {
+      return currentTheme === 'dark' ? 'light' : 'dark';
+    });
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem('theme', theme);
+  }, [theme]);
 
   return [theme, switchTheme];
 };
