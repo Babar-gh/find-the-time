@@ -1,4 +1,5 @@
 @use 'sass:map';
+@use './functions' as *;
 
 $colors: (
   'canvas-primary': (
@@ -42,3 +43,15 @@ $colors: (
     'light': #ebedef,
   ),
 );
+$breakpoints: (
+  'Mobile': (
+    'min-width': 320px,
+  ),
+  'Tablet': (
+    'min-width': 768px,
+  ),
+  'Desktop': (
+    'min-width': 1440px,
+  ),
+);
+$breakpoints: populate-with-media-queries($breakpoints);
