@@ -50,8 +50,11 @@ $breakpoints: (
   'Tablet': (
     'min-width': 768px,
   ),
+  'Laptop': (
+    'min-width': 1280px,
+  ),
   'Desktop': (
-    'min-width': 1440px,
+    'min-width': 1600px,
   ),
 );
 $breakpoints: populate-with-media-queries($breakpoints);
