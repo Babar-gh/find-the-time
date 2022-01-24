@@ -1,3 +1,4 @@
+/* stylelint-disable scss/dollar-variable-empty-line-before */
 @use 'sass:map';
 @use 'sass:list';
 
@@ -7,48 +8,60 @@
   @return list.nth($keys, $n);
 }
 
-@function populate-with-media-queries($breakpoints) {
-  /* Calculate a 'max-width' value for each screen size, except for the last
-  one, and store them in $breakpoints */
+/* Calculates a 'max-width' value for each breakpoint, except for the last one.
+Returns initial map which now also contains these values. */
 
-  @for $i from 1 to list.length($breakpoints) {
+@function populate-breakpoints-with-max-widths($min-widths) {
+  $breakpoints-interspace: 0.2px;
+  $both-boundaries: $min-widths;
+
+  @for $i from 1 to list.length($min-widths) {
     $next-min-width: map.get(
-      $breakpoints,
-      nth-map-key($breakpoints, $i + 1),
+      $min-widths,
+      nth-map-key($min-widths, $i + 1),
       'min-width'
     );
-    $this-max-width: $next-min-width - 0.2px;
-    $breakpoints: map.set(
-      $breakpoints,
-      nth-map-key($breakpoints, $i),
+
+    $this-max-width: $next-min-width - $breakpoints-interspace;
+
+    $both-boundaries: map.set(
+      $both-boundaries,
+      nth-map-key($both-boundaries, $i),
       'max-width',
       $this-max-width
     );
   }
 
-  /* Create a media query for each screen size by using 'min-width' and
-  previously calculated 'max-width' values and store them in $breakpoints */
+  @return $both-boundaries;
+}
 
-  @for $i from 1 through list.length($breakpoints) {
+/* Creates a media query for each breakpoint by using 'min-width' and calculated
+'max-width' values. Returns initial map which now also contains these queries. */
+
+@function populate-breakpoints-with-media-queries($min-widths) {
+  $both-boundaries: populate-breakpoints-with-max-widths($min-widths);
+  $queries: $both-boundaries;
+
+  @for $i from 1 through list.length($both-boundaries) {
     $min-width: map.get(
-      $breakpoints,
-      nth-map-key($breakpoints, $i),
+      $both-boundaries,
+      nth-map-key($both-boundaries, $i),
       'min-width'
     );
     $max-width: map.get(
-      $breakpoints,
-      nth-map-key($breakpoints, $i),
+      $both-boundaries,
+      nth-map-key($both-boundaries, $i),
       'max-width'
     );
-    $query: '';
+    $query: null;
 
-    /* The first screen size doesn't require a 'min-width' limitation */
+    /* The first breakpoint doesn't require a 'min-width' limitation */
     @if $i == 1 {
       $query: '(max-width: #{$max-width})';
     }
 
-    /* The last screen size doesn't require a 'max-width' limitation */
-    @else if $i == list.length($breakpoints) {
+    /* The last breakpoint doesn't require a 'max-width' limitation */
+    @else if $i == list.length($both-boundaries) {
       $query: '(min-width: #{$min-width})';
     }
 
@@ -57,13 +70,8 @@
       $query: '(min-width: #{$min-width}) and (max-width: #{$max-width})';
     }
 
-    $breakpoints: map.set(
-      $breakpoints,
-      nth-map-key($breakpoints, $i),
-      'query',
-      $query
-    );
+    $queries: map.set($queries, nth-map-key($queries, $i), 'query', $query);
   }
 
-  @return $breakpoints;
+  @return $queries;
 }

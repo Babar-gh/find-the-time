@@ -57,4 +57,4 @@ $breakpoints: (
     'min-width': 1600px,
   ),
 );
-$breakpoints: populate-with-media-queries($breakpoints);
+$breakpoints: populate-breakpoints-with-media-queries($breakpoints);
