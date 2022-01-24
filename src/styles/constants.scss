@@ -1,5 +1,5 @@
 @use 'sass:map';
-@use './functions' as *;
+@use './functions/index' as *;
 
 $colors: (
   'canvas-primary': (

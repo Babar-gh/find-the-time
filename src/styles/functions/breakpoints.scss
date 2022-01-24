@@ -1,12 +1,7 @@
 /* stylelint-disable scss/dollar-variable-empty-line-before */
 @use 'sass:map';
 @use 'sass:list';
-
-@function nth-map-key($map, $n) {
-  $keys: map.keys($map);
-
-  @return list.nth($keys, $n);
-}
+@use './utility' as *;
 
 /* Calculates a 'max-width' value for each breakpoint, except for the last one.
 Returns initial map which now also contains these values. */
