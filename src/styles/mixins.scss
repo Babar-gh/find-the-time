@@ -21,7 +21,9 @@
     $combined-query: string.insert($combined-query, ', ', -1);
   }
 
-  @media #{string.slice($combined-query, 1, -3)} {
+  $combined-query-without-trailing-comma: string.slice($combined-query, 1, -3);
+
+  @media #{$combined-query-without-trailing-comma} {
     @content;
   }
 }
