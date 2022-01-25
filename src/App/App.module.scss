@@ -2,6 +2,8 @@
 @use '/src/styles/mixins' as *;
 
 .Root {
+  height: 100%;
+
   &_theme {
     &_dark {
       @include theme-colors('dark', $colors);
