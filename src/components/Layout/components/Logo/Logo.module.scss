@@ -1,0 +1,57 @@
+@use '/src/styles/mixins' as *;
+
+.Root {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  color: var(--text-primary);
+
+  &:hover,
+  &:focus-visible,
+  &:active {
+    background-color: var(--canvas-secondary);
+    color: var(--text-secondary);
+  }
+
+  &:focus-visible {
+    outline: none;
+  }
+}
+
+.Text {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-style: normal;
+  font-weight: 300;
+}
+
+@include apply-to(Mobile) {
+  .Root {
+    column-gap: 3px;
+    padding: 0 6px;
+  }
+
+  .Icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .Text {
+    font-size: 24px;
+  }
+}
+
+@include apply-to(Tablet, Laptop, Desktop) {
+  .Root {
+    column-gap: 4px;
+    padding: 0 8px;
+  }
+
+  .Icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .Text {
+    font-size: 28px;
+  }
+}
