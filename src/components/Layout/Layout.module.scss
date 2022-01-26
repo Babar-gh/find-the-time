@@ -55,6 +55,18 @@
   background-color: var(--canvas-secondary-deep);
 }
 
+@include apply-to(Tablet, Laptop, Desktop) {
+  .Header {
+    height: 60px;
+  }
+}
+
+@include apply-to(Laptop, Desktop) {
+  .MenuButton {
+    display: none;
+  }
+}
+
 @include apply-to(Mobile) {
   .Header {
     height: 52px;
@@ -70,11 +82,7 @@
   }
 }
 
-@include apply-to(Tablet, Laptop, Desktop) {
-  .Header {
-    height: 60px;
-  }
-
+@include apply-to(Tablet) {
   .MenuButton {
     width: 60px;
   }
