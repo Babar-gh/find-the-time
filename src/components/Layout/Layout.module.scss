@@ -3,6 +3,7 @@
 
 .Root {
   min-height: 100%;
+  min-width: $layout-min-width;
   display: flex;
   flex-direction: column;
 }

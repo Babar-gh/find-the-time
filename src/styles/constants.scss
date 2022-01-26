@@ -58,3 +58,8 @@ $breakpoints: (
   ),
 );
 $breakpoints: populate-breakpoints-with-media-queries($breakpoints);
+$layout-min-width: map.get(
+  $breakpoints,
+  nth-map-key($breakpoints, 1),
+  'min-width'
+);
