@@ -9,7 +9,7 @@ const App: React.FC = () => {
   const [theme, switchTheme] = useTheme();
 
   return (
-    <div className={cn(styles['Root'], styles[`Root_theme_${theme}`])}>
+    <div className={cn('Root', `Root_theme_${theme}`)}>
       <Layout />
     </div>
   );

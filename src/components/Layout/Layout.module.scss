@@ -44,10 +44,10 @@
 .MenuContainer {
   flex: 0 0 280px;
   background-color: var(--canvas-secondary);
-}
 
-.MenuContainer_hidden {
-  display: none;
+  &_hidden {
+    display: none;
+  }
 }
 
 .ContentContainer {

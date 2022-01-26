@@ -22,8 +22,8 @@ const Layout: React.FC = () => {
       </header>
       <div className={styles['Wrapper']}>
         <nav
-          className={cn(styles['MenuContainer'], {
-            [styles['MenuContainer_hidden']]: menuIsHidden,
+          className={cn('MenuContainer', {
+            MenuContainer_hidden: menuIsHidden,
           })}
         ></nav>
         <main className={styles['ContentContainer']}></main>
