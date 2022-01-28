@@ -1,7 +1,6 @@
 @use '/src/styles/mixins' as *;
 
 .Root {
-  text-decoration: none;
   display: inline-flex;
   align-items: center;
   color: var(--text-primary);
