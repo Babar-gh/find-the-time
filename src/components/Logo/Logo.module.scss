@@ -4,17 +4,6 @@
   display: inline-flex;
   align-items: center;
   color: var(--text-primary);
-
-  &:hover,
-  &:focus-visible,
-  &:active {
-    background-color: var(--canvas-secondary);
-    color: var(--text-secondary);
-  }
-
-  &:focus-visible {
-    outline: none;
-  }
 }
 
 .Text {

@@ -1,32 +1,42 @@
 import { useState } from 'react';
 import classNames from 'classnames/bind';
 import { ReactComponent as MenuIcon } from 'assets/icons/menu.svg';
-import Logo from './components/Logo';
+import DummyContent from 'components/ui-kit/DummyContent';
+import Logo from '../Logo';
 import styles from './Layout.module.scss';
+import DummyMenu from 'components/ui-kit/DummyList';
+import { Link } from 'react-router-dom';
 
 const cn = classNames.bind(styles);
 
 const Layout: React.FC = () => {
-  const [menuIsHidden, setMenuIsHidden] = useState(true);
+  const [menuIsHiddenOnSmallScreens, setMenuIsHiddenOnSmallScreens] =
+    useState(true);
 
   return (
     <div className={styles['Root']}>
       <header className={styles['Header']}>
         <button
           className={styles['MenuButton']}
-          onClick={() => setMenuIsHidden((isHidden) => !isHidden)}
+          onClick={() => setMenuIsHiddenOnSmallScreens((isHidden) => !isHidden)}
         >
           <MenuIcon className={styles['MenuIcon']} />
         </button>
-        <Logo />
+        <Link to="/" className={styles['LogoContainer']}>
+          <Logo />
+        </Link>
       </header>
       <div className={styles['Wrapper']}>
         <nav
           className={cn('MenuContainer', {
-            MenuContainer_hidden: menuIsHidden,
+            MenuContainer_hiddenOnSmallScreens: menuIsHiddenOnSmallScreens,
           })}
-        ></nav>
-        <main className={styles['ContentContainer']}></main>
+        >
+          <DummyMenu />
+        </nav>
+        <main className={styles['ContentContainer']}>
+          <DummyContent />
+        </main>
       </div>
     </div>
   );

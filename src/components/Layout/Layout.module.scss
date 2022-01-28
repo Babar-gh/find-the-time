@@ -1,28 +1,33 @@
 @use '/src/styles/constants' as *;
 @use '/src/styles/mixins' as *;
 
+$top-bar-height: 60px;
+
 .Root {
-  min-height: 100%;
+  min-height: 100vh;
   min-width: $layout-min-width;
   display: flex;
   flex-direction: column;
 }
 
 .Header {
+  height: $top-bar-height;
+  position: sticky;
+  top: 0;
   box-sizing: border-box;
   background-color: var(--canvas-secondary-deeper);
   display: flex;
   border-bottom: 1px solid var(--ui-backdrop);
 }
 
-.MenuButton {
+.Wrapper {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  color: var(--text-primary);
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
+  flex: 1;
+}
+
+.LogoContainer {
+  text-decoration: none;
+  display: flex;
 
   &:hover,
   &:focus-visible,
@@ -36,28 +41,26 @@
   }
 }
 
-.Wrapper {
-  display: flex;
-  flex-grow: 1;
+.MenuContainer,
+.ContentContainer {
+  box-sizing: border-box;
+  padding: 40px;
 }
 
 .MenuContainer {
-  flex: 0 0 280px;
+  height: calc(100vh - $top-bar-height);
+  top: $top-bar-height;
   background-color: var(--canvas-secondary);
-
-  &_hidden {
-    display: none;
-  }
 }
 
 .ContentContainer {
-  flex: 1 0 auto;
   background-color: var(--canvas-secondary-deep);
 }
 
 @include apply-to(Tablet, Laptop, Desktop) {
-  .Header {
-    height: 60px;
+  .MenuContainer {
+    position: sticky;
+    flex: 0 0 280px;
   }
 }
 
@@ -67,28 +70,44 @@
   }
 }
 
-@include apply-to(Mobile) {
-  .Header {
-    height: 52px;
-  }
-
+@include apply-to(Mobile, Tablet) {
   .MenuButton {
-    width: 52px;
-  }
+    width: $top-bar-height;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-primary);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
 
-  .MenuIcon {
-    width: 28px;
-    height: 28px;
-  }
-}
+    &:hover,
+    &:focus-visible,
+    &:active {
+      background-color: var(--canvas-secondary);
+      color: var(--text-secondary);
+    }
 
-@include apply-to(Tablet) {
-  .MenuButton {
-    width: 60px;
+    &:focus-visible {
+      outline: none;
+    }
   }
 
   .MenuIcon {
     width: 32px;
     height: 32px;
+  }
+
+  .MenuContainer {
+    &_hiddenOnSmallScreens {
+      display: none;
+    }
+  }
+}
+
+@include apply-to(Mobile) {
+  .MenuContainer {
+    position: fixed;
+    width: 280px;
   }
 }
