@@ -5,7 +5,7 @@ import styles from './App.module.scss';
 
 const cn = classNames.bind(styles);
 
-const App: React.FC = () => {
+const App: React.VFC = () => {
   const [theme, switchTheme] = useTheme();
 
   return (
