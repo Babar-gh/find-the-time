@@ -9,7 +9,11 @@ import styles from './Layout.module.scss';
 
 const cn = classNames.bind(styles);
 
-const Layout: React.FC = () => {
+interface IProps {
+  onThemeSwitch: () => void;
+}
+
+const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
   const [sidebarIsHiddenOnSmallScreens, setSidebarIsHiddenOnSmallScreens] =
     useState(true);
 
@@ -31,7 +35,15 @@ const Layout: React.FC = () => {
 
   return (
     <div className={styles['Root']}>
-      <header className={styles['Header']}>{topBarLeftPart}</header>
+      <header className={styles['Header']}>
+        {topBarLeftPart}
+        <button
+          style={{ marginLeft: 'auto', width: '60px' }}
+          onClick={onThemeSwitch}
+        >
+          Switch theme
+        </button>
+      </header>
       <div className={styles['ColumnWrapper']}>
         <nav
           className={cn('Sidebar', {
