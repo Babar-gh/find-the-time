@@ -1,10 +1,12 @@
 import { useState } from 'react';
-import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
+import classNames from 'classnames/bind';
+
 import { ReactComponent as MenuIcon } from 'assets/icons/menu.svg';
+import Logo from 'components/Logo';
 import DummyContent from 'components/ui-kit/DummyContent';
 import DummyMenu from 'components/ui-kit/DummyList';
-import Logo from '../Logo';
+
 import styles from './Layout.module.scss';
 
 const cn = classNames.bind(styles);
@@ -56,12 +58,12 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
 
         {!sidebarIsHiddenOnSmallScreens && (
           <div
-            className={styles['SidebarScrim']}
+            className={styles['SidebarBackdrop']}
             onClick={() => setSidebarIsHiddenOnSmallScreens(true)}
           />
         )}
 
-        <main className={styles['ContentContainer']}>
+        <main className={styles['Content']}>
           <DummyContent />
         </main>
       </div>

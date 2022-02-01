@@ -29,7 +29,6 @@ $top-bar-height: 60px;
   top: 0;
   background-color: var(--canvas-secondary-deeper);
   display: flex;
-  border-bottom: 1px solid var(--ui-backdrop);
 }
 
 .ColumnWrapper {
@@ -49,8 +48,9 @@ $top-bar-height: 60px;
   background-color: var(--canvas-secondary);
 }
 
-.ContentContainer {
+.Content {
   background-color: var(--canvas-secondary-deep);
+  flex: 1;
 }
 
 @include apply-to(Tablet, Laptop, Desktop) {
@@ -113,13 +113,10 @@ $top-bar-height: 60px;
     height: $top-bar-height;
   }
 
-  .SidebarScrim {
+  .SidebarBackdrop {
     position: fixed;
     z-index: 1;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-color: var(--ui-scrim);
+    inset: 0;
+    background-color: var(--ui-backdrop);
   }
 }

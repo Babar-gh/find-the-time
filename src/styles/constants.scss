@@ -38,11 +38,11 @@ $colors: (
     'dark': #ed4245,
     'light': #ed4245,
   ),
-  'ui-backdrop': (
+  'ui-input-background': (
     'dark': #40444b,
     'light': #ebedef,
   ),
-  'ui-scrim': (
+  'ui-backdrop': (
     'dark': rgba(#000, 0.6),
     'light': rgba(#000, 0.6),
   ),
@@ -66,4 +66,8 @@ $layout-min-width: map.get(
   $breakpoints,
   nth-map-key($breakpoints, 1),
   'min-width'
+);
+$z-indexes: (
+  'sidebar': 200,
+  'sidebar-backdrop': 100,
 );
