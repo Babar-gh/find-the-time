@@ -42,6 +42,10 @@ $colors: (
     'dark': #40444b,
     'light': #ebedef,
   ),
+  'ui-scrim': (
+    'dark': rgba(#000, 0.6),
+    'light': rgba(#000, 0.6),
+  ),
 );
 $breakpoints: (
   'Mobile': (

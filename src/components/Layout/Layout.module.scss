@@ -3,32 +3,7 @@
 
 $top-bar-height: 60px;
 
-.Root {
-  min-height: 100vh;
-  min-width: $layout-min-width;
-  display: flex;
-  flex-direction: column;
-}
-
-.Header {
-  height: $top-bar-height;
-  position: sticky;
-  top: 0;
-  box-sizing: border-box;
-  background-color: var(--canvas-secondary-deeper);
-  display: flex;
-  border-bottom: 1px solid var(--ui-backdrop);
-}
-
-.Wrapper {
-  display: flex;
-  flex: 1;
-}
-
-.LogoContainer {
-  text-decoration: none;
-  display: flex;
-
+@mixin top-bar-interactions {
   &:hover,
   &:focus-visible,
   &:active {
@@ -41,15 +16,36 @@ $top-bar-height: 60px;
   }
 }
 
-.MenuContainer,
-.ContentContainer {
-  box-sizing: border-box;
-  padding: 40px;
+.Root {
+  min-height: 100vh;
+  min-width: $layout-min-width;
+  display: flex;
+  flex-direction: column;
 }
 
-.MenuContainer {
-  height: calc(100vh - $top-bar-height);
-  top: $top-bar-height;
+.Header {
+  height: $top-bar-height;
+  position: sticky;
+  top: 0;
+  background-color: var(--canvas-secondary-deeper);
+  display: flex;
+  border-bottom: 1px solid var(--ui-backdrop);
+}
+
+.ColumnWrapper {
+  display: flex;
+  flex: 1;
+}
+
+.LogoContainer {
+  color: var(--text-primary);
+  text-decoration: none;
+  display: flex;
+
+  @include top-bar-interactions;
+}
+
+.Sidebar {
   background-color: var(--canvas-secondary);
 }
 
@@ -58,9 +54,15 @@ $top-bar-height: 60px;
 }
 
 @include apply-to(Tablet, Laptop, Desktop) {
-  .MenuContainer {
+  .Sidebar {
     position: sticky;
+    height: calc(100vh - $top-bar-height);
+    top: $top-bar-height;
     flex: 0 0 280px;
+  }
+
+  .SidebarHeader {
+    display: none;
   }
 }
 
@@ -81,16 +83,7 @@ $top-bar-height: 60px;
     border: none;
     cursor: pointer;
 
-    &:hover,
-    &:focus-visible,
-    &:active {
-      background-color: var(--canvas-secondary);
-      color: var(--text-secondary);
-    }
-
-    &:focus-visible {
-      outline: none;
-    }
+    @include top-bar-interactions;
   }
 
   .MenuIcon {
@@ -98,7 +91,7 @@ $top-bar-height: 60px;
     height: 32px;
   }
 
-  .MenuContainer {
+  .Sidebar {
     &_hiddenOnSmallScreens {
       display: none;
     }
@@ -106,8 +99,27 @@ $top-bar-height: 60px;
 }
 
 @include apply-to(Mobile) {
-  .MenuContainer {
+  .Sidebar {
     position: fixed;
+    z-index: 2;
+    height: 100vh;
+    top: 0;
     width: 280px;
+  }
+
+  .SidebarHeader {
+    display: flex;
+    align-items: center;
+    height: $top-bar-height;
+  }
+
+  .SidebarScrim {
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: var(--ui-scrim);
   }
 }
