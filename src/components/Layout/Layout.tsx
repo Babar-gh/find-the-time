@@ -55,7 +55,10 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
         </nav>
 
         {!sidebarIsHiddenOnSmallScreens && (
-          <div className={styles['SidebarScrim']} />
+          <div
+            className={styles['SidebarScrim']}
+            onClick={() => setSidebarIsHiddenOnSmallScreens(true)}
+          />
         )}
 
         <main className={styles['ContentContainer']}>
