@@ -68,6 +68,6 @@ $layout-min-width: map.get(
   'min-width'
 );
 $z-indexes: (
-  'sidebar': 200,
-  'sidebar-backdrop': 100,
+  'modal': 200,
+  'modal-backdrop': 100,
 );

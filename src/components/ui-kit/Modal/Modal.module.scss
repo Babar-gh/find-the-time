@@ -1,0 +1,14 @@
+@use 'sass:map';
+@use '/src/styles/constants' as *;
+
+.Content {
+  position: relative;
+  z-index: map.get($z-indexes, 'modal');
+}
+
+.Backdrop {
+  position: fixed;
+  z-index: map.get($z-indexes, 'modal-backdrop');
+  inset: 0;
+  background-color: var(--ui-backdrop);
+}
