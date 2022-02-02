@@ -1,15 +1,17 @@
-import classNames from 'classnames/bind';
+import { useEffect } from 'react';
 import Layout from 'components/Layout';
 import useTheme from './hooks/useTheme';
-import styles from './App.module.scss';
-
-const cn = classNames.bind(styles);
+import bodyStyles from './Body.module.scss';
 
 const App: React.VFC = () => {
   const [theme, switchTheme] = useTheme();
 
+  useEffect(() => {
+    document.body.className = bodyStyles[`Root_theme_${theme}`];
+  }, [theme]);
+
   return (
-    <div className={cn('Root', `Root_theme_${theme}`)}>
+    <div>
       <Layout onThemeSwitch={switchTheme} />
     </div>
   );
