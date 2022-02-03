@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import Modal from 'components/ui-kit/Modal';
+import Backdrop from 'components/ui-kit/Backdrop';
 import Logo from 'components/Logo';
 import DummyContent from 'components/ui-kit/DummyContent';
 import DummyMenu from 'components/ui-kit/DummyList';
@@ -14,7 +14,7 @@ interface IProps {
 }
 
 const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
-  const [sidebarIsCollapsed, setSidebarIsCollapsed] = useState(true);
+  const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
 
   /* ——————————————— To be replaced with proper functionality ——————————————— */
 
@@ -47,7 +47,7 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
   const menuButton = (
     <button
       className={styles['MenuButton']}
-      onClick={() => setSidebarIsCollapsed((isCollapsed) => !isCollapsed)}
+      onClick={() => setSidebarIsOpen((isOpen) => !isOpen)}
     >
       <MenuIcon className={styles['MenuIcon']} />
     </button>
@@ -79,12 +79,10 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
       </header>
 
       <div className={styles['ColumnWrapper']}>
-        {bp('Mobile') && !sidebarIsCollapsed && (
-          <Modal onBackdropClick={() => setSidebarIsCollapsed(true)}>
-            {sidebar}
-          </Modal>
+        {bp('Mobile') && sidebarIsOpen && (
+          <Backdrop onClose={() => setSidebarIsOpen(false)}>{sidebar}</Backdrop>
         )}
-        {bp('Tablet') && !sidebarIsCollapsed && sidebar}
+        {bp('Tablet') && sidebarIsOpen && sidebar}
         {bp('Laptop', 'Desktop') && sidebar}
 
         <main className={styles['Content']}>

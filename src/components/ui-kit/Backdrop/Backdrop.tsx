@@ -1,21 +1,21 @@
 import ReactDOM from 'react-dom';
 
-import styles from './Modal.module.scss';
+import styles from './Backdrop.module.scss';
 
 const modalRoot = document.getElementById('modal-root')!;
 
 interface IProps {
-  onBackdropClick: () => void;
+  onClose: () => void;
 }
 
-const Modal: React.FC<IProps> = ({ onBackdropClick, children }) => {
+const Backdrop: React.FC<IProps> = ({ onClose, children }) => {
   return ReactDOM.createPortal(
     <>
       <div className={styles['Content']}>{children}</div>
-      <div className={styles['Backdrop']} onClick={onBackdropClick}></div>
+      <div className={styles['Backdrop']} onClick={onClose}></div>
     </>,
     modalRoot
   );
 };
 
-export default Modal;
+export default Backdrop;
