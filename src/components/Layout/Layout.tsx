@@ -82,7 +82,7 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
         {bp('Mobile') && (
           <Backdrop
             isOpen={sidebarIsOpen}
-            onClose={() => setSidebarIsOpen(false)}
+            onBackdropClick={() => setSidebarIsOpen(false)}
           >
             {sidebar}
           </Backdrop>
