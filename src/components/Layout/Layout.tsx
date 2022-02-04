@@ -79,8 +79,13 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
       </header>
 
       <div className={styles['ColumnWrapper']}>
-        {bp('Mobile') && sidebarIsOpen && (
-          <Backdrop onClose={() => setSidebarIsOpen(false)}>{sidebar}</Backdrop>
+        {bp('Mobile') && (
+          <Backdrop
+            isOpen={sidebarIsOpen}
+            onClose={() => setSidebarIsOpen(false)}
+          >
+            {sidebar}
+          </Backdrop>
         )}
         {bp('Tablet') && sidebarIsOpen && sidebar}
         {bp('Laptop', 'Desktop') && sidebar}
