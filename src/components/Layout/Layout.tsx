@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import Backdrop from 'components/ui-kit/Backdrop';
+import Backdrop from 'ui-kit/Backdrop';
+import DummyContent from 'ui-kit/DummyContent';
+import DummyMenu from 'ui-kit/DummyList';
 import Logo from 'components/Logo';
-import DummyContent from 'components/ui-kit/DummyContent';
-import DummyMenu from 'components/ui-kit/DummyList';
 import { ReactComponent as MenuIcon } from 'assets/icons/menu.svg';
 
 import styles from './Layout.module.scss';
