@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useBreakpoints } from 'hooks/breakpoints';
 
 import Backdrop from 'ui-kit/Backdrop';
 import DummyContent from 'ui-kit/DummyContent';
@@ -15,34 +16,11 @@ interface IProps {
 
 const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
-
-  /* ——————————————— To be replaced with proper functionality ——————————————— */
-
-  type Breakpoint = 'Mobile' | 'Tablet' | 'Laptop' | 'Desktop';
-  const [breakpoint, setBreakpoint] = useState<Breakpoint>('Desktop');
-
-  const bp = (...breakpoints: Breakpoint[]) => {
-    return breakpoints.some((bp) => bp === breakpoint);
-  };
-
-  const temporaryBreakpointSelect = (
-    <select
-      name="choice"
-      value={breakpoint}
-      onChange={(event) => setBreakpoint(event.target.value as Breakpoint)}
-    >
-      <option value="Mobile">Mobile</option>
-      <option value="Tablet">Tablet</option>
-      <option value="Laptop">Laptop</option>
-      <option value="Desktop">Desktop</option>
-    </select>
-  );
+  const bp = useBreakpoints();
 
   const temporarySwitchThemeButton = (
     <button onClick={onThemeSwitch}>Switch theme</button>
   );
-
-  /* ———————————————————————————————————————————————————————————————————————— */
 
   const menuButton = (
     <button
@@ -92,7 +70,6 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
 
         <main className={styles['Content']}>
           {temporarySwitchThemeButton}
-          {temporaryBreakpointSelect}
           <DummyContent />
         </main>
       </div>
