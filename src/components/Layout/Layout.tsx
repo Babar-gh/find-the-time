@@ -22,6 +22,15 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
     <button onClick={onThemeSwitch}>Switch theme</button>
   );
 
+  const temporaryBreakpointIndicator = (
+    <p style={{ color: 'var(--text-primary)' }}>
+      Current breakpoint: {bp('Desktop') && 'Desktop'}
+      {bp('Laptop') && 'Laptop'}
+      {bp('Tablet') && 'Tablet'}
+      {bp('Mobile') && 'Mobile'}
+    </p>
+  );
+
   const menuButton = (
     <button
       className={styles['MenuButton']}
@@ -70,6 +79,7 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
 
         <main className={styles['Content']}>
           {temporarySwitchThemeButton}
+          {temporaryBreakpointIndicator}
           <DummyContent />
         </main>
       </div>
