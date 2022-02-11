@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Breakpoint } from 'constants/breakpoints';
 
-interface IInitialState {
+interface IState {
   active: Breakpoint;
 }
 
-const initialState: IInitialState = {
+const initialState: IState = {
   active: 'Mobile',
 };
 

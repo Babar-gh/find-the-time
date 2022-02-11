@@ -1,5 +1,5 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import { breakpointsReducer as breakpoints } from 'hooks/breakpoints';
+import { default as breakpoints } from './slices/breakpoints';
 
 export const store = configureStore({
   reducer: {

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useBreakpoints } from 'hooks/breakpoints';
+import useBreakpointCheck from 'hooks/useBreakpointCheck';
 
 import Backdrop from 'ui-kit/Backdrop';
 import DummyContent from 'ui-kit/DummyContent';
@@ -16,7 +16,7 @@ interface IProps {
 
 const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
-  const bp = useBreakpoints();
+  const bp = useBreakpointCheck();
 
   const temporarySwitchThemeButton = (
     <button onClick={onThemeSwitch}>Switch theme</button>
