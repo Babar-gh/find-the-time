@@ -20,16 +20,17 @@ interface IAnchorProps extends HTMLAttributes<HTMLAnchorElement> {
 
 type Props = IRouterLinkProps | IRouterNavLinkProps | IAnchorProps;
 
-const Link: React.FC<Props> = ({ type, ...rest }) => {
+const LinkWrapper: React.FC<Props> = ({ type, ...rest }) => {
   switch (type) {
     case 'RouterLink':
       return <RouterLink {...(rest as RouterLinkProps)} />;
     case 'RouterNavLink':
       return <RouterNavLink {...(rest as RouterNavLinkProps)} />;
     case 'Anchor':
+      // To do: ESLint warning
       // eslint-disable-next-line jsx-a11y/anchor-has-content
       return <a {...(rest as HTMLAttributes<HTMLAnchorElement>)} />;
   }
 };
 
-export default Link;
+export default LinkWrapper;
