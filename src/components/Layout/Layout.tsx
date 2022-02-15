@@ -4,7 +4,7 @@ import useBreakpointCheck from 'hooks/useBreakpointCheck';
 
 import Backdrop from 'ui-kit/Backdrop';
 import DummyContent from 'ui-kit/DummyContent';
-import DummyMenu from 'ui-kit/DummyList';
+import Menu from 'ui-kit/Menu';
 import Logo from 'components/Logo';
 import { ReactComponent as MenuIcon } from 'assets/icons/menu.svg';
 
@@ -54,7 +54,24 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
           {logo}
         </header>
       )}
-      <DummyMenu />
+      <Menu>
+        <Menu.Item type="RouterNavLink" to="/lorem" icon={<MenuIcon />}>
+          Lorem
+        </Menu.Item>
+        <Menu.Item type="RouterNavLink" to="/ipsum">
+          Ipsum
+        </Menu.Item>
+        <Menu.Item
+          type="Button"
+          onClick={() => alert('Dolor!')}
+          icon={<MenuIcon />}
+        >
+          Dolor
+        </Menu.Item>
+        <Menu.Item type="Button" onClick={() => alert('Sit!')}>
+          Sit
+        </Menu.Item>
+      </Menu>
     </nav>
   );
 
