@@ -29,7 +29,7 @@ const MenuItem: React.FC<IProps> = (props) => {
         <LinkWrapper
           type="RouterNavLink"
           to={props.to}
-          className={(isActive) => (isActive ? 'active' : '')}
+          className={({ isActive }) => (isActive ? 'active' : '')}
         >
           <span>{icon}</span>
           <span>{children}</span>
