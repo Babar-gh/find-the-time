@@ -1,4 +1,4 @@
-import { HTMLAttributes } from 'react';
+import { HTMLProps } from 'react';
 import {
   Link as RouterLink,
   LinkProps as RouterLinkProps,
@@ -14,7 +14,7 @@ interface IRouterNavLinkProps extends RouterNavLinkProps {
   type: 'RouterNavLink';
 }
 
-interface IAnchorProps extends HTMLAttributes<HTMLAnchorElement> {
+interface IAnchorProps extends HTMLProps<HTMLAnchorElement> {
   type: 'Anchor';
 }
 
@@ -29,7 +29,7 @@ const LinkWrapper: React.FC<Props> = ({ type, ...rest }) => {
     case 'Anchor':
       // To do: ESLint warning
       // eslint-disable-next-line jsx-a11y/anchor-has-content
-      return <a {...(rest as HTMLAttributes<HTMLAnchorElement>)} />;
+      return <a {...(rest as HTMLProps<HTMLAnchorElement>)} />;
   }
 };
 
