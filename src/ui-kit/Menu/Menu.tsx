@@ -1,30 +1,33 @@
 import { Children, cloneElement, isValidElement, ReactElement } from 'react';
 import Item from './components/Item';
-import MenuItem from './components/Item';
 
-//import styles from './components/Menu.module.scss';
+import styles from './Menu.module.scss';
 
 interface IProps {
-  activeId: string;
+  selectedId: string;
   children: ReactElement<typeof Item> | ReactElement<typeof Item>[];
 }
 
-type MenuComponent = React.FC<IProps> & { Item: typeof MenuItem };
+type MenuComponent = React.FC<IProps> & { Item: typeof Item };
 
-const Menu: MenuComponent = ({ activeId, children }) => {
+const Menu: MenuComponent = ({ selectedId, children }) => {
   return (
-    <ul>
+    <ul className={styles['Root']}>
       {Children.map(children, (item) => {
         if (isValidElement(item)) {
-          const isActive = item.props.id === activeId;
+          const isSelected = item.props.id === selectedId;
 
-          return <li>{cloneElement(item, { isActive })}</li>;
+          return (
+            <li className={styles['Item']}>
+              {cloneElement(item, { isSelected })}
+            </li>
+          );
         }
       })}
     </ul>
   );
 };
 
-Menu.Item = MenuItem;
+Menu.Item = Item;
 
 export default Menu;

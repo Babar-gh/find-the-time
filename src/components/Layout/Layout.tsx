@@ -47,7 +47,7 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
   );
 
   const sidebar = (
-    <nav className={styles['Sidebar']}>
+    <div className={styles['Sidebar']}>
       {bp('Mobile') && (
         <header className={styles['SidebarHeader']}>
           {menuButton}
@@ -55,7 +55,7 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
         </header>
       )}
       <NavMenu />
-    </nav>
+    </div>
   );
 
   return (

@@ -1,0 +1,52 @@
+$item-height: 34px;
+
+.Link,
+.Button {
+  display: flex;
+  align-items: center;
+  height: $item-height;
+  font-size: 16px;
+  font-family: Roboto, sans-serif;
+  color: var(--text-primary);
+  background-color: inherit;
+  border-radius: 4px;
+  padding: 0 8px;
+
+  &_selected,
+  &:hover,
+  &:active {
+    color: var(--text-secondary);
+  }
+
+  &_selected {
+    background-color: var(--canvas-modifier-selected);
+  }
+
+  &:hover {
+    background-color: var(--canvas-modifier-hover);
+  }
+
+  &:active {
+    background-color: var(--canvas-modifier-active);
+  }
+}
+
+.Link {
+  text-decoration: none;
+}
+
+.Button {
+  appearance: none;
+  cursor: pointer;
+  width: 100%;
+  border: none;
+}
+
+.IconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: $item-height;
+  height: 100%;
+  margin-right: 8px;
+}

@@ -1,14 +1,15 @@
 import { ReactElement } from 'react';
 import { To } from 'react-router-dom';
+import classNames from 'classnames/bind';
 import LinkWrapper from 'components/LinkWrapper';
 
-// import styles from './Item.module.scss';
+import styles from './Item.module.scss';
 
 interface ISharedProps {
   type: 'Anchor' | 'RouterLink' | 'Button';
   id: string;
   icon?: ReactElement;
-  isActive?: boolean;
+  isSelected?: boolean;
 }
 
 interface IAnchorProps extends ISharedProps {
@@ -28,12 +29,14 @@ interface IButtonProps extends ISharedProps {
 
 type IProps = IAnchorProps | IRouterLinkProps | IButtonProps;
 
+const cn = classNames.bind(styles);
+
 const Item: React.FC<IProps> = (props) => {
-  const { type, icon, isActive, children } = props;
+  const { type, icon, isSelected, children } = props;
 
   const content = (
     <>
-      <span>{icon}</span>
+      <span className={styles['IconContainer']}>{icon}</span>
       <span>{children}</span>
     </>
   );
@@ -44,7 +47,7 @@ const Item: React.FC<IProps> = (props) => {
         <LinkWrapper
           type={type}
           href={props.href}
-          className={`${isActive ? 'active' : ' '}`}
+          className={cn('Link', { Link_selected: isSelected })}
         >
           {content}
         </LinkWrapper>
@@ -54,7 +57,7 @@ const Item: React.FC<IProps> = (props) => {
         <LinkWrapper
           type={type}
           to={props.to}
-          className={`${isActive ? 'active' : ' '}`}
+          className={cn('Link', { Link_selected: isSelected })}
         >
           {content}
         </LinkWrapper>
@@ -63,7 +66,7 @@ const Item: React.FC<IProps> = (props) => {
       {type === 'Button' && (
         <button
           onClick={props.onClick}
-          className={`${isActive ? 'active' : ' '}`}
+          className={cn('Button', { Button_selected: isSelected })}
         >
           {content}
         </button>

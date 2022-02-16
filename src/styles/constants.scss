@@ -22,6 +22,18 @@ $colors: (
     'dark': #202225,
     'light': #e3e5e8,
   ),
+  'canvas-modifier-hover': (
+    'dark': rgba(80, 85, 94, 0.161),
+    'light': rgba(116, 127, 141, 0.08),
+  ),
+  'canvas-modifier-active': (
+    'dark': rgba(79, 84, 92, 0.24),
+    'light': rgba(116, 127, 141, 0.16),
+  ),
+  'canvas-modifier-selected': (
+    'dark': rgba(79, 84, 92, 0.32),
+    'light': rgba(116, 127, 141, 0.24),
+  ),
   'text-primary': (
     'dark': #dcddde,
     'light': #2e3338,

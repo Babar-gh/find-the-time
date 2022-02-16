@@ -1,0 +1,9 @@
+.Root {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.Item:not(.Item:last-child) {
+  margin-bottom: 2px;
+}
