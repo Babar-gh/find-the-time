@@ -22,11 +22,11 @@ $item-height: 34px;
     background-color: var(--canvas-modifier-selected);
   }
 
-  &:hover {
+  &:hover:not(&_selected) {
     background-color: var(--canvas-modifier-hover);
   }
 
-  &:active {
+  &:active:not(&_selected) {
     background-color: var(--canvas-modifier-active);
   }
 }
