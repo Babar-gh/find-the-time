@@ -1,6 +1,5 @@
 import ReactDOM from 'react-dom';
 import { MouseEvent } from 'react';
-
 import styles from './Backdrop.module.scss';
 
 const modalRoot = document.getElementById('modal-root')!;

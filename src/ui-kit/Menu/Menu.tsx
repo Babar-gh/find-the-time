@@ -1,6 +1,5 @@
 import { Children, cloneElement, isValidElement, ReactElement } from 'react';
 import Item from './components/Item';
-
 import styles from './Menu.module.scss';
 
 type ItemComponent = ReactElement<typeof Item>;

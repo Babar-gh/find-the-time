@@ -1,7 +1,6 @@
-import { ReactElement } from 'react';
 import classNames from 'classnames/bind';
+import { ReactElement } from 'react';
 import LinkWrapper from 'components/LinkWrapper';
-
 import styles from './Item.module.scss';
 
 interface ISharedProps {

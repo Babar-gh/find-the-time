@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import Layout from 'components/Layout';
-import useTheme from './hooks/useTheme';
-import useBreakpointUpdate from './hooks/useBreakpointUpdate';
 import bodyStyles from './Body.module.scss';
+import useBreakpointUpdate from './hooks/useBreakpointUpdate';
+import useTheme from './hooks/useTheme';
 
 const App: React.VFC = () => {
   const [theme, switchTheme] = useTheme();

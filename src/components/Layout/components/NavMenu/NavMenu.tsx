@@ -1,6 +1,5 @@
 import Menu from 'ui-kit/Menu';
 import { ReactComponent as LogoIcon } from 'assets/icons/event_available.svg';
-
 import styles from './NavMenu.module.scss';
 
 const NavMenu: React.FC = () => {

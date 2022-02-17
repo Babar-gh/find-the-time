@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Breakpoint, BREAKPOINT_QUERIES } from 'constants/breakpoints';
-import { useAppDispatch } from 'store/hooks';
 import { setActive } from 'store/slices/breakpoints';
+import { useAppDispatch } from 'store/hooks';
 
 type ActiveBreakpointDispatch = (
   query: MediaQueryList | MediaQueryListEvent

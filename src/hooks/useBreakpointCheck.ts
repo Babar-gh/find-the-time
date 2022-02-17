@@ -1,6 +1,6 @@
 import { Breakpoint } from 'constants/breakpoints';
-import { useAppSelector } from 'store/hooks';
 import { RootState } from 'store';
+import { useAppSelector } from 'store/hooks';
 
 const useBreakpointCheck = () => {
   const active = useAppSelector((store: RootState) => store.breakpoints.active);
