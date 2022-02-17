@@ -1,14 +1,25 @@
 $item-height: 34px;
 
-.Link,
+.Link {
+  text-decoration: none;
+}
+
 .Button {
+  appearance: none;
+  cursor: pointer;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+}
+
+.Container {
   display: flex;
   align-items: center;
   height: $item-height;
   font-size: 16px;
   font-family: Roboto, sans-serif;
   color: var(--text-primary);
-  background-color: inherit;
   border-radius: 4px;
   padding: 0 8px;
 
@@ -29,17 +40,6 @@ $item-height: 34px;
   &:active:not(&_selected) {
     background-color: var(--canvas-modifier-active);
   }
-}
-
-.Link {
-  text-decoration: none;
-}
-
-.Button {
-  appearance: none;
-  cursor: pointer;
-  width: 100%;
-  border: none;
 }
 
 .IconContainer {

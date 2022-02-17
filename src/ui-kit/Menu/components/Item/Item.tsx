@@ -35,39 +35,28 @@ const Item: React.FC<IProps> = (props) => {
   const { type, icon, isSelected, children } = props;
 
   const content = (
-    <>
+    <div className={cn('Container', { Container_selected: isSelected })}>
       <span className={styles['IconContainer']}>{icon}</span>
       <span>{children}</span>
-    </>
+    </div>
   );
 
   return (
     <>
       {type === 'Anchor' && (
-        <LinkWrapper
-          type={type}
-          href={props.href}
-          className={cn('Link', { Link_selected: isSelected })}
-        >
+        <LinkWrapper type={type} href={props.href} className={styles['Link']}>
           {content}
         </LinkWrapper>
       )}
 
       {type === 'RouterLink' && (
-        <LinkWrapper
-          type={type}
-          to={props.to}
-          className={cn('Link', { Link_selected: isSelected })}
-        >
+        <LinkWrapper type={type} to={props.to} className={styles['Link']}>
           {content}
         </LinkWrapper>
       )}
 
       {type === 'Button' && (
-        <button
-          onClick={props.onClick}
-          className={cn('Button', { Button_selected: isSelected })}
-        >
+        <button onClick={props.onClick} className={styles['Button']}>
           {content}
         </button>
       )}
