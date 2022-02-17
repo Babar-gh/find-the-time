@@ -1,5 +1,4 @@
 import { ReactElement } from 'react';
-import { To } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import LinkWrapper from 'components/LinkWrapper';
 
@@ -12,22 +11,17 @@ interface ISharedProps {
   isSelected?: boolean;
 }
 
-interface IAnchorProps extends ISharedProps {
-  type: 'Anchor';
-  href: string;
+interface ILinkProps {
+  type: 'Anchor' | 'RouterLink';
+  to: string;
 }
 
-interface IRouterLinkProps extends ISharedProps {
-  type: 'RouterLink';
-  to: To;
-}
-
-interface IButtonProps extends ISharedProps {
+interface IButtonProps {
   type: 'Button';
   onClick: React.MouseEventHandler;
 }
 
-type IProps = IAnchorProps | IRouterLinkProps | IButtonProps;
+type IProps = ISharedProps & (ILinkProps | IButtonProps);
 
 const cn = classNames.bind(styles);
 
@@ -43,13 +37,7 @@ const Item: React.FC<IProps> = (props) => {
 
   return (
     <>
-      {type === 'Anchor' && (
-        <LinkWrapper type={type} href={props.href} className={styles['Link']}>
-          {content}
-        </LinkWrapper>
-      )}
-
-      {type === 'RouterLink' && (
+      {(type === 'Anchor' || type === 'RouterLink') && (
         <LinkWrapper type={type} to={props.to} className={styles['Link']}>
           {content}
         </LinkWrapper>

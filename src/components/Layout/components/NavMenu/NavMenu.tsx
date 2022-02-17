@@ -7,7 +7,7 @@ const NavMenu: React.FC = () => {
   return (
     <nav className={styles['Root']}>
       <Menu selectedId="Ipsum">
-        <Menu.Item id="Lorem" type="Anchor" href="/lorem" icon={<LogoIcon />}>
+        <Menu.Item id="Lorem" type="Anchor" to="/lorem" icon={<LogoIcon />}>
           Lorem
         </Menu.Item>
 
