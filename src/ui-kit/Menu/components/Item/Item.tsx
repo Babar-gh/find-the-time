@@ -1,6 +1,7 @@
 import classNames from 'classnames/bind';
 import { ReactElement } from 'react';
 import LinkWrapper from 'components/LinkWrapper';
+import Text from 'components/Text';
 import styles from './Item.module.scss';
 
 interface ISharedProps {
@@ -8,6 +9,7 @@ interface ISharedProps {
   id: string;
   icon?: ReactElement;
   isSelected?: boolean;
+  children: string;
 }
 
 interface ILinkProps {
@@ -55,7 +57,7 @@ const Item: React.FC<IProps> = (props) => {
   const content = (
     <div className={cn('Container', { Container_selected: isSelected })}>
       <span className={styles['IconContainer']}>{icon}</span>
-      <span>{children}</span>
+      <Text>{children}</Text>
     </div>
   );
 
