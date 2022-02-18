@@ -1,0 +1,57 @@
+.Root {
+  &_type_sans {
+    font-family: Roboto, sans-serif;
+  }
+
+  &_type_serif {
+    font-family: 'Roboto Slab', serif;
+  }
+
+  &_type_brand {
+    font-family: 'Roboto Condensed', sans-serif;
+  }
+
+  &_color_primary {
+    color: var(--text-primary);
+  }
+
+  &_color_secondary {
+    color: var(--text-secondary);
+  }
+
+  &_color_inherit {
+    color: inherit;
+  }
+
+  &_size_small {
+    font-size: 12px;
+  }
+
+  &_size_normal {
+    font-size: 16px;
+  }
+
+  &_size_big {
+    font-size: 24px;
+  }
+
+  &_style_normal {
+    font-style: normal;
+  }
+
+  &_style_italic {
+    font-style: italic;
+  }
+
+  &_weight_light {
+    font-weight: 300;
+  }
+
+  &_weight_normal {
+    font-weight: 400;
+  }
+
+  &_weight_bold {
+    font-weight: 700;
+  }
+}
