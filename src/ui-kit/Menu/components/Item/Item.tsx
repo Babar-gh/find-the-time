@@ -57,7 +57,7 @@ const Item: React.FC<IProps> = (props) => {
   const content = (
     <div className={cn('Container', { Container_selected: isSelected })}>
       <span className={styles['IconContainer']}>{icon}</span>
-      <Text>{children}</Text>
+      <Text color="inherit">{children}</Text>
     </div>
   );
 
