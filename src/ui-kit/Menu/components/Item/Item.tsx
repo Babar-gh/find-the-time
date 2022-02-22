@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { ReactElement } from 'react';
+import Icon from 'components/Icon';
 import LinkWrapper from 'components/LinkWrapper';
 import Text from 'components/Text';
 import styles from './Item.module.scss';
@@ -7,7 +7,7 @@ import styles from './Item.module.scss';
 interface ISharedProps {
   type: 'Anchor' | 'RouterLink' | 'Button';
   id: string;
-  icon?: ReactElement;
+  icon?: React.ComponentProps<typeof Icon>['type'];
   isSelected?: boolean;
   children: string;
 }
@@ -56,7 +56,9 @@ const Item: React.FC<IProps> = (props) => {
 
   const content = (
     <div className={cn('Container', { Container_selected: isSelected })}>
-      <span className={styles['IconContainer']}>{icon}</span>
+      <span className={styles['IconContainer']}>
+        {icon !== undefined && <Icon type={icon}></Icon>}
+      </span>
       <Text color="inherit">{children}</Text>
     </div>
   );

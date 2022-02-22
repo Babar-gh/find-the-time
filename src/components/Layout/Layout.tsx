@@ -4,7 +4,7 @@ import Backdrop from 'ui-kit/Backdrop';
 import DummyContent from 'ui-kit/DummyContent';
 import Logo from 'components/Logo';
 import useBreakpointCheck from 'hooks/useBreakpointCheck';
-import { ReactComponent as MenuIcon } from 'assets/icons/menu.svg';
+import { ReactComponent as MenuIcon } from 'assets/icons/Menu.svg';
 import NavMenu from './components/NavMenu';
 import styles from './Layout.module.scss';
 
