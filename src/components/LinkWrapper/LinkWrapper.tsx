@@ -2,51 +2,29 @@ import { HTMLProps } from 'react';
 import {
   Link as RouterLink,
   LinkProps as RouterLinkProps,
-  NavLink as RouterNavLink,
-  NavLinkProps as RouterNavLinkProps,
+  NavLink,
+  NavLinkProps,
 } from 'react-router-dom';
 
-interface ISharedProps {
-  type: 'RouterLink' | 'RouterNavLink' | 'Anchor';
-  to: string;
+interface IProps {
+  config:
+  | ({ type: 'RouterLink' } & RouterLinkProps)
+  | ({ type: 'RouterNavLink' } & NavLinkProps)
+  | ({ type: 'HTMLAnchor' } & HTMLProps<HTMLAnchorElement>);
 }
 
-interface IRouterLinkProps extends Omit<RouterLinkProps, 'to'> {
-  type: 'RouterLink';
-}
+const LinkWrapper: React.FC<IProps> = ({ config, children }) => {
+  const { type, ...rest } = config;
 
-interface IRouterNavLinkProps extends Omit<RouterNavLinkProps, 'to'> {
-  type: 'RouterNavLink';
-}
-
-interface IAnchorProps extends Omit<HTMLProps<HTMLAnchorElement>, 'href'> {
-  type: 'Anchor';
-}
-
-type Props = ISharedProps &
-(IRouterLinkProps | IRouterNavLinkProps | IAnchorProps);
-
-const LinkWrapper: React.FC<Props> = ({ type, to, ...rest }) => {
   switch (type) {
     case 'RouterLink':
-      return (
-        <RouterLink to={to} {...(rest as Omit<IRouterLinkProps, 'type'>)} />
-      );
+      return <RouterLink {...(rest as RouterLinkProps)}>{children}</RouterLink>;
 
     case 'RouterNavLink':
-      return (
-        <RouterNavLink
-          to={to}
-          {...(rest as Omit<IRouterNavLinkProps, 'type'>)}
-        />
-      );
+      return <NavLink {...(rest as NavLinkProps)}>{children}</NavLink>;
 
-    case 'Anchor':
-      return (
-        // To do: ESLint warning
-        // eslint-disable-next-line jsx-a11y/anchor-has-content
-        <a href={to} {...(rest as Omit<IAnchorProps, 'type'>)} />
-      );
+    case 'HTMLAnchor':
+      return <a {...(rest as HTMLProps<HTMLAnchorElement>)}>{children}</a>;
   }
 };
 
