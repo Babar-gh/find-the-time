@@ -5,54 +5,28 @@ import Text from 'components/Text';
 import styles from './Item.module.scss';
 
 interface ISharedProps {
-  type: 'Anchor' | 'RouterLink' | 'Button';
   id: string;
   icon?: React.ComponentProps<typeof Icon>['type'];
   isSelected?: boolean;
   children: string;
 }
 
-interface ILinkProps {
-  type: 'Anchor' | 'RouterLink';
-  to: string;
-}
+type ILinkVariantProps = {
+  isButton?: false;
+  linkConfig: React.ComponentProps<typeof LinkWrapper>['config'];
+};
 
-interface IButtonProps {
-  type: 'Button';
+type IButtonVariantProps = {
+  isButton: true;
   onClick: React.MouseEventHandler;
-}
+};
 
-type IProps = ISharedProps & (ILinkProps | IButtonProps);
+type IProps = ISharedProps & (ILinkVariantProps | IButtonVariantProps);
 
 const cn = classNames.bind(styles);
 
 const Item: React.FC<IProps> = (props) => {
-  const { type, icon, isSelected, children } = props;
-
-  // { type, icon, isSelected, children, ...rest } syntax would be preferable,
-  // however as of version 4.5.5, TypeScript can't narrow down the type of
-  // “rest” based on “type” value.
-
-  // Consider:
-
-  // const { type, icon, isSelected, children, ...rest } = props;
-  //
-  // if (type === 'Anchor') {
-  //   <LinkWrapper type={type} to={rest.to} />;
-  // }
-
-  // Error:
-  // Property 'to' does not exist on type '{ id: string; to: string; } | { id: string; onClick: MouseEventHandler<Element>; }'.
-  // Property 'to' does not exist on type '{ id: string; onClick: MouseEventHandler<Element>; }'.ts(2339)
-
-  // const { type, icon, isSelected, children } = props;
-  //
-  // if (type === 'Anchor') {
-  //   <LinkWrapper type={type} to={props.to} />;
-  // }
-
-  // Behaves as expected:
-  // props.to type is correctly narrowed to “(property) ILinkProps.to: string”
+  const { icon, isButton, isSelected, children } = props;
 
   const content = (
     <div className={cn('Container', { Container_selected: isSelected })}>
@@ -63,21 +37,21 @@ const Item: React.FC<IProps> = (props) => {
     </div>
   );
 
-  return (
-    <>
-      {(type === 'Anchor' || type === 'RouterLink') && (
-        <LinkWrapper type={type} to={props.to} className={styles['Link']}>
-          {content}
-        </LinkWrapper>
-      )}
+  if (isButton) {
+    const { onClick } = props;
 
-      {type === 'Button' && (
-        <button onClick={props.onClick} className={styles['Button']}>
-          {content}
-        </button>
-      )}
-    </>
-  );
+    return (
+      <button onClick={onClick} className={styles['Button']}>
+        {content}
+      </button>
+    );
+  } else {
+    const { linkConfig } = props;
+
+    linkConfig.className = styles['Link'];
+
+    return <LinkWrapper config={linkConfig}>{content}</LinkWrapper>;
+  }
 };
 
 export default Item;
