@@ -1,11 +1,8 @@
-import icons from './iconsAsReactComponents';
+import icons from 'assets/icons';
 import styles from './Icon.module.scss';
 
-type SVGProps = React.SVGProps<SVGSVGElement>;
-type IconName = 'EventAvailable' | 'Menu';
-
-interface IProps extends SVGProps {
-  type: IconName;
+interface IProps extends React.SVGProps<SVGSVGElement> {
+  type: keyof typeof icons;
   isCentered?: boolean;
 }
 
