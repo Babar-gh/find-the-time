@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import Backdrop from 'ui-kit/Backdrop';
+import Button from 'ui-kit/Button';
 import DummyContent from 'ui-kit/DummyContent';
 import Logo from 'components/Logo';
 import useBreakpointCheck from 'hooks/useBreakpointCheck';
@@ -16,8 +17,125 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
   const bp = useBreakpointCheck();
 
-  const temporarySwitchThemeButton = (
-    <button onClick={onThemeSwitch}>Switch theme</button>
+  const temporarySwitchThemeButtons = (
+    <div style={{ display: 'flex' }}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '16px',
+          padding: '16px',
+        }}
+      >
+        <Button onClick={onThemeSwitch} theme="primary">
+          Switch theme
+        </Button>
+        <Button
+          onClick={onThemeSwitch}
+          theme="primary"
+          leftIcon="EventAvailable"
+        >
+          Switch theme
+        </Button>
+        <Button onClick={onThemeSwitch} theme="primary" rightIcon="Menu">
+          Switch theme
+        </Button>
+        <Button
+          onClick={onThemeSwitch}
+          theme="primary"
+          leftIcon="Menu"
+          rightIcon="EventAvailable"
+        >
+          Switch theme... dangerously!
+        </Button>
+        <Button onClick={onThemeSwitch} theme="danger">
+          Switch theme... dangerously!
+        </Button>
+        <Button onClick={onThemeSwitch} theme="danger" leftIcon="Menu">
+          Switch theme... dangerously!
+        </Button>
+        <Button
+          onClick={onThemeSwitch}
+          theme="danger"
+          rightIcon="EventAvailable"
+        >
+          Switch theme... dangerously!
+        </Button>
+        <Button
+          onClick={onThemeSwitch}
+          theme="danger"
+          leftIcon="EventAvailable"
+          rightIcon="Menu"
+        >
+          Switch theme... dangerously!
+        </Button>
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '16px',
+          padding: '16px',
+        }}
+      >
+        <Button
+          linkConfig={{ type: 'HTMLAnchor', href: 'https://www.google.com/' }}
+          theme="primary"
+        >
+          I'm link to google.com
+        </Button>
+        <Button
+          linkConfig={{ type: 'RouterLink', to: '/lorem' }}
+          theme="primary"
+          leftIcon="EventAvailable"
+        >
+          I'm router link to /lorem
+        </Button>
+        <Button
+          linkConfig={{ type: 'HTMLAnchor', href: 'https://www.google.com/' }}
+          theme="primary"
+          rightIcon="Menu"
+        >
+          I'm link to google.com
+        </Button>
+        <Button
+          linkConfig={{ type: 'RouterLink', to: '/ipsum' }}
+          theme="primary"
+          leftIcon="Menu"
+          rightIcon="EventAvailable"
+        >
+          I'm router link to /ipsum
+        </Button>
+        <Button
+          linkConfig={{ type: 'HTMLAnchor', href: 'https://www.google.com/' }}
+          theme="danger"
+        >
+          I'm link to google.com... a dangerous one!
+        </Button>
+        <Button
+          linkConfig={{ type: 'RouterLink', to: '/dolor' }}
+          theme="danger"
+          leftIcon="EventAvailable"
+        >
+          I'm router link to /dolor... a dangerous one!
+        </Button>
+        <Button
+          linkConfig={{ type: 'HTMLAnchor', href: 'https://www.google.com/' }}
+          theme="danger"
+          rightIcon="Menu"
+        >
+          I'm link to google.com... a dangerous one!
+        </Button>
+        <Button
+          linkConfig={{ type: 'RouterLink', to: '/sit' }}
+          theme="danger"
+          leftIcon="Menu"
+          rightIcon="EventAvailable"
+        >
+          I'm router link to /sit... a dangerous one!
+        </Button>
+      </div>
+    </div>
   );
 
   const temporaryBreakpointIndicator = (
@@ -76,7 +194,7 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
         {bp('Laptop', 'Desktop') && sidebar}
 
         <main className={styles['Content']}>
-          {temporarySwitchThemeButton}
+          {temporarySwitchThemeButtons}
           {temporaryBreakpointIndicator}
           <DummyContent />
         </main>

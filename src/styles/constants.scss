@@ -42,13 +42,33 @@ $colors: (
     'dark': #fff,
     'light': #060607,
   ),
-  'ui-accent': (
+  'ui-button-text': (
+    'dark': #fff,
+    'light': #fff,
+  ),
+  'ui-button': (
     'dark': #5865f2,
     'light': #5865f2,
   ),
-  'ui-accent-aggressive': (
+  'ui-button-hover': (
+    'dark': #4752c4,
+    'light': #4752c4,
+  ),
+  'ui-button-active': (
+    'dark': #3c45a5,
+    'light': #3c45a5,
+  ),
+  'ui-button-danger': (
     'dark': #ed4245,
     'light': #ed4245,
+  ),
+  'ui-button-danger-hover': (
+    'dark': #c03537,
+    'light': #c03537,
+  ),
+  'ui-button-danger-active': (
+    'dark': #a12d2f,
+    'light': #a12d2f,
   ),
   'ui-input-background': (
     'dark': #40444b,

@@ -1,0 +1,63 @@
+$button-height: 34px;
+
+.Link {
+  text-decoration: none;
+}
+
+.Button {
+  appearance: none;
+  cursor: pointer;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+}
+
+.Link,
+.Button {
+  width: fit-content;
+}
+
+.Container {
+  display: flex;
+  align-items: center;
+  height: $button-height;
+  color: var(--ui-button-text);
+  border-radius: 4px;
+  padding: 0 8px;
+
+  &_theme {
+    &_primary {
+      background-color: var(--ui-button);
+
+      &:hover {
+        background-color: var(--ui-button-hover);
+      }
+
+      &:active {
+        background-color: var(--ui-button-active);
+      }
+    }
+
+    &_danger {
+      background-color: var(--ui-button-danger);
+
+      &:hover {
+        background-color: var(--ui-button-danger-hover);
+      }
+
+      &:active {
+        background-color: var(--ui-button-danger-active);
+      }
+    }
+  }
+}
+
+.IconContainer {
+  width: $button-height;
+  height: 100%;
+}
+
+.TextContainer {
+  flex: 1 0;
+  padding: 0 8px;
+}

@@ -31,7 +31,7 @@ const Item: React.FC<IProps> = (props) => {
   const content = (
     <div className={cn('Container', { Container_selected: isSelected })}>
       <span className={styles['IconContainer']}>
-        {icon !== undefined && <Icon type={icon}></Icon>}
+        {icon && <Icon type={icon} />}
       </span>
       <Text color="inherit">{children}</Text>
     </div>
