@@ -6,16 +6,12 @@ import {
   NavLinkProps,
 } from 'react-router-dom';
 
-interface IProps {
-  config:
+type IProps =
   | ({ type: 'RouterLink' } & RouterLinkProps)
   | ({ type: 'RouterNavLink' } & NavLinkProps)
   | ({ type: 'HTMLAnchor' } & HTMLProps<HTMLAnchorElement>);
-}
 
-const LinkWrapper: React.FC<IProps> = ({ config, children }) => {
-  const { type, ...rest } = config;
-
+const LinkWrapper: React.FC<IProps> = ({ type, children, ...rest }) => {
   switch (type) {
     case 'RouterLink':
       return <RouterLink {...(rest as RouterLinkProps)}>{children}</RouterLink>;

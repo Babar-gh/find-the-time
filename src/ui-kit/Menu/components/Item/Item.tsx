@@ -13,7 +13,7 @@ interface ISharedProps {
 
 type ILinkVariantProps = {
   isButton?: false;
-  linkConfig: React.ComponentProps<typeof LinkWrapper>['config'];
+  linkConfig: React.ComponentProps<typeof LinkWrapper>;
 };
 
 type IButtonVariantProps = {
@@ -48,9 +48,11 @@ const Item: React.FC<IProps> = (props) => {
   } else {
     const { linkConfig } = props;
 
-    linkConfig.className = styles['Link'];
-
-    return <LinkWrapper config={linkConfig}>{content}</LinkWrapper>;
+    return (
+      <LinkWrapper className={styles['Link']} {...linkConfig}>
+        {content}
+      </LinkWrapper>
+    );
   }
 };
 
