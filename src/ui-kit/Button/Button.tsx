@@ -4,17 +4,37 @@ import LinkWrapper from 'components/LinkWrapper';
 import Text from 'components/Text';
 import styles from './Button.module.scss';
 
-interface IProps {
+type IconType = React.ComponentProps<typeof Icon>['type'];
+
+interface ISharedProps {
   linkConfig?: React.ComponentProps<typeof LinkWrapper>;
-  onClick?: React.MouseEventHandler;
-  //To do: 'secondary' and 'tertiary' theme styles are not yet ready
+  // TODO: Add 'secondary' and 'tertiary' theme styles.
   theme?: 'primary' | 'secondary' | 'tertiary' | 'danger';
-  leftIcon?: React.ComponentProps<typeof Icon>['type'];
-  rightIcon?: React.ComponentProps<typeof Icon>['type'];
+  leftIcon?: IconType;
+  rightIcon?: IconType;
   children: string;
 }
 
+type ILinkVariantProps = {
+  linkConfig: React.ComponentProps<typeof LinkWrapper>;
+  onClick?: React.MouseEventHandler;
+};
+
+type IButtonVariantProps = {
+  onClick: React.MouseEventHandler;
+};
+
+type IProps = ISharedProps & (ILinkVariantProps | IButtonVariantProps);
+
 const cn = classNames.bind(styles);
+
+const getIconWithContainer = (type: IconType) => {
+  return (
+    <span className={styles['IconContainer']}>
+      <Icon type={type} />
+    </span>
+  );
+};
 
 const Button: React.FC<IProps> = ({
   linkConfig,
@@ -26,21 +46,13 @@ const Button: React.FC<IProps> = ({
 }) => {
   const content = (
     <div className={cn('Container', `Container_theme_${theme}`)}>
-      {leftIcon && (
-        <span className={styles['IconContainer']}>
-          <Icon type={leftIcon} />
-        </span>
-      )}
+      {leftIcon && getIconWithContainer(leftIcon)}
       <span className={styles['TextContainer']}>
         <Text color="inherit" size="small">
           {children}
         </Text>
       </span>
-      {rightIcon && (
-        <span className={styles['IconContainer']}>
-          <Icon type={rightIcon} />
-        </span>
-      )}
+      {rightIcon && getIconWithContainer(rightIcon)}
     </div>
   );
   return linkConfig ? (
