@@ -1,0 +1,13 @@
+.Root {
+  background-color: var(--canvas-secondary-deep);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ThemeButtonContainer {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+}
