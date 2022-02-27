@@ -12,18 +12,13 @@ const NavMenu: React.FC = () => {
         >
           Lorem
         </Menu.Item>
-        <Menu.Item id="Ipsum" linkConfig={{ type: 'RouterLink', to: '/lorem' }}>
+        <Menu.Item id="Ipsum" linkConfig={{ type: 'RouterLink', to: '/ipsum' }}>
           Ipsum
         </Menu.Item>
-        <Menu.Item
-          id="Dolor"
-          isButton
-          onClick={() => alert('Dolor!')}
-          icon="Menu"
-        >
+        <Menu.Item id="Dolor" onClick={() => alert('Dolor!')} icon="Menu">
           Dolor
         </Menu.Item>
-        <Menu.Item id="Sit" isButton onClick={() => alert('Sit!')}>
+        <Menu.Item id="Sit" onClick={() => alert('Sit!')}>
           Sit
         </Menu.Item>
       </Menu>

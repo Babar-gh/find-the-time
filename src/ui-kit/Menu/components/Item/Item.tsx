@@ -6,18 +6,18 @@ import styles from './Item.module.scss';
 
 interface ISharedProps {
   id: string;
+  linkConfig?: React.ComponentProps<typeof LinkWrapper>;
   icon?: React.ComponentProps<typeof Icon>['type'];
   isSelected?: boolean;
   children: string;
 }
 
 type ILinkVariantProps = {
-  isButton?: false;
   linkConfig: React.ComponentProps<typeof LinkWrapper>;
+  onClick?: React.MouseEventHandler;
 };
 
 type IButtonVariantProps = {
-  isButton: true;
   onClick: React.MouseEventHandler;
 };
 
@@ -25,9 +25,13 @@ type IProps = ISharedProps & (ILinkVariantProps | IButtonVariantProps);
 
 const cn = classNames.bind(styles);
 
-const Item: React.FC<IProps> = (props) => {
-  const { icon, isButton, isSelected, children } = props;
-
+const Item: React.FC<IProps> = ({
+  linkConfig,
+  onClick,
+  icon,
+  isSelected,
+  children,
+}) => {
   const content = (
     <div className={cn('Container', { Container_selected: isSelected })}>
       <span className={styles['IconContainer']}>
@@ -37,23 +41,15 @@ const Item: React.FC<IProps> = (props) => {
     </div>
   );
 
-  if (isButton) {
-    const { onClick } = props;
-
-    return (
-      <button onClick={onClick} className={styles['Button']}>
-        {content}
-      </button>
-    );
-  } else {
-    const { linkConfig } = props;
-
-    return (
-      <LinkWrapper className={styles['Link']} {...linkConfig}>
-        {content}
-      </LinkWrapper>
-    );
-  }
+  return linkConfig ? (
+    <LinkWrapper onClick={onClick} className={styles['Link']} {...linkConfig}>
+      {content}
+    </LinkWrapper>
+  ) : (
+    <button onClick={onClick} className={styles['Button']}>
+      {content}
+    </button>
+  );
 };
 
 export default Item;
