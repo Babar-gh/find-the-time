@@ -2,6 +2,14 @@
 @use 'sass:string';
 @use './constants';
 
+@mixin reset-button {
+  appearance: none;
+  cursor: pointer;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+}
+
 @mixin theme-colors($theme, $colors) {
   @each $name, $color in $colors {
     /* stylelint-disable-next-line custom-property-pattern */

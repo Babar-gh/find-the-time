@@ -1,3 +1,5 @@
+@use '/src/styles/mixins' as *;
+
 $item-height: 34px;
 
 .Link {
@@ -5,12 +7,9 @@ $item-height: 34px;
 }
 
 .Button {
-  appearance: none;
-  cursor: pointer;
+  @include reset-button;
+
   width: 100%;
-  padding: 0;
-  border: none;
-  background-color: transparent;
 }
 
 .Container {
