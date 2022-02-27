@@ -21,6 +21,7 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
     <div style={{ display: 'flex' }}>
       <div
         style={{
+          width: '500px',
           display: 'flex',
           flexDirection: 'column',
           gap: '16px',
@@ -28,11 +29,18 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
         }}
       >
         <Button onClick={onThemeSwitch} theme="primary">
-          Switch theme
+          OK
+        </Button>
+        <Button onClick={onThemeSwitch} theme="primary">
+          .
+        </Button>
+        <Button onClick={onThemeSwitch} theme="primary">
+          —
         </Button>
         <Button
           onClick={onThemeSwitch}
           theme="primary"
+          width="block"
           leftIcon="EventAvailable"
         >
           Switch theme
@@ -43,6 +51,7 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
         <Button
           onClick={onThemeSwitch}
           theme="primary"
+          width="block"
           leftIcon="Menu"
           rightIcon="EventAvailable"
         >
@@ -51,7 +60,12 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
         <Button onClick={onThemeSwitch} theme="danger">
           Switch theme... dangerously!
         </Button>
-        <Button onClick={onThemeSwitch} theme="danger" leftIcon="Menu">
+        <Button
+          onClick={onThemeSwitch}
+          theme="danger"
+          width="block"
+          leftIcon="Menu"
+        >
           Switch theme... dangerously!
         </Button>
         <Button
@@ -64,6 +78,7 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
         <Button
           onClick={onThemeSwitch}
           theme="danger"
+          width="block"
           leftIcon="EventAvailable"
           rightIcon="Menu"
         >
@@ -72,6 +87,7 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
       </div>
       <div
         style={{
+          width: '500px',
           display: 'flex',
           flexDirection: 'column',
           gap: '16px',
@@ -81,6 +97,7 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
         <Button
           linkConfig={{ type: 'HTMLAnchor', href: 'https://www.google.com/' }}
           theme="primary"
+          width="block"
         >
           I'm link to google.com
         </Button>
@@ -94,6 +111,7 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
         <Button
           linkConfig={{ type: 'HTMLAnchor', href: 'https://www.google.com/' }}
           theme="primary"
+          width="block"
           rightIcon="Menu"
         >
           I'm link to google.com
@@ -109,6 +127,7 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
         <Button
           linkConfig={{ type: 'HTMLAnchor', href: 'https://www.google.com/' }}
           theme="danger"
+          width="block"
         >
           I'm link to google.com... a dangerous one!
         </Button>
@@ -122,6 +141,7 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
         <Button
           linkConfig={{ type: 'HTMLAnchor', href: 'https://www.google.com/' }}
           theme="danger"
+          width="block"
           rightIcon="Menu"
         >
           I'm link to google.com... a dangerous one!

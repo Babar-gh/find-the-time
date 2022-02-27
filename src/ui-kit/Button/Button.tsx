@@ -10,6 +10,7 @@ interface ISharedProps {
   linkConfig?: React.ComponentProps<typeof LinkWrapper>;
   // TODO: Add 'secondary' and 'tertiary' theme styles.
   theme?: 'primary' | 'secondary' | 'tertiary' | 'danger';
+  width?: 'fitContent' | 'block';
   leftIcon?: IconType;
   rightIcon?: IconType;
   children: string;
@@ -40,6 +41,7 @@ const Button: React.FC<IProps> = ({
   linkConfig,
   onClick,
   theme = 'primary',
+  width = 'fitContent',
   leftIcon,
   rightIcon,
   children,
@@ -55,14 +57,22 @@ const Button: React.FC<IProps> = ({
       {rightIcon && getIconWithContainer(rightIcon)}
     </div>
   );
-  return linkConfig ? (
-    <LinkWrapper onClick={onClick} className={styles['Link']} {...linkConfig}>
-      {content}
-    </LinkWrapper>
-  ) : (
-    <button onClick={onClick} className={styles['Button']}>
-      {content}
-    </button>
+  return (
+    <div className={styles[`Root_width_${width}`]}>
+      {linkConfig ? (
+        <LinkWrapper
+          onClick={onClick}
+          className={styles['Link']}
+          {...linkConfig}
+        >
+          {content}
+        </LinkWrapper>
+      ) : (
+        <button onClick={onClick} className={styles['Button']}>
+          {content}
+        </button>
+      )}
+    </div>
   );
 };
 

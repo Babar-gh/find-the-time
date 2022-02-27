@@ -2,6 +2,19 @@
 
 $button-height: 34px;
 
+.Root {
+  &_width {
+    &_fitContent {
+      width: fit-content;
+      min-width: 60px;
+    }
+
+    &_block {
+      width: 100%;
+    }
+  }
+}
+
 .Link {
   text-decoration: none;
 }
@@ -12,7 +25,7 @@ $button-height: 34px;
 
 .Link,
 .Button {
-  width: fit-content;
+  width: 100%;
 }
 
 .Container {
@@ -51,11 +64,12 @@ $button-height: 34px;
 }
 
 .IconContainer {
-  width: $button-height;
   height: 100%;
 }
 
 .TextContainer {
   flex: 1 0;
   padding: 0 8px;
+  display: flex;
+  justify-content: center;
 }
