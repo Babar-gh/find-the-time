@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { THEME_STORAGE_KEY } from 'constants/localStorage';
 
 type Theme = 'dark' | 'light';
 
@@ -12,7 +13,7 @@ const inferDefaultTheme = () => {
 
 const useTheme = (): [Theme, () => void] => {
   const [theme, setTheme] = useState<Theme>(() => {
-    const storedTheme = window.localStorage.getItem('theme');
+    const storedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
 
     return storedTheme === 'dark' || storedTheme === 'light'
       ? storedTheme
@@ -26,7 +27,7 @@ const useTheme = (): [Theme, () => void] => {
   }, []);
 
   useEffect(() => {
-    window.localStorage.setItem('theme', theme);
+    window.localStorage.setItem(THEME_STORAGE_KEY, theme);
   }, [theme]);
 
   return [theme, switchTheme];
