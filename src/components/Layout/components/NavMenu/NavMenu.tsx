@@ -7,18 +7,30 @@ const NavMenu: React.FC = () => {
       <Menu selectedId="Ipsum">
         <Menu.Item
           id="Lorem"
-          linkConfig={{ type: 'HTMLAnchor', href: '/lorem' }}
+          elementProps={{ type: 'HTMLAnchor', href: '/lorem' }}
           icon="EventAvailable"
         >
           Lorem
         </Menu.Item>
-        <Menu.Item id="Ipsum" linkConfig={{ type: 'RouterLink', to: '/ipsum' }}>
+        <Menu.Item
+          id="Ipsum"
+          elementProps={{ type: 'RouterLink', to: '/ipsum' }}
+        >
           Ipsum
         </Menu.Item>
-        <Menu.Item id="Dolor" onClick={() => alert('Dolor!')} icon="Menu">
+        <Menu.Item
+          id="Dolor"
+          element="HTMLButton"
+          elementProps={{ onClick: () => alert('Dolor!') }}
+          icon="Menu"
+        >
           Dolor
         </Menu.Item>
-        <Menu.Item id="Sit" onClick={() => alert('Sit!')}>
+        <Menu.Item
+          id="Sit"
+          element="HTMLButton"
+          elementProps={{ onClick: () => alert('Sit!') }}
+        >
           Sit
         </Menu.Item>
       </Menu>

@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import { HTMLAttributes } from 'react';
 import Icon from 'components/Icon';
 import LinkWrapper from 'components/LinkWrapper';
 import Text from 'components/Text';
@@ -6,28 +7,31 @@ import styles from './Item.module.scss';
 
 interface ISharedProps {
   id: string;
-  linkConfig?: React.ComponentProps<typeof LinkWrapper>;
   icon?: React.ComponentProps<typeof Icon>['type'];
   isSelected?: boolean;
   children: string;
 }
 
-type ILinkVariantProps = {
-  linkConfig: React.ComponentProps<typeof LinkWrapper>;
-  onClick?: React.MouseEventHandler;
-};
+type LinkProps = React.ComponentProps<typeof LinkWrapper>;
+type ButtonProps = HTMLAttributes<HTMLButtonElement>;
 
-type IButtonVariantProps = {
-  onClick: React.MouseEventHandler;
-};
-
-type IProps = ISharedProps & (ILinkVariantProps | IButtonVariantProps);
+type IProps = ISharedProps &
+(
+  | {
+    element?: 'LinkWrapper';
+    elementProps: LinkProps;
+  }
+  | {
+    element: 'HTMLButton';
+    elementProps: ButtonProps;
+  }
+);
 
 const cn = classNames.bind(styles);
 
 const Item: React.FC<IProps> = ({
-  linkConfig,
-  onClick,
+  element = 'LinkWrapper',
+  elementProps,
   icon,
   isSelected,
   children,
@@ -41,12 +45,12 @@ const Item: React.FC<IProps> = ({
     </div>
   );
 
-  return linkConfig ? (
-    <LinkWrapper onClick={onClick} className={styles['Link']} {...linkConfig}>
+  return element === 'LinkWrapper' ? (
+    <LinkWrapper className={styles['Link']} {...(elementProps as LinkProps)}>
       {content}
     </LinkWrapper>
   ) : (
-    <button onClick={onClick} className={styles['Button']}>
+    <button className={styles['Button']} {...(elementProps as ButtonProps)}>
       {content}
     </button>
   );
