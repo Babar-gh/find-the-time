@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import { HTMLAttributes } from 'react';
 import Icon from 'components/Icon';
 import LinkWrapper from 'components/LinkWrapper';
 import Text from 'components/Text';
@@ -7,7 +8,6 @@ import styles from './Button.module.scss';
 type IconType = React.ComponentProps<typeof Icon>['type'];
 
 interface ISharedProps {
-  linkConfig?: React.ComponentProps<typeof LinkWrapper>;
   // TODO: Add 'secondary' and 'tertiary' theme styles.
   theme?: 'primary' | 'secondary' | 'tertiary' | 'danger';
   width?: 'fitContent' | 'block';
@@ -16,16 +16,20 @@ interface ISharedProps {
   children: string;
 }
 
-type ILinkVariantProps = {
-  linkConfig: React.ComponentProps<typeof LinkWrapper>;
-  onClick?: React.MouseEventHandler;
-};
+type LinkProps = React.ComponentProps<typeof LinkWrapper>;
+type ButtonProps = HTMLAttributes<HTMLButtonElement>;
 
-type IButtonVariantProps = {
-  onClick: React.MouseEventHandler;
-};
-
-type IProps = ISharedProps & (ILinkVariantProps | IButtonVariantProps);
+type IProps = ISharedProps &
+(
+  | {
+    element?: 'HTMLButton';
+    elementProps: ButtonProps;
+  }
+  | {
+    element: 'LinkWrapper';
+    elementProps: LinkProps;
+  }
+);
 
 const cn = classNames.bind(styles);
 
@@ -38,8 +42,8 @@ const getIconWithContainer = (type: IconType) => {
 };
 
 const Button: React.FC<IProps> = ({
-  linkConfig,
-  onClick,
+  element = 'HTMLButton',
+  elementProps,
   theme = 'primary',
   width = 'fitContent',
   leftIcon,
@@ -57,20 +61,20 @@ const Button: React.FC<IProps> = ({
       {rightIcon && getIconWithContainer(rightIcon)}
     </div>
   );
+
   return (
     <div className={styles[`Root_width_${width}`]}>
-      {linkConfig ? (
+      {element === 'HTMLButton' ? (
+        <button className={styles['Button']} {...(elementProps as ButtonProps)}>
+          {content}
+        </button>
+      ) : (
         <LinkWrapper
-          onClick={onClick}
           className={styles['Link']}
-          {...linkConfig}
+          {...(elementProps as LinkProps)}
         >
           {content}
         </LinkWrapper>
-      ) : (
-        <button onClick={onClick} className={styles['Button']}>
-          {content}
-        </button>
       )}
     </div>
   );

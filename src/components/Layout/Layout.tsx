@@ -28,28 +28,32 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
           padding: '16px',
         }}
       >
-        <Button onClick={onThemeSwitch} theme="primary">
+        <Button elementProps={{ onClick: onThemeSwitch }} theme="primary">
           OK
         </Button>
-        <Button onClick={onThemeSwitch} theme="primary">
+        <Button elementProps={{ onClick: onThemeSwitch }} theme="primary">
           .
         </Button>
-        <Button onClick={onThemeSwitch} theme="primary">
+        <Button elementProps={{ onClick: onThemeSwitch }} theme="primary">
           —
         </Button>
         <Button
-          onClick={onThemeSwitch}
+          elementProps={{ onClick: onThemeSwitch }}
           theme="primary"
           width="block"
           leftIcon="EventAvailable"
         >
           Switch theme
         </Button>
-        <Button onClick={onThemeSwitch} theme="primary" rightIcon="Menu">
+        <Button
+          elementProps={{ onClick: onThemeSwitch }}
+          theme="primary"
+          rightIcon="Menu"
+        >
           Switch theme
         </Button>
         <Button
-          onClick={onThemeSwitch}
+          elementProps={{ onClick: onThemeSwitch }}
           theme="primary"
           width="block"
           leftIcon="Menu"
@@ -57,11 +61,11 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
         >
           Switch theme... dangerously!
         </Button>
-        <Button onClick={onThemeSwitch} theme="danger">
+        <Button elementProps={{ onClick: onThemeSwitch }} theme="danger">
           Switch theme... dangerously!
         </Button>
         <Button
-          onClick={onThemeSwitch}
+          elementProps={{ onClick: onThemeSwitch }}
           theme="danger"
           width="block"
           leftIcon="Menu"
@@ -69,14 +73,14 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
           Switch theme... dangerously!
         </Button>
         <Button
-          onClick={onThemeSwitch}
+          elementProps={{ onClick: onThemeSwitch }}
           theme="danger"
           rightIcon="EventAvailable"
         >
           Switch theme... dangerously!
         </Button>
         <Button
-          onClick={onThemeSwitch}
+          elementProps={{ onClick: onThemeSwitch }}
           theme="danger"
           width="block"
           leftIcon="EventAvailable"
@@ -95,21 +99,24 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
         }}
       >
         <Button
-          linkConfig={{ type: 'HTMLAnchor', href: 'https://www.google.com/' }}
+          element="LinkWrapper"
+          elementProps={{ type: 'HTMLAnchor', href: 'https://www.google.com/' }}
           theme="primary"
           width="block"
         >
           I'm link to google.com
         </Button>
         <Button
-          linkConfig={{ type: 'RouterLink', to: '/lorem' }}
+          element="LinkWrapper"
+          elementProps={{ type: 'RouterLink', to: '/lorem' }}
           theme="primary"
           leftIcon="EventAvailable"
         >
           I'm router link to /lorem
         </Button>
         <Button
-          linkConfig={{ type: 'HTMLAnchor', href: 'https://www.google.com/' }}
+          element="LinkWrapper"
+          elementProps={{ type: 'HTMLAnchor', href: 'https://www.google.com/' }}
           theme="primary"
           width="block"
           rightIcon="Menu"
@@ -117,7 +124,8 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
           I'm link to google.com
         </Button>
         <Button
-          linkConfig={{ type: 'RouterLink', to: '/ipsum' }}
+          element="LinkWrapper"
+          elementProps={{ type: 'RouterLink', to: '/ipsum' }}
           theme="primary"
           leftIcon="Menu"
           rightIcon="EventAvailable"
@@ -125,21 +133,24 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
           I'm router link to /ipsum
         </Button>
         <Button
-          linkConfig={{ type: 'HTMLAnchor', href: 'https://www.google.com/' }}
+          element="LinkWrapper"
+          elementProps={{ type: 'HTMLAnchor', href: 'https://www.google.com/' }}
           theme="danger"
           width="block"
         >
           I'm link to google.com... a dangerous one!
         </Button>
         <Button
-          linkConfig={{ type: 'RouterLink', to: '/dolor' }}
+          element="LinkWrapper"
+          elementProps={{ type: 'RouterLink', to: '/dolor' }}
           theme="danger"
           leftIcon="EventAvailable"
         >
           I'm router link to /dolor... a dangerous one!
         </Button>
         <Button
-          linkConfig={{ type: 'HTMLAnchor', href: 'https://www.google.com/' }}
+          element="LinkWrapper"
+          elementProps={{ type: 'HTMLAnchor', href: 'https://www.google.com/' }}
           theme="danger"
           width="block"
           rightIcon="Menu"
@@ -147,7 +158,8 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
           I'm link to google.com... a dangerous one!
         </Button>
         <Button
-          linkConfig={{ type: 'RouterLink', to: '/sit' }}
+          element="LinkWrapper"
+          elementProps={{ type: 'RouterLink', to: '/sit' }}
           theme="danger"
           leftIcon="Menu"
           rightIcon="EventAvailable"
