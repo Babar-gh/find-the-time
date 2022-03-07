@@ -1,3 +1,4 @@
-// import axios from 'axios';
+import axios from 'axios';
+import { addJwtInterceptors } from 'api/interceptors/jwt';
 
-export {};
+addJwtInterceptors(axios);
