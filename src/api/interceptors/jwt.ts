@@ -26,6 +26,10 @@ export const addJwtInterceptors = (axios: AxiosStatic) => {
   });
 
   axios.interceptors.response.use(undefined, (error: AxiosError) => {
+    if (error.response?.status !== 401) {
+      return Promise.reject(error);
+    }
+
     switch (error.response?.headers[AUTH_ERROR_HEADER]) {
       case INVALID_TOKEN:
         localStorage.setItem(
