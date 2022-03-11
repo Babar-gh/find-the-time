@@ -1,13 +1,16 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import * as jwt from 'jwt';
 import Backdrop from 'ui-kit/Backdrop';
 import Button from 'ui-kit/Button';
 import DummyContent from 'ui-kit/DummyContent';
 import Logo from 'components/Logo';
+import Text from 'components/Text';
 import useBreakpointCheck from 'hooks/useBreakpointCheck';
+import { createEvent } from 'api/events';
 import { ReactComponent as MenuIcon } from 'assets/icons/Menu.svg';
-import NavMenu from './components/NavMenu';
 import styles from './Layout.module.scss';
+import NavMenu from './components/NavMenu';
 
 interface IProps {
   onThemeSwitch: () => void;
@@ -179,6 +182,37 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
     </p>
   );
 
+  const temporatyJwtIntercetorTest = (
+    <div style={{ padding: '16px' }}>
+      <Text>{jwt.get() || 'No JWT detected in local storage'}</Text>
+      <Button
+        elementProps={{
+          onClick: () =>
+            createEvent({
+              title: 'Test Event',
+              duration: 123,
+              location: 'Miyazaki Swamp',
+              comment: '321',
+              initialIntervals: [
+                {
+                  start: '2022-03-11 12:00:00',
+                  end: '2022-03-12 12:00:00',
+                },
+                {
+                  start: '2022-03-13 12:00:00',
+                  end: '2022-03-14 12:00:00',
+                },
+              ],
+            }).then(({ data }) => {
+              console.log(data);
+            }),
+        }}
+      >
+        Make request
+      </Button>
+    </div>
+  );
+
   const menuButton = (
     <button
       className={styles['MenuButton']}
@@ -226,6 +260,7 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
         {bp('Laptop', 'Desktop') && sidebar}
 
         <main className={styles['Content']}>
+          {temporatyJwtIntercetorTest}
           {temporarySwitchThemeButtons}
           {temporaryBreakpointIndicator}
           <DummyContent />
