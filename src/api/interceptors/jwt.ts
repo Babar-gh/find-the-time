@@ -45,9 +45,12 @@ export const addJwtInterceptors = (axios: AxiosStatic) => {
           .finally(() => (_refreshing = null));
 
         const originalRequestConfig = error.config;
-        delete originalRequestConfig.headers![AUTH_HEADER];
 
-        _refreshing.then(() => axios.request(originalRequestConfig));
+        if (originalRequestConfig.headers !== undefined) {
+          delete originalRequestConfig.headers[AUTH_HEADER];
+        }
+
+        return _refreshing.then(() => axios.request(originalRequestConfig));
       }
     }
   });
