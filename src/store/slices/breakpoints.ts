@@ -20,5 +20,4 @@ export const breakpointsSlice = createSlice({
 });
 
 export const { setActive } = breakpointsSlice.actions;
-
 export default breakpointsSlice.reducer;

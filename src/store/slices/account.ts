@@ -88,8 +88,6 @@ export const accountSlice = createSlice({
 
 const { update, clear } = accountSlice.actions;
 
-export default accountSlice.reducer;
-
 export const updateFromNewToken =
   (token: Token): AppThunk =>
     (dispatch) => {
@@ -104,3 +102,5 @@ export const signOut = (): AppThunk => (dispatch) => {
 
   dispatch(clear());
 };
+
+export default accountSlice.reducer;
