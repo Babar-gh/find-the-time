@@ -9,6 +9,7 @@ import Text from 'components/Text';
 import useBreakpointCheck from 'hooks/useBreakpointCheck';
 import { createEvent } from 'api/events';
 import { ReactComponent as MenuIcon } from 'assets/icons/Menu.svg';
+import { Token } from 'types/common';
 import styles from './Layout.module.scss';
 import NavMenu from './components/NavMenu';
 
@@ -20,171 +21,45 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
   const bp = useBreakpointCheck();
 
-  const temporarySwitchThemeButtons = (
-    <div style={{ display: 'flex' }}>
-      <div
-        style={{
-          width: '500px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '16px',
-          padding: '16px',
-        }}
-      >
-        <Button elementProps={{ onClick: onThemeSwitch }} theme="primary">
-          OK
-        </Button>
-        <Button elementProps={{ onClick: onThemeSwitch }} theme="primary">
-          .
-        </Button>
-        <Button elementProps={{ onClick: onThemeSwitch }} theme="primary">
-          —
-        </Button>
-        <Button
-          elementProps={{ onClick: onThemeSwitch }}
-          theme="primary"
-          width="block"
-          leftIcon="EventAvailable"
-        >
-          Switch theme
-        </Button>
-        <Button
-          elementProps={{ onClick: onThemeSwitch }}
-          theme="primary"
-          rightIcon="Menu"
-        >
-          Switch theme
-        </Button>
-        <Button
-          elementProps={{ onClick: onThemeSwitch }}
-          theme="primary"
-          width="block"
-          leftIcon="Menu"
-          rightIcon="EventAvailable"
-        >
-          Switch theme... dangerously!
-        </Button>
-        <Button elementProps={{ onClick: onThemeSwitch }} theme="danger">
-          Switch theme... dangerously!
-        </Button>
-        <Button
-          elementProps={{ onClick: onThemeSwitch }}
-          theme="danger"
-          width="block"
-          leftIcon="Menu"
-        >
-          Switch theme... dangerously!
-        </Button>
-        <Button
-          elementProps={{ onClick: onThemeSwitch }}
-          theme="danger"
-          rightIcon="EventAvailable"
-        >
-          Switch theme... dangerously!
-        </Button>
-        <Button
-          elementProps={{ onClick: onThemeSwitch }}
-          theme="danger"
-          width="block"
-          leftIcon="EventAvailable"
-          rightIcon="Menu"
-        >
-          Switch theme... dangerously!
-        </Button>
-      </div>
-      <div
-        style={{
-          width: '500px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '16px',
-          padding: '16px',
-        }}
-      >
-        <Button
-          element="LinkWrapper"
-          elementProps={{ type: 'HTMLAnchor', href: 'https://www.google.com/' }}
-          theme="primary"
-          width="block"
-        >
-          I'm link to google.com
-        </Button>
-        <Button
-          element="LinkWrapper"
-          elementProps={{ type: 'RouterLink', to: '/lorem' }}
-          theme="primary"
-          leftIcon="EventAvailable"
-        >
-          I'm router link to /lorem
-        </Button>
-        <Button
-          element="LinkWrapper"
-          elementProps={{ type: 'HTMLAnchor', href: 'https://www.google.com/' }}
-          theme="primary"
-          width="block"
-          rightIcon="Menu"
-        >
-          I'm link to google.com
-        </Button>
-        <Button
-          element="LinkWrapper"
-          elementProps={{ type: 'RouterLink', to: '/ipsum' }}
-          theme="primary"
-          leftIcon="Menu"
-          rightIcon="EventAvailable"
-        >
-          I'm router link to /ipsum
-        </Button>
-        <Button
-          element="LinkWrapper"
-          elementProps={{ type: 'HTMLAnchor', href: 'https://www.google.com/' }}
-          theme="danger"
-          width="block"
-        >
-          I'm link to google.com... a dangerous one!
-        </Button>
-        <Button
-          element="LinkWrapper"
-          elementProps={{ type: 'RouterLink', to: '/dolor' }}
-          theme="danger"
-          leftIcon="EventAvailable"
-        >
-          I'm router link to /dolor... a dangerous one!
-        </Button>
-        <Button
-          element="LinkWrapper"
-          elementProps={{ type: 'HTMLAnchor', href: 'https://www.google.com/' }}
-          theme="danger"
-          width="block"
-          rightIcon="Menu"
-        >
-          I'm link to google.com... a dangerous one!
-        </Button>
-        <Button
-          element="LinkWrapper"
-          elementProps={{ type: 'RouterLink', to: '/sit' }}
-          theme="danger"
-          leftIcon="Menu"
-          rightIcon="EventAvailable"
-        >
-          I'm router link to /sit... a dangerous one!
-        </Button>
-      </div>
-    </div>
+  const temporarySwitchThemeButton = (
+    <Button elementProps={{ onClick: onThemeSwitch }} leftIcon="Menu">
+      Switch theme
+    </Button>
   );
 
   const temporaryBreakpointIndicator = (
-    <p style={{ color: 'var(--text-primary)' }}>
-      Current breakpoint: {bp('Desktop') && 'Desktop'}
-      {bp('Laptop') && 'Laptop'}
-      {bp('Tablet') && 'Tablet'}
-      {bp('Mobile') && 'Mobile'}
+    <p>
+      <Text>Current breakpoint:</Text> {bp('Desktop') && <Text>Desktop</Text>}
+      {bp('Laptop') && <Text>Laptop</Text>}
+      {bp('Tablet') && <Text>Tablet</Text>}
+      {bp('Mobile') && <Text>Mobile</Text>}
     </p>
   );
 
   const temporatyJwtIntercetorTest = (
-    <div style={{ padding: '16px' }}>
-      <Text>{jwt.get() || 'No JWT detected in local storage'}</Text>
+    <div
+      style={{
+        marginBottom: '16px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '16px',
+      }}
+    >
+      <Text>Set JWT:</Text>
+      <input
+        style={{
+          backgroundColor: 'var(--canvas-secondary)',
+          borderColor: 'var(--text-primary)',
+        }}
+        onChange={(event) => {
+          jwt.set(event.target.value as Token);
+          window.location.reload();
+        }}
+      />
+      <Text>Current JWT:</Text>
+      <Text>
+        {`...${jwt.get()?.slice(-30)}` || 'No JWT detected in local storage'}
+      </Text>
       <Button
         elementProps={{
           onClick: () =>
@@ -207,6 +82,8 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
               console.log(data);
             }),
         }}
+        leftIcon="EventAvailable"
+        theme="danger"
       >
         Make request
       </Button>
@@ -260,10 +137,12 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
         {bp('Laptop', 'Desktop') && sidebar}
 
         <main className={styles['Content']}>
-          {temporatyJwtIntercetorTest}
-          {temporarySwitchThemeButtons}
-          {temporaryBreakpointIndicator}
-          <DummyContent />
+          <div style={{ padding: '16px' }}>
+            {temporatyJwtIntercetorTest}
+            {temporarySwitchThemeButton}
+            {temporaryBreakpointIndicator}
+            <DummyContent />
+          </div>
         </main>
       </div>
     </div>
