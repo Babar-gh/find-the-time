@@ -1,9 +1,11 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import { default as breakpoints } from './slices/breakpoints';
+import { default as account } from './slices/account';
 
 export const store = configureStore({
   reducer: {
     breakpoints,
+    account,
   },
 });
 
