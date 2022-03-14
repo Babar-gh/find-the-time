@@ -2,6 +2,8 @@ import { AxiosError, AxiosStatic } from 'axios';
 import * as jwt from 'jwt';
 import history from 'browserHistory';
 import { refreshUserToken } from 'api/users';
+import { store } from 'store';
+import { updateFromNewToken } from 'store/slices/account';
 
 const AUTH_HEADER = 'authorization';
 const AUTH_ERROR_HEADER = 'auth-error';
@@ -39,7 +41,7 @@ export const addJwtInterceptors = (axios: AxiosStatic) => {
       case EXPIRED_TOKEN: {
         _refreshing ??= refreshUserToken()
           .then(
-            ({ data: token }) => jwt.set(token),
+            ({ data: token }) => store.dispatch(updateFromNewToken(token)),
             (error) => Promise.reject(error)
           )
           .finally(() => (_refreshing = null));
