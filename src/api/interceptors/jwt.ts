@@ -2,10 +2,9 @@ import { AxiosError, AxiosStatic } from 'axios';
 import * as jwt from 'jwt';
 import history from 'browserHistory';
 import { refreshUserToken } from 'api/users';
-import { PATH_AFTER_LOGIN_STORAGE_KEY } from 'constants/localStorage';
 
-const AUTH_HEADER = 'Authorization';
-const AUTH_ERROR_HEADER = 'Auth-Error';
+const AUTH_HEADER = 'authorization';
+const AUTH_ERROR_HEADER = 'auth-error';
 
 const INVALID_TOKEN = 'invalid token';
 const EXPIRED_TOKEN = 'expired token';
@@ -32,15 +31,10 @@ export const addJwtInterceptors = (axios: AxiosStatic) => {
 
     switch (error.response?.headers[AUTH_ERROR_HEADER]) {
       case INVALID_TOKEN:
-        localStorage.setItem(
-          PATH_AFTER_LOGIN_STORAGE_KEY,
-          history.location.pathname
-        );
-
         // TODO: Add enum for all the different routes
-        history.push('/login');
+        history.push('/login', { returnUrl: history.location.pathname });
 
-        break;
+        return Promise.reject(error);
 
       case EXPIRED_TOKEN: {
         _refreshing ??= refreshUserToken()
