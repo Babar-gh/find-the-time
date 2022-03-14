@@ -1,3 +1,4 @@
+import { Buffer } from 'buffer';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import * as jwt from 'jwt';
 import { AppThunk } from 'store';
@@ -40,7 +41,7 @@ export const parseUserToken = (token: Token) => {
   );
 
   const mappedUserData = JSON.parse(jsonPayload, (key, value) => {
-    return key in mapping ? value : undefined;
+    return key in mapping || key === '' ? value : undefined;
   });
 
   return mappedUserData as IState;
@@ -66,24 +67,26 @@ export const signIn = createAsyncThunk(
 export const accountSlice = createSlice({
   name: 'account',
   initialState,
+
   reducers: {
-    update: (state, action: PayloadAction<IState>) => {
-      state = action.payload;
+    update: (_state, { payload: newAccountData }: PayloadAction<IState>) => {
+      return newAccountData;
     },
-    clear: (state) => {
-      state = initialState;
+    clear: (_state) => {
+      return initialState;
     },
   },
+
   extraReducers: (builder) => {
-    builder.addCase(signIn.fulfilled, (state, { payload: userData }) => {
-      if (userData) {
-        state = userData;
+    builder.addCase(signIn.fulfilled, (_state, { payload: accountData }) => {
+      if (accountData) {
+        return accountData;
       }
     });
   },
 });
 
-export const { update, clear } = accountSlice.actions;
+const { update, clear } = accountSlice.actions;
 
 export default accountSlice.reducer;
 
