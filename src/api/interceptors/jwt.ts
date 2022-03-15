@@ -3,7 +3,7 @@ import * as jwt from 'jwt';
 import history from 'browserHistory';
 import { refreshUserToken } from 'api/users';
 import { store } from 'store';
-import { updateFromNewToken } from 'store/slices/account';
+import { signOut, updateFromNewToken } from 'store/slices/account';
 
 const AUTH_HEADER = 'authorization';
 const AUTH_ERROR_HEADER = 'auth-error';
@@ -15,9 +15,7 @@ let _refreshing: Promise<void> | null = null;
 
 export const addJwtInterceptors = (axios: AxiosStatic) => {
   axios.interceptors.request.use((config) => {
-    if (config.headers === undefined) {
-      config.headers = {};
-    }
+    config.headers ??= {};
 
     if (jwt.checkIfExists()) {
       config.headers[AUTH_HEADER] = `Bearer ${jwt.get()}`;
@@ -33,6 +31,8 @@ export const addJwtInterceptors = (axios: AxiosStatic) => {
 
     switch (error.response?.headers[AUTH_ERROR_HEADER]) {
       case INVALID_TOKEN:
+        store.dispatch(signOut());
+
         // TODO: Add enum for all the different routes
         history.push('/login', { returnUrl: history.location.pathname });
 
