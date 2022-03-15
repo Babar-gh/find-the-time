@@ -4,6 +4,7 @@ import history from 'browserHistory';
 import { refreshUserToken } from 'api/users';
 import { store } from 'store';
 import { signOut, updateFromNewToken } from 'store/slices/account';
+import { HTTP_RESPONSE_STATUS_CODES } from 'api/constants/httpResponseStatusCodes';
 
 const AUTH_HEADER = 'authorization';
 const AUTH_ERROR_HEADER = 'auth-error';
@@ -25,7 +26,7 @@ export const addJwtInterceptors = (axios: AxiosStatic) => {
   });
 
   axios.interceptors.response.use(undefined, (error: AxiosError) => {
-    if (error.response?.status !== 401) {
+    if (error.response?.status !== HTTP_RESPONSE_STATUS_CODES.Unauthorized) {
       return Promise.reject(error);
     }
 
