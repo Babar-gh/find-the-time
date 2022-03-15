@@ -1,0 +1,37 @@
+.Root {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  height: 40px;
+  padding: 10px;
+  color: var(--text-primary);
+  background-color: var(--canvas-secondary-deeper);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+
+  &:hover {
+    border-color: var(--ui-button-hover);
+  }
+
+  &:focus-visible {
+    outline: none;
+    border-color: var(--ui-button);
+  }
+
+  &_validation {
+    &_error {
+      border-color: var(--ui-button-danger-active);
+
+      &:hover {
+        border-color: var(--ui-button-danger-hover);
+      }
+
+      &:focus-visible {
+        outline: none;
+        border-color: var(--ui-button-danger);
+      }
+    }
+  }
+}

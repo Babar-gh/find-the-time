@@ -4,6 +4,7 @@ import * as jwt from 'jwt';
 import Backdrop from 'ui-kit/Backdrop';
 import Button from 'ui-kit/Button';
 import DummyContent from 'ui-kit/DummyContent';
+import Input from 'ui-kit/Input';
 import Logo from 'components/Logo';
 import Text from 'components/Text';
 import useBreakpointCheck from 'hooks/useBreakpointCheck';
@@ -21,36 +22,16 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
   const bp = useBreakpointCheck();
 
-  const temporarySwitchThemeButton = (
-    <Button elementProps={{ onClick: onThemeSwitch }} leftIcon="Menu">
-      Switch theme
-    </Button>
-  );
-
-  const temporaryBreakpointIndicator = (
-    <p>
-      <Text>Current breakpoint:</Text> {bp('Desktop') && <Text>Desktop</Text>}
-      {bp('Laptop') && <Text>Laptop</Text>}
-      {bp('Tablet') && <Text>Tablet</Text>}
-      {bp('Mobile') && <Text>Mobile</Text>}
-    </p>
-  );
-
   const temporatyJwtIntercetorTest = (
     <div
       style={{
-        marginBottom: '16px',
         display: 'flex',
         flexDirection: 'column',
         gap: '16px',
       }}
     >
       <Text>Set JWT:</Text>
-      <input
-        style={{
-          backgroundColor: 'var(--canvas-secondary)',
-          borderColor: 'var(--text-primary)',
-        }}
+      <Input
         onChange={(event) => {
           jwt.set(event.target.value as Token);
           window.location.reload();
@@ -88,6 +69,35 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
         Make request
       </Button>
     </div>
+  );
+
+  const temporaryBreakpointIndicator = (
+    <p>
+      <Text>Current breakpoint:</Text> {bp('Desktop') && <Text>Desktop</Text>}
+      {bp('Laptop') && <Text>Laptop</Text>}
+      {bp('Tablet') && <Text>Tablet</Text>}
+      {bp('Mobile') && <Text>Mobile</Text>}
+    </p>
+  );
+
+  const temporaryInputs = (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '16px',
+      }}
+    >
+      <Input defaultValue={'regular text'} />
+      <Input type="password" defaultValue={'password'} />
+      <Input validationStatus="error" defaultValue={'error theme'} />
+    </div>
+  );
+
+  const temporarySwitchThemeButton = (
+    <Button elementProps={{ onClick: onThemeSwitch }} leftIcon="Menu">
+      Switch theme
+    </Button>
   );
 
   const menuButton = (
@@ -137,10 +147,18 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
         {bp('Laptop', 'Desktop') && sidebar}
 
         <main className={styles['Content']}>
-          <div style={{ padding: '16px' }}>
+          <div
+            style={{
+              margin: '16px',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '16px',
+            }}
+          >
             {temporatyJwtIntercetorTest}
-            {temporarySwitchThemeButton}
             {temporaryBreakpointIndicator}
+            {temporaryInputs}
+            {temporarySwitchThemeButton}
             <DummyContent />
           </div>
         </main>
