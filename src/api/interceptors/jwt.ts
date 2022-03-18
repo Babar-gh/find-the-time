@@ -1,10 +1,9 @@
 import { AxiosError, AxiosStatic } from 'axios';
 import * as jwt from 'jwt';
-import history from 'browserHistory';
-import { refreshUserToken } from 'api/users';
-import { store } from 'store';
-import { signOut, updateFromNewToken } from 'store/slices/account';
 import { HTTP_RESPONSE_STATUS_CODES } from 'api/constants/httpResponseStatusCodes';
+import { refreshUserToken } from 'api/users';
+import { signOut, updateFromNewToken } from 'store/slices/account';
+import { store } from 'store';
 
 const AUTH_HEADER = 'authorization';
 const AUTH_ERROR_HEADER = 'auth-error';
@@ -33,9 +32,6 @@ export const addJwtInterceptors = (axios: AxiosStatic) => {
     switch (error.response?.headers[AUTH_ERROR_HEADER]) {
       case INVALID_TOKEN:
         store.dispatch(signOut());
-
-        // TODO: Add enum for all the different routes
-        history.push('/login', { returnUrl: history.location.pathname });
 
         return Promise.reject(error);
 
