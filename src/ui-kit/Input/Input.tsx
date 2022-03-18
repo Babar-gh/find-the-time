@@ -1,8 +1,9 @@
 import classNames from 'classnames/bind';
-import { HTMLProps } from 'react';
+import { InputHTMLAttributes } from 'react';
 import styles from './Input.module.scss';
 
-interface IProps extends Omit<HTMLProps<HTMLInputElement>, 'className'> {
+interface IProps
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'className'> {
   validationStatus?: 'error' | 'warning'; // TODO: Add CSS for 'warning' theme.
 }
 
