@@ -40,6 +40,10 @@
       color: var(--text-secondary);
     }
 
+    &_error {
+      color: var(--ui-button-danger);
+    }
+
     &_inherit {
       color: inherit;
     }
