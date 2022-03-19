@@ -1,0 +1,40 @@
+.Root {
+  display: flex;
+
+  &_layout {
+    &_vertical {
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    &_horizontal {
+      flex-direction: row;
+      justify-content: flex-end;
+      align-items: flex-start;
+      gap: 8px;
+    }
+  }
+}
+
+.LabelContainer {
+  &_layout {
+    &_horizontal {
+      height: 40px;
+      display: flex;
+      align-items: center;
+      text-align: right;
+    }
+  }
+}
+
+.InputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  &_layout {
+    &_horizontal {
+      flex: 0 0 75%;
+    }
+  }
+}
