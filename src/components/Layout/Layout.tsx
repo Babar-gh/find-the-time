@@ -13,6 +13,9 @@ import { ReactComponent as MenuIcon } from 'assets/icons/Menu.svg';
 import { Token } from 'types/common';
 import styles from './Layout.module.scss';
 import NavMenu from './components/NavMenu';
+import Item from 'components/Form/components/Item';
+import Column from 'components/Form/components/Column';
+import Form from 'components/Form';
 
 interface IProps {
   onThemeSwitch: () => void;
@@ -21,6 +24,81 @@ interface IProps {
 const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
   const bp = useBreakpointCheck();
+
+  const [tempFormColumns, setTempFormColumns] = useState(1);
+  const [tempFormLayout, setTempFormLayout] = useState<
+    'horizontal' | 'vertical'
+  >('horizontal');
+
+  const tempColumnWithButtons = (
+    <Column>
+      <Item label="Field:">
+        <Input />
+      </Item>
+      <Item label="Required field:" isRequired>
+        <Input />
+      </Item>
+      <Item
+        label="Failed validation:"
+        isRequired
+        validationMessage="Something is wrong, fix it!"
+      >
+        <Input />
+      </Item>
+      <Button
+        elementProps={{
+          onClick: () =>
+            setTempFormLayout((current) =>
+              current === 'horizontal' ? 'vertical' : 'horizontal'
+            ),
+        }}
+      >
+        Switch layout
+      </Button>
+      <Button
+        elementProps={{
+          onClick: () =>
+            setTempFormColumns((current) => (current === 3 ? 1 : ++current)),
+        }}
+      >
+        Switch columns
+      </Button>
+    </Column>
+  );
+
+  const tempColumn = (
+    <Column>
+      <Item label="Field:">
+        <Input />
+      </Item>
+      <Item label="Required field:" isRequired>
+        <Input />
+      </Item>
+      <Item
+        label="Failed validation:"
+        isRequired
+        validationMessage="Something is wrong, fix it!"
+      >
+        <Input />
+      </Item>
+    </Column>
+  );
+
+  const temporaryForm =
+    tempFormColumns === 1 ? (
+      <Form layout={tempFormLayout}>{tempColumnWithButtons}</Form>
+    ) : tempFormColumns === 2 ? (
+      <Form layout={tempFormLayout}>
+        {tempColumnWithButtons}
+        {tempColumn}
+      </Form>
+    ) : (
+      <Form layout={tempFormLayout}>
+        {tempColumnWithButtons}
+        {tempColumn}
+        {tempColumn}
+      </Form>
+    );
 
   const temporatyJwtIntercetorTest = (
     <div
@@ -155,6 +233,7 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
               gap: '16px',
             }}
           >
+            {temporaryForm}
             {temporatyJwtIntercetorTest}
             {temporaryBreakpointIndicator}
             {temporaryInputs}
