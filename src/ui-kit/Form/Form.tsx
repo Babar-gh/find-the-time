@@ -17,6 +17,7 @@ type ColumnComponent = typeof Column;
 type ColumnElement = ReactElement<ComponentProps<ColumnComponent>>;
 
 interface IProps extends FormHTMLAttributes<HTMLFormElement> {
+  defaultPreventedOnSubmission: boolean;
   layout?: 'vertical' | 'horizontal' | 'responsive';
   children:
   | ColumnElement
@@ -30,6 +31,7 @@ type FormComponent = React.VFC<IProps> & {
 };
 
 const Form: FormComponent = ({
+  defaultPreventedOnSubmission,
   layout = 'vertical',
   children,
   onSubmit,
@@ -40,8 +42,10 @@ const Form: FormComponent = ({
   const _formLayout =
     layout !== 'responsive' ? layout : bp('Mobile') ? 'vertical' : 'horizontal';
 
-  const onSubmitWithPreventedDefault = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleSubmission = (event: FormEvent<HTMLFormElement>) => {
+    if (defaultPreventedOnSubmission) {
+      event.preventDefault();
+    }
 
     if (onSubmit) {
       onSubmit(event);
@@ -49,11 +53,7 @@ const Form: FormComponent = ({
   };
 
   return (
-    <form
-      className={styles['Root']}
-      onSubmit={onSubmitWithPreventedDefault}
-      {...rest}
-    >
+    <form className={styles['Root']} onSubmit={handleSubmission} {...rest}>
       {Children.map(children, (column, index) => {
         if (column.type !== Column) {
           throw new Error(

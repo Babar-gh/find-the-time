@@ -84,14 +84,16 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
 
   const temporaryForm =
     tempFormColumns === 1 ? (
-      <Form layout={tempFormLayout}>{tempColumnWithButtons}</Form>
+      <Form defaultPreventedOnSubmission layout={tempFormLayout}>
+        {tempColumnWithButtons}
+      </Form>
     ) : tempFormColumns === 2 ? (
-      <Form layout={tempFormLayout}>
+      <Form defaultPreventedOnSubmission layout={tempFormLayout}>
         {tempColumnWithButtons}
         {tempColumn}
       </Form>
     ) : (
-      <Form layout={tempFormLayout}>
+      <Form defaultPreventedOnSubmission layout={tempFormLayout}>
         {tempColumnWithButtons}
         {tempColumn}
         {tempColumn}
