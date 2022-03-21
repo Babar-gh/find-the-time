@@ -29,6 +29,7 @@ const Column: React.VFC<IProps> = ({ _id, _formLayout, children }) => {
             throw new Error(
               'Only <Form.Item> or <Button> can be used as a child of <Form.Column>'
             );
+
           case Item:
             return cloneElement(child as ItemElement, {
               _id: `column-${_id}-item-${index}`,
