@@ -13,19 +13,17 @@ type ButtonElement = ReactElement<ComponentProps<ButtonComponent>>;
 type Child = ItemElement | ButtonElement;
 
 interface IProps {
-  id?: string;
-  formLayout?: 'vertical' | 'horizontal';
+  _id?: number;
+  _formLayout?: 'vertical' | 'horizontal';
   children: Child | Child[];
 }
 
 const cn = classNames.bind(styles);
 
-const Column: React.VFC<IProps> = ({ id, children, formLayout }) => {
-  let itemId = 0;
-
+const Column: React.VFC<IProps> = ({ _id, _formLayout, children }) => {
   return (
     <div className={styles['Root']}>
-      {Children.map(children, (child) => {
+      {Children.map(children, (child, index) => {
         switch (child.type) {
           default:
             throw new Error(
@@ -33,8 +31,8 @@ const Column: React.VFC<IProps> = ({ id, children, formLayout }) => {
             );
           case Item:
             return cloneElement(child as ItemElement, {
-              id: `column-${id}-item-${itemId++}`,
-              formLayout,
+              _id: `column-${_id}-item-${index}`,
+              _formLayout,
             });
 
           case Button:
@@ -42,7 +40,7 @@ const Column: React.VFC<IProps> = ({ id, children, formLayout }) => {
               <div
                 className={cn(
                   'ButtonContainer',
-                  `ButtonContainer_layout_${formLayout}`
+                  `ButtonContainer_layout_${_formLayout}`
                 )}
               >
                 {cloneElement(child as ButtonElement)}

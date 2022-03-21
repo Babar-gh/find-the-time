@@ -5,8 +5,8 @@ import Text from 'components/Text';
 import styles from './Item.module.scss';
 
 interface IProps {
-  id?: string;
-  formLayout?: 'vertical' | 'horizontal';
+  _id?: string;
+  _formLayout?: 'vertical' | 'horizontal';
   label: string;
   isRequired?: boolean;
   validationMessage?: string;
@@ -16,8 +16,8 @@ interface IProps {
 const cn = classNames.bind(styles);
 
 const Item: React.VFC<IProps> = ({
-  id,
-  formLayout,
+  _id,
+  _formLayout,
   label,
   isRequired,
   validationMessage,
@@ -26,10 +26,10 @@ const Item: React.VFC<IProps> = ({
   const validationStatus = validationMessage ? 'error' : undefined;
 
   return (
-    <div className={cn('Root', `Root_layout_${formLayout}`)}>
+    <div className={cn('Root', `Root_layout_${_formLayout}`)}>
       <label
-        htmlFor={id}
-        className={cn('LabelContainer', `LabelContainer_layout_${formLayout}`)}
+        htmlFor={_id}
+        className={cn('LabelContainer', `LabelContainer_layout_${_formLayout}`)}
       >
         <span>
           {isRequired && <Text color="error">*&nbsp;</Text>}
@@ -37,9 +37,9 @@ const Item: React.VFC<IProps> = ({
         </span>
       </label>
       <div
-        className={cn('InputContainer', `InputContainer_layout_${formLayout}`)}
+        className={cn('InputContainer', `InputContainer_layout_${_formLayout}`)}
       >
-        {cloneElement(child, { id, validationStatus })}
+        {cloneElement(child, { id: _id, validationStatus })}
         {validationMessage && (
           <Text color="error" font="primaryItalic" size="small">
             {validationMessage}

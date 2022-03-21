@@ -35,10 +35,9 @@ const Form: FormComponent = ({
   onSubmit,
   ...rest
 }) => {
-  let columnId = 0;
   const bp = useBreakpointCheck();
 
-  const formLayout = bp('Mobile') ? 'vertical' : layout;
+  const _formLayout = bp('Mobile') ? 'vertical' : layout;
   const onSubmitWithPreventedDefault = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -53,7 +52,7 @@ const Form: FormComponent = ({
       onSubmit={onSubmitWithPreventedDefault}
       {...rest}
     >
-      {Children.map(children, (column) => {
+      {Children.map(children, (column, index) => {
         if (column.type !== Column) {
           throw new Error(
             'Only <Form.Column> can be used as a child of <Form>'
@@ -61,8 +60,8 @@ const Form: FormComponent = ({
         }
 
         return cloneElement(column, {
-          id: `${columnId++}`,
-          formLayout,
+          _id: index,
+          _formLayout,
         });
       })}
     </form>
