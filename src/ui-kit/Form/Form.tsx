@@ -11,6 +11,8 @@ import Column from './components/Column';
 import Item from './components/Item';
 import styles from './Form.module.scss';
 
+type ItemComponent = typeof Item;
+
 type ColumnComponent = typeof Column;
 type ColumnElement = ReactElement<ComponentProps<ColumnComponent>>;
 
@@ -23,8 +25,8 @@ interface IProps extends FormHTMLAttributes<HTMLFormElement> {
 }
 
 type FormComponent = React.VFC<IProps> & {
-  Item: typeof Item;
-  Column: typeof Column;
+  Item: ItemComponent;
+  Column: ColumnComponent;
 };
 
 const Form: FormComponent = ({
@@ -52,6 +54,12 @@ const Form: FormComponent = ({
       {...rest}
     >
       {Children.map(children, (column) => {
+        if (column.type !== Column) {
+          throw new Error(
+            'Only <Form.Column> can be used as a child of <Form>'
+          );
+        }
+
         return cloneElement(column, {
           id: `${columnId++}`,
           formLayout,

@@ -17,7 +17,7 @@ const Menu: MenuComponent = ({ selectedId, children }) => {
     <ul className={styles['Root']}>
       {Children.map(children, (item) => {
         if (item.type !== Item) {
-          return;
+          throw new Error('Only <Menu.Item> can be used as a child of <Menu>');
         }
 
         const isSelected = item.props.id === selectedId;
