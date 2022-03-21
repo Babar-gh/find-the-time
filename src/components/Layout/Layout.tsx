@@ -25,8 +25,8 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
 
   const [tempFormColumns, setTempFormColumns] = useState(1);
   const [tempFormLayout, setTempFormLayout] = useState<
-  'horizontal' | 'vertical'
-  >('horizontal');
+  'responsive' | 'vertical'
+  >('responsive');
 
   const tempColumnWithButtons = (
     <Form.Column>
@@ -47,7 +47,7 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
         elementProps={{
           onClick: () =>
             setTempFormLayout((current) =>
-              current === 'horizontal' ? 'vertical' : 'horizontal'
+              current === 'responsive' ? 'vertical' : 'responsive'
             ),
         }}
       >

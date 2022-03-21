@@ -17,7 +17,7 @@ type ColumnComponent = typeof Column;
 type ColumnElement = ReactElement<ComponentProps<ColumnComponent>>;
 
 interface IProps extends FormHTMLAttributes<HTMLFormElement> {
-  layout?: 'vertical' | 'horizontal';
+  layout?: 'vertical' | 'horizontal' | 'responsive';
   children:
   | ColumnElement
   | [ColumnElement, ColumnElement]
@@ -37,7 +37,9 @@ const Form: FormComponent = ({
 }) => {
   const bp = useBreakpointCheck();
 
-  const _formLayout = bp('Mobile') ? 'vertical' : layout;
+  const _formLayout =
+    layout !== 'responsive' ? layout : bp('Mobile') ? 'vertical' : 'horizontal';
+
   const onSubmitWithPreventedDefault = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
