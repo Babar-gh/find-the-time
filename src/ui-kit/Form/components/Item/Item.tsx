@@ -9,7 +9,7 @@ interface IProps {
   _formLayout?: 'vertical' | 'horizontal';
   label: string;
   isRequired?: boolean;
-  validationMessage?: string;
+  errorMessage?: string;
   children: ReactElement<ComponentProps<typeof Input>>;
 }
 
@@ -20,10 +20,10 @@ const Item: React.VFC<IProps> = ({
   _formLayout,
   label,
   isRequired,
-  validationMessage,
+  errorMessage,
   children: child,
 }) => {
-  const validationStatus = validationMessage ? 'error' : undefined;
+  const validationStatus = errorMessage ? 'error' : undefined;
 
   return (
     <div className={cn('Root', `Root_layout_${_formLayout}`)}>
@@ -40,9 +40,9 @@ const Item: React.VFC<IProps> = ({
         className={cn('InputContainer', `InputContainer_layout_${_formLayout}`)}
       >
         {cloneElement(child, { id: _id, validationStatus })}
-        {validationMessage && (
+        {errorMessage && (
           <Text color="error" font="primaryItalic" size="small">
-            {validationMessage}
+            {errorMessage}
           </Text>
         )}
       </div>

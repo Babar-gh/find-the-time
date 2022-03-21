@@ -39,7 +39,7 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
       <Form.Item
         label="Failed validation:"
         isRequired
-        validationMessage="Something is wrong, fix it!"
+        errorMessage="Something is wrong, fix it!"
       >
         <Input />
       </Form.Item>
@@ -75,7 +75,7 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
       <Form.Item
         label="Failed validation:"
         isRequired
-        validationMessage="Something is wrong, fix it!"
+        errorMessage="Something is wrong, fix it!"
       >
         <Input />
       </Form.Item>
