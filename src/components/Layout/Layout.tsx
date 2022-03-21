@@ -4,6 +4,7 @@ import * as jwt from 'jwt';
 import Backdrop from 'ui-kit/Backdrop';
 import Button from 'ui-kit/Button';
 import DummyContent from 'ui-kit/DummyContent';
+import Form from 'ui-kit/Form';
 import Input from 'ui-kit/Input';
 import Logo from 'components/Logo';
 import Text from 'components/Text';
@@ -13,9 +14,6 @@ import { ReactComponent as MenuIcon } from 'assets/icons/Menu.svg';
 import { Token } from 'types/common';
 import styles from './Layout.module.scss';
 import NavMenu from './components/NavMenu';
-import Item from 'components/Form/components/Item';
-import Column from 'components/Form/components/Column';
-import Form from 'components/Form';
 
 interface IProps {
   onThemeSwitch: () => void;
@@ -27,24 +25,24 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
 
   const [tempFormColumns, setTempFormColumns] = useState(1);
   const [tempFormLayout, setTempFormLayout] = useState<
-    'horizontal' | 'vertical'
+  'horizontal' | 'vertical'
   >('horizontal');
 
   const tempColumnWithButtons = (
-    <Column>
-      <Item label="Field:">
+    <Form.Column>
+      <Form.Item label="Field:">
         <Input />
-      </Item>
-      <Item label="Required field:" isRequired>
+      </Form.Item>
+      <Form.Item label="Required field:" isRequired>
         <Input />
-      </Item>
-      <Item
+      </Form.Item>
+      <Form.Item
         label="Failed validation:"
         isRequired
         validationMessage="Something is wrong, fix it!"
       >
         <Input />
-      </Item>
+      </Form.Item>
       <Button
         elementProps={{
           onClick: () =>
@@ -63,25 +61,25 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
       >
         Switch columns
       </Button>
-    </Column>
+    </Form.Column>
   );
 
   const tempColumn = (
-    <Column>
-      <Item label="Field:">
+    <Form.Column>
+      <Form.Item label="Field:">
         <Input />
-      </Item>
-      <Item label="Required field:" isRequired>
+      </Form.Item>
+      <Form.Item label="Required field:" isRequired>
         <Input />
-      </Item>
-      <Item
+      </Form.Item>
+      <Form.Item
         label="Failed validation:"
         isRequired
         validationMessage="Something is wrong, fix it!"
       >
         <Input />
-      </Item>
-    </Column>
+      </Form.Item>
+    </Form.Column>
   );
 
   const temporaryForm =
