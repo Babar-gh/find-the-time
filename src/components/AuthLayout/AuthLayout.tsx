@@ -1,4 +1,5 @@
-import Text from 'components/Text';
+import LoginForm from 'components/Login';
+import Button from 'ui-kit/Button';
 import styles from './AuthLayout.module.scss';
 
 interface IProps {
@@ -6,16 +7,12 @@ interface IProps {
 }
 
 const AuthLayout: React.VFC<IProps> = ({ onThemeSwitch }) => {
-  const temporarySwitchThemeButton = (
-    <button onClick={onThemeSwitch} className={styles['ThemeButtonContainer']}>
-      Switch theme
-    </button>
-  );
-
   return (
     <div className={styles['Root']}>
-      <Text>A login form goes here.</Text>
-      {temporarySwitchThemeButton}
+      <LoginForm />
+      <div className={styles['ThemeButtonContainer']}>
+        <Button elementProps={{ onClick: onThemeSwitch }}>Switch theme</Button>
+      </div>
     </div>
   );
 };
