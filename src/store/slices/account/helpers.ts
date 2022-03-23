@@ -24,9 +24,15 @@ const parseUserToken = (token: Token) => {
       .join('')
   );
 
-  const mappedUserData = JSON.parse(jsonPayload, (key, value) => {
+  const userData = JSON.parse(jsonPayload, (key, value) => {
     return key in mapping || key === '' ? value : undefined;
   });
+
+  const mappedUserData: unknown = Object.fromEntries(
+    Object.entries(userData).map(([key, value]) => {
+      return [mapping[key], value];
+    })
+  );
 
   return mappedUserData as IState;
 };
