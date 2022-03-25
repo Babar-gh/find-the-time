@@ -44,7 +44,7 @@ const LoginForm: React.VFC = () => {
 
   const errors: ValidationErrors = validate({ email, password }, constraints);
 
-  const handleSignInButtonClick: MouseEventHandler = (_e) => {
+  const handleSignInButtonClick: MouseEventHandler = async (_e) => {
     if (errors) {
       setEmailIsTouched(true);
       setPasswordIsTouched(true);
@@ -52,7 +52,7 @@ const LoginForm: React.VFC = () => {
       return;
     }
 
-    dispatch(signIn({ email, password }));
+    await dispatch(signIn({ email, password }));
 
     if (jwt.checkIfExists()) {
       const { returnUrl } = (location.state as LocationState) || {};
