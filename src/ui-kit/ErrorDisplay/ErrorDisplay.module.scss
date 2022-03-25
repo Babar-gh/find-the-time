@@ -1,0 +1,42 @@
+$parent-gap-compensated: calc(-1 * (var(--gap) / 2));
+
+.Root {
+  height: 70px;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background-color: var(--canvas-secondary-deeper);
+  border: 1px solid var(--ui-button-danger-active);
+  border-radius: 2px;
+
+  &_transition {
+    &_enter {
+      margin: $parent-gap-compensated 0;
+      height: 0;
+      opacity: 0;
+    }
+
+    &_enterActive {
+      margin: 0;
+      height: 70px;
+      opacity: 1;
+      transition: all 0.5s ease-out;
+    }
+
+    &_exit {
+      margin: 0;
+      height: 70px;
+      opacity: 1;
+    }
+
+    &_exitActive {
+      margin: $parent-gap-compensated 0;
+      height: 0;
+      opacity: 0;
+      transition: all 0.5s ease-out;
+    }
+  }
+}
