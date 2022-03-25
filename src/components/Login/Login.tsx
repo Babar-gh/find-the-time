@@ -95,7 +95,11 @@ const LoginForm: React.VFC = () => {
             <Input
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              onBlur={(_e) => setEmailIsTouched(true)}
+              onBlur={(e) => {
+                if (e.target.value !== '') {
+                  setEmailIsTouched(true);
+                }
+              }}
             />
           </Form.Item>
           <Form.Item
@@ -105,7 +109,11 @@ const LoginForm: React.VFC = () => {
             <Input
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              onBlur={(_e) => setPasswordIsTouched(true)}
+              onBlur={(e) => {
+                if (e.target.value !== '') {
+                  setPasswordIsTouched(true);
+                }
+              }}
               type="password"
             />
           </Form.Item>
