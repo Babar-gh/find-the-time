@@ -41,9 +41,11 @@ const Item: React.VFC<IProps> = ({
       >
         {cloneElement(child, { id: _id, validationStatus })}
         {errorMessage && (
-          <Text color="error" font="primaryItalic" size="small">
-            {errorMessage}
-          </Text>
+          <p className={styles['ErrorMessage']}>
+            <Text color="error" font="primary" size="small">
+              {errorMessage}
+            </Text>
+          </p>
         )}
       </div>
     </div>
