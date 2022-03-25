@@ -11,10 +11,10 @@ import Logo from 'components/Logo';
 import Text from 'components/Text';
 import { signIn } from 'store/slices/account';
 import { useAppDispatch } from 'store/hooks';
+import { LocationState } from 'types/location';
 import styles from './Login.module.scss';
 
 type ValidationErrors = { email?: string; password?: string } | undefined;
-type LocationState = { returnUrl?: string } | null;
 
 const LoginForm: React.VFC = () => {
   const dispatch = useAppDispatch();
@@ -58,7 +58,7 @@ const LoginForm: React.VFC = () => {
       const { returnUrl } = (location.state as LocationState) || {};
 
       // TODO: add enum for all the different routes
-      navigate(returnUrl || '/events');
+      navigate(returnUrl || '/');
     } else {
       setLoginHasFailed(true);
     }
