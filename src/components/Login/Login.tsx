@@ -3,6 +3,7 @@ import { MouseEventHandler, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import * as jwt from 'jwt';
 import Button from 'ui-kit/Button';
+import ErrorDisplay from 'ui-kit/ErrorDisplay';
 import Form from 'ui-kit/Form';
 import Input from 'ui-kit/Input';
 import LinkWrapper from 'components/LinkWrapper';
@@ -77,12 +78,18 @@ const LoginForm: React.VFC = () => {
     </h2>
   );
 
+  const errorDisplay = (
+    <ErrorDisplay isShown={loginHasFailed}>
+      The email or password that you have entered is incorrect.
+    </ErrorDisplay>
+  );
+
   const form = (
     <div className={styles['FormContainer']}>
       <Form defaultPreventedOnSubmission layout="vertical">
         <Form.Column>
           <Form.Item
-            label="Email:"
+            label="Email"
             errorMessage={emailIsTouched ? errors?.email : undefined}
           >
             <Input
@@ -92,7 +99,7 @@ const LoginForm: React.VFC = () => {
             />
           </Form.Item>
           <Form.Item
-            label="Password:"
+            label="Password"
             errorMessage={passwordIsTouched ? errors?.password : undefined}
           >
             <Input
@@ -109,17 +116,16 @@ const LoginForm: React.VFC = () => {
           >
             Sign in
           </Button>
+          <Button
+            elementProps={{
+              onClick: () => setLoginHasFailed((current) => !current),
+            }}
+          >
+            Do some magic!
+          </Button>
         </Form.Column>
       </Form>
     </div>
-  );
-
-  const errorText = (
-    <p className="ErrorText">
-      <Text font="primaryItalic" color="error">
-        Something went wrong. You can try again!
-      </Text>
-    </p>
   );
 
   const links = (
@@ -150,8 +156,8 @@ const LoginForm: React.VFC = () => {
     <div className={styles['Root']}>
       {logo}
       {heading}
+      {errorDisplay}
       {form}
-      {loginHasFailed && errorText}
       {links}
     </div>
   );
