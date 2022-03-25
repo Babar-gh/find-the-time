@@ -1,0 +1,26 @@
+@use '/src/styles/mixins' as *;
+
+$button-size: 40px;
+
+.Button {
+  @include reset-button;
+
+  height: $button-size;
+  width: $button-size;
+  color: var(--ui-button-text);
+  background-color: var(--ui-button);
+  border-radius: 100%;
+  position: relative;
+}
+
+.Container {
+  position: absolute;
+  top: $button-size;
+  right: -16px;
+  width: 250px;
+  padding: 10px 0;
+  background: linear-gradient(to bottom, transparent, var(--canvas-secondary));
+  border: 1px solid var(--ui-button-hover);
+  border-top: none;
+  border-radius: 0 0 10px 10px;
+}
