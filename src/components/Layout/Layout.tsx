@@ -1,182 +1,20 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import * as jwt from 'jwt';
 import Backdrop from 'ui-kit/Backdrop';
-import Button from 'ui-kit/Button';
-import DummyContent from 'ui-kit/DummyContent';
-import Form from 'ui-kit/Form';
-import Input from 'ui-kit/Input';
 import Logo from 'components/Logo';
-import Text from 'components/Text';
 import useBreakpointCheck from 'hooks/useBreakpointCheck';
-import { createEvent } from 'api/events';
 import { ReactComponent as MenuIcon } from 'assets/icons/Menu.svg';
-import { Token } from 'types/common';
 import styles from './Layout.module.scss';
 import NavMenu from './components/NavMenu';
+import Button from 'ui-kit/Button';
 
 interface IProps {
   onThemeSwitch: () => void;
 }
 
-const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
+const Layout: React.FC<IProps> = ({ onThemeSwitch, children }) => {
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
   const bp = useBreakpointCheck();
-
-  const [tempFormColumns, setTempFormColumns] = useState(1);
-  const [tempFormLayout, setTempFormLayout] = useState<
-  'responsive' | 'vertical'
-  >('responsive');
-
-  const tempColumnWithButtons = (
-    <Form.Column>
-      <Form.Item label="Field:">
-        <Input />
-      </Form.Item>
-      <Form.Item label="Required field:" isRequired>
-        <Input />
-      </Form.Item>
-      <Form.Item
-        label="Failed validation:"
-        isRequired
-        errorMessage="Something is wrong, fix it!"
-      >
-        <Input />
-      </Form.Item>
-      <Button
-        elementProps={{
-          onClick: () =>
-            setTempFormLayout((current) =>
-              current === 'responsive' ? 'vertical' : 'responsive'
-            ),
-        }}
-      >
-        Switch layout
-      </Button>
-      <Button
-        elementProps={{
-          onClick: () =>
-            setTempFormColumns((current) => (current === 3 ? 1 : ++current)),
-        }}
-      >
-        Switch columns
-      </Button>
-    </Form.Column>
-  );
-
-  const tempColumn = (
-    <Form.Column>
-      <Form.Item label="Field:">
-        <Input />
-      </Form.Item>
-      <Form.Item label="Required field:" isRequired>
-        <Input />
-      </Form.Item>
-      <Form.Item
-        label="Failed validation:"
-        isRequired
-        errorMessage="Something is wrong, fix it!"
-      >
-        <Input />
-      </Form.Item>
-    </Form.Column>
-  );
-
-  const temporaryForm =
-    tempFormColumns === 1 ? (
-      <Form defaultPreventedOnSubmission layout={tempFormLayout}>
-        {tempColumnWithButtons}
-      </Form>
-    ) : tempFormColumns === 2 ? (
-      <Form defaultPreventedOnSubmission layout={tempFormLayout}>
-        {tempColumnWithButtons}
-        {tempColumn}
-      </Form>
-    ) : (
-      <Form defaultPreventedOnSubmission layout={tempFormLayout}>
-        {tempColumnWithButtons}
-        {tempColumn}
-        {tempColumn}
-      </Form>
-    );
-
-  const temporatyJwtIntercetorTest = (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '16px',
-      }}
-    >
-      <Text>Set JWT:</Text>
-      <Input
-        onChange={(event) => {
-          jwt.set(event.target.value as Token);
-          window.location.reload();
-        }}
-      />
-      <Text>Current JWT:</Text>
-      <Text>
-        {`...${jwt.get()?.slice(-30)}` || 'No JWT detected in local storage'}
-      </Text>
-      <Button
-        elementProps={{
-          onClick: () =>
-            createEvent({
-              title: 'Test Event',
-              duration: 123,
-              location: 'Miyazaki Swamp',
-              comment: '321',
-              initialIntervals: [
-                {
-                  start: '2022-03-11 12:00:00',
-                  end: '2022-03-12 12:00:00',
-                },
-                {
-                  start: '2022-03-13 12:00:00',
-                  end: '2022-03-14 12:00:00',
-                },
-              ],
-            }).then(({ data }) => {
-              console.log(data);
-            }),
-        }}
-        leftIcon="EventAvailable"
-        theme="danger"
-      >
-        Make request
-      </Button>
-    </div>
-  );
-
-  const temporaryBreakpointIndicator = (
-    <p>
-      <Text>Current breakpoint:</Text> {bp('Desktop') && <Text>Desktop</Text>}
-      {bp('Laptop') && <Text>Laptop</Text>}
-      {bp('Tablet') && <Text>Tablet</Text>}
-      {bp('Mobile') && <Text>Mobile</Text>}
-    </p>
-  );
-
-  const temporaryInputs = (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '16px',
-      }}
-    >
-      <Input defaultValue={'regular text'} />
-      <Input type="password" defaultValue={'password'} />
-      <Input validationStatus="error" defaultValue={'error theme'} />
-    </div>
-  );
-
-  const temporarySwitchThemeButton = (
-    <Button elementProps={{ onClick: onThemeSwitch }} leftIcon="Menu">
-      Switch theme
-    </Button>
-  );
 
   const menuButton = (
     <button
@@ -205,11 +43,26 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
     </div>
   );
 
+  const tempSwitchThemeButton = (
+    <div
+      style={{ alignSelf: 'center', marginLeft: 'auto', marginRight: '13px' }}
+    >
+      <Button
+        elementProps={{
+          onClick: onThemeSwitch,
+        }}
+      >
+        Switch theme
+      </Button>
+    </div>
+  );
+
   return (
     <div className={styles['Root']}>
       <header className={styles['Header']}>
         {bp('Mobile', 'Tablet') && menuButton}
         {logo}
+        {tempSwitchThemeButton}
       </header>
 
       <div className={styles['ColumnWrapper']}>
@@ -224,23 +77,7 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch }) => {
         {bp('Tablet') && sidebarIsOpen && sidebar}
         {bp('Laptop', 'Desktop') && sidebar}
 
-        <main className={styles['Content']}>
-          <div
-            style={{
-              margin: '16px',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '16px',
-            }}
-          >
-            {temporaryForm}
-            {temporatyJwtIntercetorTest}
-            {temporaryBreakpointIndicator}
-            {temporaryInputs}
-            {temporarySwitchThemeButton}
-            <DummyContent />
-          </div>
-        </main>
+        <main className={styles['Content']}>{children}</main>
       </div>
     </div>
   );
