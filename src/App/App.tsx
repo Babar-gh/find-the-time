@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import AuthLayout from 'components/AuthLayout';
+import Login from 'components/Login';
 import bodyStyles from './Body.module.scss';
 import useBreakpointUpdate from './hooks/useBreakpointUpdate';
 import useTheme from './hooks/useTheme';
@@ -15,7 +16,9 @@ const App: React.VFC = () => {
 
   return (
     <div>
-      <AuthLayout onThemeSwitch={switchTheme} />
+      <AuthLayout onThemeSwitch={switchTheme}>
+        <Login />
+      </AuthLayout>
     </div>
   );
 };

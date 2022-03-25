@@ -1,4 +1,3 @@
-import LoginForm from 'components/Login';
 import Button from 'ui-kit/Button';
 import styles from './AuthLayout.module.scss';
 
@@ -6,13 +5,13 @@ interface IProps {
   onThemeSwitch: () => void;
 }
 
-const AuthLayout: React.VFC<IProps> = ({ onThemeSwitch }) => {
+const AuthLayout: React.FC<IProps> = ({ onThemeSwitch, children }) => {
   return (
     <div className={styles['Root']}>
-      <LoginForm />
       <div className={styles['ThemeButtonContainer']}>
         <Button elementProps={{ onClick: onThemeSwitch }}>Switch theme</Button>
       </div>
+      {children}
     </div>
   );
 };
