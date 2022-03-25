@@ -6,7 +6,7 @@ type ItemComponent = typeof Item;
 type ItemElement = ReactElement<React.ComponentProps<ItemComponent>>;
 
 interface IProps {
-  selectedId: string;
+  selectedId?: string;
   children: ItemElement | ItemElement[];
 }
 
