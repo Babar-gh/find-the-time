@@ -16,7 +16,7 @@ import styles from './Login.module.scss';
 
 type ValidationErrors = { email?: string; password?: string } | undefined;
 
-const LoginForm: React.VFC = () => {
+const Login: React.VFC = () => {
   const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
@@ -171,4 +171,4 @@ const LoginForm: React.VFC = () => {
   );
 };
 
-export default LoginForm;
+export default Login;
