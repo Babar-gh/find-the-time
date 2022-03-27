@@ -10,5 +10,14 @@
   position: fixed;
   z-index: map.get($z-indexes, 'modal-backdrop');
   inset: 0;
-  background-color: var(--ui-backdrop);
+
+  &_theme {
+    &_shaded {
+      background-color: var(--ui-backdrop);
+    }
+
+    &_transparent {
+      background-color: transparent;
+    }
+  }
 }

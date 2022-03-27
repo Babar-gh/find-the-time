@@ -1,15 +1,24 @@
+import classNames from 'classnames/bind';
 import ReactDOM from 'react-dom';
-import { MouseEvent } from 'react';
+import { MouseEventHandler } from 'react';
 import styles from './Backdrop.module.scss';
 
 const modalRoot = document.getElementById('modal-root')!;
 
 interface IProps {
   isOpen: boolean;
-  onBackdropClick?: (event: MouseEvent<HTMLElement>) => void;
+  theme?: 'shaded' | 'transparent';
+  onBackdropClick?: MouseEventHandler;
 }
 
-const Backdrop: React.FC<IProps> = ({ isOpen, onBackdropClick, children }) => {
+const cn = classNames.bind(styles);
+
+const Backdrop: React.FC<IProps> = ({
+  isOpen,
+  theme = 'shaded',
+  onBackdropClick,
+  children,
+}) => {
   if (!isOpen) {
     return null;
   }
@@ -17,7 +26,10 @@ const Backdrop: React.FC<IProps> = ({ isOpen, onBackdropClick, children }) => {
   return ReactDOM.createPortal(
     <>
       <div className={styles['Content']}>{children}</div>
-      <div className={styles['Backdrop']} onClick={onBackdropClick}></div>
+      <div
+        className={cn('Backdrop', `Backdrop_theme_${theme}`)}
+        onClick={onBackdropClick}
+      />
     </>,
     modalRoot
   );
