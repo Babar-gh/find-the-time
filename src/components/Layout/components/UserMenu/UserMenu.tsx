@@ -21,33 +21,21 @@ const UserMenu: React.FC = () => {
       {isOpen && (
         <nav className={styles['Container']}>
           <Menu>
+            {/* TODO: Add enum for all the different routes*/}
             <Menu.Item
-              id="Lorem"
-              elementProps={{ type: 'HTMLAnchor', href: '/lorem' }}
-              icon="EventAvailable"
+              id="account"
+              elementProps={{ type: 'RouterLink', to: '/account' }}
+              icon="AccountCircle"
             >
-              Lorem
+              Your account
             </Menu.Item>
+            {/* TODO: Add enum for all the different routes*/}
             <Menu.Item
-              id="Ipsum"
-              elementProps={{ type: 'RouterLink', to: '/ipsum' }}
+              id="settings"
+              elementProps={{ type: 'RouterLink', to: '/settings' }}
+              icon="Settings"
             >
-              Ipsum
-            </Menu.Item>
-            <Menu.Item
-              id="Dolor"
-              element="HTMLButton"
-              elementProps={{ onClick: () => alert('Dolor!') }}
-              icon="Menu"
-            >
-              Dolor
-            </Menu.Item>
-            <Menu.Item
-              id="Sit"
-              element="HTMLButton"
-              elementProps={{ onClick: () => alert('Sit!') }}
-            >
-              Sit
+              Settings
             </Menu.Item>
             <Menu.Item
               id="logout"
