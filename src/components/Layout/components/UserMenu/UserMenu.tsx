@@ -1,8 +1,8 @@
-import Text from 'components/Text';
 import { useState } from 'react';
-import { useAppDispatch } from 'store/hooks';
-import { signOut } from 'store/slices/account';
 import Menu from 'ui-kit/Menu';
+import Text from 'components/Text';
+import { signOut } from 'store/slices/account';
+import { useAppDispatch } from 'store/hooks';
 import styles from './UserMenu.module.scss';
 
 const UserMenu: React.FC = () => {
