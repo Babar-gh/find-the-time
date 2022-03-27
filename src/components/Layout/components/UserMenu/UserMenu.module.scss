@@ -1,4 +1,5 @@
 @use '/src/styles/mixins' as *;
+@use '../../Layout.module.scss' as *;
 
 $button-size: 40px;
 
@@ -10,13 +11,12 @@ $button-size: 40px;
   color: var(--ui-button-text);
   background-color: var(--ui-button);
   border-radius: 100%;
-  position: relative;
 }
 
 .Container {
-  position: absolute;
-  top: $button-size + 10px;
-  right: 0;
+  position: fixed;
+  top: $top-bar-height;
+  right: 16px;
   width: 200px;
   padding: 16px 0;
   background-color: var(--canvas-secondary);

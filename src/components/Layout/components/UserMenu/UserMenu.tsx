@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Backdrop from 'ui-kit/Backdrop';
 import Menu from 'ui-kit/Menu';
 import Text from 'components/Text';
 import useAccountDisplayName from 'hooks/useAccountDisplayName';
@@ -21,7 +22,7 @@ const UserMenu: React.FC = () => {
       <Text font="brand" size="big" color="inherit">
         {displayName.charAt(0).toUpperCase()}
       </Text>
-      {isOpen && (
+      <Backdrop isOpen={isOpen} theme="transparent">
         <nav className={styles['Container']}>
           <div className={styles['DisplayNameContainer']}>
             <Text size="small">Signed in as </Text>
@@ -56,7 +57,7 @@ const UserMenu: React.FC = () => {
             </Menu.Item>
           </Menu>
         </nav>
-      )}
+      </Backdrop>
     </button>
   );
 };
