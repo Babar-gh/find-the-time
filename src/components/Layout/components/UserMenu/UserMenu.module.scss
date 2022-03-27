@@ -15,12 +15,11 @@ $button-size: 40px;
 
 .Container {
   position: absolute;
-  top: $button-size;
-  right: -16px;
-  width: 250px;
+  top: $button-size + 10px;
+  right: 0;
+  width: 200px;
   padding: 10px 0;
-  background: linear-gradient(to bottom, transparent, var(--canvas-secondary));
+  background-color: var(--canvas-secondary);
   border: 1px solid var(--ui-button-hover);
-  border-top: none;
-  border-radius: 0 0 10px 10px;
+  border-radius: 10px;
 }
