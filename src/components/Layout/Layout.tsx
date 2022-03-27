@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import Backdrop from 'ui-kit/Backdrop';
+import Button from 'ui-kit/Button';
 import Logo from 'components/Logo';
 import useBreakpointCheck from 'hooks/useBreakpointCheck';
 import { ReactComponent as MenuIcon } from 'assets/icons/Menu.svg';
-import styles from './Layout.module.scss';
 import NavMenu from './components/NavMenu';
-import Button from 'ui-kit/Button';
+import styles from './Layout.module.scss';
+import UserMenu from './components/UserMenu';
 
 interface IProps {
   onThemeSwitch: () => void;
@@ -43,9 +44,10 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch, children }) => {
     </div>
   );
 
+  // TODO: Replace with a custom button.
   const tempSwitchThemeButton = (
     <div
-      style={{ alignSelf: 'center', marginLeft: 'auto', marginRight: '13px' }}
+      style={{ alignSelf: 'center', marginLeft: 'auto', marginRight: '16px' }}
     >
       <Button
         elementProps={{
@@ -57,12 +59,19 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch, children }) => {
     </div>
   );
 
+  const userMenuButton = (
+    <div className={styles['UserMenuButtonContainer']}>
+      <UserMenu />
+    </div>
+  );
+
   return (
     <div className={styles['Root']}>
       <header className={styles['Header']}>
         {bp('Mobile', 'Tablet') && menuButton}
         {logo}
         {tempSwitchThemeButton}
+        {userMenuButton}
       </header>
 
       <div className={styles['ColumnWrapper']}>
