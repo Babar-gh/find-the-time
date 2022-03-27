@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Menu from 'ui-kit/Menu';
 import Text from 'components/Text';
+import useAccountDisplayName from 'hooks/useAccountDisplayName';
 import { signOut } from 'store/slices/account';
 import { useAppDispatch } from 'store/hooks';
 import styles from './UserMenu.module.scss';
@@ -10,16 +11,24 @@ const UserMenu: React.FC = () => {
 
   const [isOpen, setIsOpen] = useState(false);
 
+  const displayName = useAccountDisplayName();
+
   return (
     <button
       className={styles['Button']}
       onClick={() => setIsOpen((current) => !current)}
     >
       <Text font="brand" size="big" color="inherit">
-        B
+        {displayName.charAt(0).toUpperCase()}
       </Text>
       {isOpen && (
         <nav className={styles['Container']}>
+          <div className={styles['DisplayNameContainer']}>
+            <Text size="small">Signed in as </Text>
+            <Text font="primaryBold" size="small">
+              {displayName}
+            </Text>
+          </div>
           <Menu>
             {/* TODO: Add enum for all the different routes*/}
             <Menu.Item
