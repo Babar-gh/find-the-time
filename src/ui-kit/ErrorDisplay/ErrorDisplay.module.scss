@@ -1,5 +1,17 @@
 $parent-gap-compensated: calc(-1 * (var(--gap) / 2));
 
+@mixin hidden {
+  margin: $parent-gap-compensated 0;
+  height: 0;
+  opacity: 0;
+}
+
+@mixin shown {
+  margin: 0;
+  height: 70px;
+  opacity: 1;
+}
+
 .Root {
   height: 70px;
   line-height: 1.6;
@@ -14,28 +26,22 @@ $parent-gap-compensated: calc(-1 * (var(--gap) / 2));
 
   &_transition {
     &_enter {
-      margin: $parent-gap-compensated 0;
-      height: 0;
-      opacity: 0;
+      @include hidden;
     }
 
     &_enterActive {
-      margin: 0;
-      height: 70px;
-      opacity: 1;
+      @include shown;
+
       transition: all 0.5s ease-out;
     }
 
     &_exit {
-      margin: 0;
-      height: 70px;
-      opacity: 1;
+      @include shown;
     }
 
     &_exitActive {
-      margin: $parent-gap-compensated 0;
-      height: 0;
-      opacity: 0;
+      @include hidden;
+
       transition: all 0.5s ease-out;
     }
   }
