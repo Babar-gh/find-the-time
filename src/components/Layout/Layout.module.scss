@@ -1,3 +1,4 @@
+@use 'sass:map';
 @use '/src/styles/constants' as *;
 @use '/src/styles/mixins' as *;
 
@@ -26,6 +27,7 @@ $top-bar-height: 60px;
 .Header {
   height: $top-bar-height;
   position: sticky;
+  z-index: map.get($z-indexes, 'header');
   top: 0;
   background-color: var(--canvas-secondary-deeper);
   display: flex;
@@ -94,7 +96,6 @@ $top-bar-height: 60px;
 @include apply-to(Mobile) {
   .Sidebar {
     position: fixed;
-    z-index: 2;
     height: 100vh;
     top: 0;
     width: 280px;
