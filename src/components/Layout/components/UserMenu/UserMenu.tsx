@@ -2,9 +2,9 @@ import { useState } from 'react';
 import Backdrop from 'ui-kit/Backdrop';
 import Menu from 'ui-kit/Menu';
 import Text from 'components/Text';
-import useAccountDisplayName from 'hooks/useAccountDisplayName';
+import { getDisplayName } from 'helpers/users/getDisplayName';
 import { signOut } from 'store/slices/account';
-import { useAppDispatch } from 'store/hooks';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
 import styles from './UserMenu.module.scss';
 
 const UserMenu: React.FC = () => {
@@ -12,7 +12,8 @@ const UserMenu: React.FC = () => {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const displayName = useAccountDisplayName();
+  const account = useAppSelector((store) => store.account);
+  const displayName = getDisplayName(account);
 
   return (
     <button
