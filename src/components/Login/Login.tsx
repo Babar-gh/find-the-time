@@ -7,11 +7,12 @@ import ErrorDisplay from 'ui-kit/ErrorDisplay';
 import Form from 'ui-kit/Form';
 import Input from 'ui-kit/Input';
 import LinkWrapper from 'components/LinkWrapper';
+import Loader from 'ui-kit/Loader';
 import Logo from 'components/Logo';
 import Text from 'components/Text';
+import { LocationState } from 'types/location';
 import { signIn } from 'store/slices/account';
 import { useAppDispatch } from 'store/hooks';
-import { LocationState } from 'types/location';
 import styles from './Login.module.scss';
 
 type ValidationErrors = { email?: string; password?: string } | undefined;
@@ -21,6 +22,8 @@ const Login: React.VFC = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
+
+  const [loaderIsShown, setLoaderIsShown] = useState(false);
 
   const [email, setEmail] = useState('');
   const [emailIsTouched, setEmailIsTouched] = useState(false);
@@ -52,6 +55,8 @@ const Login: React.VFC = () => {
       return;
     }
 
+    setLoaderIsShown(true);
+
     await dispatch(signIn({ email, password }));
 
     if (jwt.checkIfExists()) {
@@ -61,6 +66,7 @@ const Login: React.VFC = () => {
       navigate(returnUrl || '/');
     } else {
       setLoginHasFailed(true);
+      setLoaderIsShown(false);
     }
   };
 
@@ -124,13 +130,6 @@ const Login: React.VFC = () => {
           >
             Sign in
           </Button>
-          <Button
-            elementProps={{
-              onClick: () => setLoginHasFailed((current) => !current),
-            }}
-          >
-            Do some magic!
-          </Button>
         </Form.Column>
       </Form>
     </div>
@@ -161,13 +160,15 @@ const Login: React.VFC = () => {
   );
 
   return (
-    <div className={styles['Root']}>
-      {logo}
-      {heading}
-      {errorDisplay}
-      {form}
-      {links}
-    </div>
+    <Loader isShown={loaderIsShown}>
+      <div className={styles['Root']}>
+        {logo}
+        {heading}
+        {errorDisplay}
+        {form}
+        {links}
+      </div>
+    </Loader>
   );
 };
 
