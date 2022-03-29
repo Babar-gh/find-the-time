@@ -1,0 +1,21 @@
+@use '/src/styles/mixins' as *;
+
+.Root {
+  padding: 32px;
+}
+
+.Header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+
+  @include apply-to(Mobile) {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+}
+
+.Title {
+  margin: 0;
+}
