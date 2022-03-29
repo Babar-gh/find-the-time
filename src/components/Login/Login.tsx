@@ -23,7 +23,7 @@ const Login: React.VFC = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [loaderIsShown, setLoaderIsShown] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [email, setEmail] = useState('');
   const [emailIsTouched, setEmailIsTouched] = useState(false);
@@ -55,7 +55,7 @@ const Login: React.VFC = () => {
       return;
     }
 
-    setLoaderIsShown(true);
+    setIsLoading(true);
 
     await dispatch(signIn({ email, password }));
 
@@ -66,8 +66,9 @@ const Login: React.VFC = () => {
       navigate(returnUrl || '/');
     } else {
       setLoginHasFailed(true);
-      setLoaderIsShown(false);
     }
+
+    setIsLoading(false);
   };
 
   const logo = (
@@ -160,7 +161,7 @@ const Login: React.VFC = () => {
   );
 
   return (
-    <Loader isShown={loaderIsShown}>
+    <Loader isShown={isLoading}>
       <div className={styles['Root']}>
         {logo}
         {heading}
