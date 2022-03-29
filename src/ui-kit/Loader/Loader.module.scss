@@ -1,14 +1,17 @@
 .Root {
-  height: fit-content;
-  width: fit-content;
   position: relative;
 }
 
 .Backdrop {
   position: absolute;
-  inset: 50px;
-  background-color: var(--ui-backdrop);
-  box-shadow: 0 0 30px 40px var(--ui-backdrop);
+  inset: 0;
+  border-radius: 2px;
+  background:
+    radial-gradient(
+      circle closest-side,
+      var(--ui-backdrop),
+      transparent
+    );
   display: flex;
   justify-content: center;
   align-items: center;
