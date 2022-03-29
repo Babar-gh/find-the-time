@@ -1,15 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Button from 'ui-kit/Button';
+import DummyContent from 'ui-kit/DummyContent';
 import Layout from 'components/Layout';
-import Loader from 'ui-kit/Loader';
-import Login from 'components/Login';
+import Page from 'ui-kit/Page';
 import bodyStyles from './Body.module.scss';
 import useBreakpointUpdate from './hooks/useBreakpointUpdate';
 import useTheme from './hooks/useTheme';
 
 const App: React.VFC = () => {
   const [theme, switchTheme] = useTheme();
-  const [loaderIsShown, setLoaderIsShown] = useState(false);
 
   useEffect(() => {
     document.body.className = bodyStyles[`Root_theme_${theme}`];
@@ -20,16 +19,16 @@ const App: React.VFC = () => {
   return (
     <div>
       <Layout onThemeSwitch={switchTheme}>
-        <Button
-          elementProps={{
-            onClick: () => setLoaderIsShown((current) => !current),
-          }}
+        <Page
+          title="That's a Page!"
+          headerAddon={
+            <Button elementProps={{ onClick: () => alert('Kek!') }}>
+              I'm a header addon
+            </Button>
+          }
         >
-          Show loader
-        </Button>
-        <Loader isShown={loaderIsShown}>
-          <Login />
-        </Loader>
+          <DummyContent />
+        </Page>
       </Layout>
     </div>
   );
