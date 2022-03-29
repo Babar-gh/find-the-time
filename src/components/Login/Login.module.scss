@@ -1,24 +1,9 @@
-@use '/src/styles/mixins' as *;
-
 .Root {
   --gap: 40px;
 
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: var(--gap);
-  background-color: var(--canvas-primary);
-
-  @include apply-to(Tablet, Laptop, Desktop) {
-    width: 320px;
-    padding: 60px;
-    border-radius: 30px;
-  }
-
-  @include apply-to(Mobile) {
-    width: 100%;
-    padding: 60px calc((100% - 320px) / 2);
-  }
 }
 
 .Heading,
@@ -26,8 +11,8 @@
   margin: 0;
 }
 
-.LogoContainer {
-  color: var(--text-primary);
+.Heading {
+  align-self: center;
 }
 
 .FormContainer {

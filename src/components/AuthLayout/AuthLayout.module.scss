@@ -1,16 +1,46 @@
 @use '/src/styles/constants' as *;
+@use '/src/styles/mixins' as *;
 
 .Root {
-  background-color: var(--canvas-secondary-deep);
   min-height: 100vh;
   min-width: $layout-min-width;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @include apply-to(Tablet, Laptop, Desktop) {
+    background-color: var(--canvas-secondary-deep);
+  }
+
+  @include apply-to(Mobile) {
+    background-color: var(--canvas-primary);
+  }
 }
 
 .ThemeButtonContainer {
   position: absolute;
   top: 30px;
   right: 30px;
+}
+
+.ContentContainer {
+  background-color: var(--canvas-primary);
+
+  @include apply-to(Tablet, Laptop, Desktop) {
+    width: 360px;
+    padding: 60px;
+    border-radius: 30px;
+  }
+
+  @include apply-to(Mobile) {
+    flex-basis: 100%;
+    max-width: 360px;
+    padding: 60px 10px;
+  }
+}
+
+.LogoContainer {
+  color: var(--text-primary);
+  width: fit-content;
+  margin: 0 auto 40px;
 }

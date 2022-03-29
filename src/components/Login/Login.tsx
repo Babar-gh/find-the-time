@@ -8,7 +8,6 @@ import Form from 'ui-kit/Form';
 import Input from 'ui-kit/Input';
 import LinkWrapper from 'components/LinkWrapper';
 import Loader from 'ui-kit/Loader';
-import Logo from 'components/Logo';
 import Text from 'components/Text';
 import { LocationState } from 'types/location';
 import { signIn } from 'store/slices/account';
@@ -70,12 +69,6 @@ const Login: React.VFC = () => {
 
     setIsLoading(false);
   };
-
-  const logo = (
-    <div className={styles['LogoContainer']}>
-      <Logo />
-    </div>
-  );
 
   const heading = (
     <h2 className={styles['Heading']}>
@@ -163,7 +156,6 @@ const Login: React.VFC = () => {
   return (
     <Loader isShown={isLoading}>
       <div className={styles['Root']}>
-        {logo}
         {heading}
         {errorDisplay}
         {form}

@@ -1,3 +1,4 @@
+import Logo from 'components/Logo';
 import Button from 'ui-kit/Button';
 import styles from './AuthLayout.module.scss';
 
@@ -11,7 +12,12 @@ const AuthLayout: React.FC<IProps> = ({ onThemeSwitch, children }) => {
       <div className={styles['ThemeButtonContainer']}>
         <Button elementProps={{ onClick: onThemeSwitch }}>Switch theme</Button>
       </div>
-      {children}
+      <div className={styles['ContentContainer']}>
+        <div className={styles['LogoContainer']}>
+          <Logo />
+        </div>
+        {children}
+      </div>
     </div>
   );
 };
