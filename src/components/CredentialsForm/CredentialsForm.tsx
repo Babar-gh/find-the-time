@@ -1,5 +1,5 @@
 import validate from 'validate.js';
-import { MouseEventHandler, useState } from 'react';
+import { cloneElement, MouseEventHandler, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import * as jwt from 'jwt';
 import Button from 'ui-kit/Button';
@@ -10,13 +10,17 @@ import LinkWrapper from 'components/LinkWrapper';
 import Loader from 'ui-kit/Loader';
 import Text from 'components/Text';
 import { LocationState } from 'types/location';
-import { signIn } from 'store/slices/account';
+import { signIn, signUp } from 'store/slices/account';
 import { useAppDispatch } from 'store/hooks';
 import styles from './CredentialsForm.module.scss';
 
+interface IProps {
+  type: 'login' | 'registration';
+}
+
 type ValidationErrors = { email?: string; password?: string } | undefined;
 
-const CredentialsForm: React.VFC = () => {
+const CredentialsForm: React.VFC<IProps> = ({ type }) => {
   const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
@@ -30,7 +34,7 @@ const CredentialsForm: React.VFC = () => {
   const [password, setPassword] = useState('');
   const [passwordIsTouched, setPasswordIsTouched] = useState(false);
 
-  const [loginHasFailed, setLoginHasFailed] = useState(false);
+  const [submitHasFailed, setSubmitHasFailed] = useState(false);
 
   const constraints = {
     email: {
@@ -46,7 +50,59 @@ const CredentialsForm: React.VFC = () => {
 
   const errors: ValidationErrors = validate({ email, password }, constraints);
 
-  const handleSignInButtonClick: MouseEventHandler = async (_e) => {
+  let action: typeof signIn | typeof signUp,
+    headingText: string,
+    errorText: string,
+    buttonText: string,
+    links: JSX.Element[];
+
+  switch (type) {
+    case 'login':
+      action = signIn;
+      headingText = 'Sign In';
+      errorText = 'The email or password that you have entered is incorrect.';
+      buttonText = 'Sign in';
+      links = [
+        <>
+          <Text>Need an account? </Text>
+          {/* TODO: Replace with a proper <Link> component, add enum for all the different routes */}
+          <LinkWrapper type="RouterLink" to={'/register'}>
+            <Text>Sign up!</Text>
+          </LinkWrapper>
+        </>,
+        <>
+          {/* TODO: Replace with a proper <Link> component, add enum for all the different routes */}
+          <LinkWrapper type="RouterLink" to={'/reset-password'}>
+            <Text>Forgot your password?</Text>
+          </LinkWrapper>
+        </>,
+      ];
+      break;
+
+    case 'registration':
+      action = signUp;
+      headingText = 'Sign Up';
+      errorText = 'Please try a different email address.';
+      buttonText = 'Sign up';
+      links = [
+        <>
+          <Text>Already have an account? </Text>
+          {/* TODO: Replace with a proper <Link> component, add enum for all the different routes */}
+          <LinkWrapper type="RouterLink" to={'/login'}>
+            <Text>Sign in!</Text>
+          </LinkWrapper>
+        </>,
+        <>
+          {/* TODO: Replace with a proper <Link> component, add enum for all the different routes */}
+          <LinkWrapper type="RouterLink" to={'/reset-password'}>
+            <Text>Forgot your password?</Text>
+          </LinkWrapper>
+        </>,
+      ];
+      break;
+  }
+
+  const handleButtonClick: MouseEventHandler = async (_e) => {
     if (errors) {
       setEmailIsTouched(true);
       setPasswordIsTouched(true);
@@ -56,33 +112,20 @@ const CredentialsForm: React.VFC = () => {
 
     setIsLoading(true);
 
-    await dispatch(signIn({ email, password }));
+    await dispatch(action({ email, password }));
 
     if (jwt.checkIfExists()) {
       const { returnUrl } = (location.state as LocationState) || {};
 
       // TODO: add enum for all the different routes
       navigate(returnUrl || '/');
+      setSubmitHasFailed(false);
     } else {
-      setLoginHasFailed(true);
+      setSubmitHasFailed(true);
     }
 
     setIsLoading(false);
   };
-
-  const heading = (
-    <h2 className={styles['Heading']}>
-      <Text size="big" color="secondary">
-        Sign in
-      </Text>
-    </h2>
-  );
-
-  const errorDisplay = (
-    <ErrorDisplay isShown={loginHasFailed}>
-      The email or password that you have entered is incorrect.
-    </ErrorDisplay>
-  );
 
   const form = (
     <div className={styles['FormContainer']}>
@@ -119,47 +162,31 @@ const CredentialsForm: React.VFC = () => {
           </Form.Item>
           <Button
             elementProps={{
-              onClick: handleSignInButtonClick,
+              onClick: handleButtonClick,
             }}
           >
-            Sign in
+            {buttonText}
           </Button>
         </Form.Column>
       </Form>
     </div>
   );
 
-  const links = (
-    <div className={styles['Links']}>
-      <p className={styles['LinkContainer']}>
-        <Text>Need an account? </Text>
-        {
-          // TODO: Replace with a proper <Link> component,
-          //       add enum for all the different routes
-        }
-        <LinkWrapper type="RouterLink" to={'/register'}>
-          <Text>Sign up!</Text>
-        </LinkWrapper>
-      </p>
-      <p className={styles['LinkContainer']}>
-        {
-          // TODO: Replace with a proper <Link> component,
-          //       add enum for all the different routes
-        }
-        <LinkWrapper type="RouterLink" to={'/reset-password'}>
-          <Text>Forgot your password?</Text>
-        </LinkWrapper>
-      </p>
-    </div>
-  );
-
   return (
     <Loader isShown={isLoading}>
       <div className={styles['Root']}>
-        {heading}
-        {errorDisplay}
+        <h2 className={styles['Heading']}>
+          <Text size="big" color="secondary">
+            {headingText}
+          </Text>
+        </h2>
+        <ErrorDisplay isShown={submitHasFailed}>{errorText}</ErrorDisplay>
         {form}
-        {links}
+        <div className={styles['Links']}>
+          {links.map((link) => (
+            <p className={styles['LinkContainer']}>{cloneElement(link)}</p>
+          ))}
+        </div>
       </div>
     </Loader>
   );
