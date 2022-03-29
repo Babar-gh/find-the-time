@@ -12,11 +12,11 @@ import Text from 'components/Text';
 import { LocationState } from 'types/location';
 import { signIn } from 'store/slices/account';
 import { useAppDispatch } from 'store/hooks';
-import styles from './Login.module.scss';
+import styles from './CredentialsForm.module.scss';
 
 type ValidationErrors = { email?: string; password?: string } | undefined;
 
-const Login: React.VFC = () => {
+const CredentialsForm: React.VFC = () => {
   const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
@@ -165,4 +165,4 @@ const Login: React.VFC = () => {
   );
 };
 
-export default Login;
+export default CredentialsForm;
