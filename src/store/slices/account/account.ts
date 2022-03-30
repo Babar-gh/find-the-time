@@ -1,7 +1,7 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, isAnyOf, PayloadAction } from '@reduxjs/toolkit';
 import { Guid } from 'types/common';
 import { IUser } from 'types/user';
-import { signIn } from './asyncThunks';
+import { signIn, signUp } from './asyncThunks';
 
 export interface IState extends IUser {
   isDemo: boolean;
@@ -28,11 +28,14 @@ export const accountSlice = createSlice({
   },
 
   extraReducers: (builder) => {
-    builder.addCase(signIn.fulfilled, (_state, { payload: accountData }) => {
-      if (accountData) {
-        return accountData;
+    builder.addMatcher(
+      isAnyOf(signIn.fulfilled, signUp.fulfilled),
+      (_state, { payload: accountData }) => {
+        if (accountData) {
+          return accountData;
+        }
       }
-    });
+    );
   },
 });
 

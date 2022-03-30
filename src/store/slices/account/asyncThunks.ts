@@ -22,7 +22,7 @@ export const signIn = createAsyncThunk(
 );
 
 export const signUp = createAsyncThunk(
-  'account/signIn',
+  'account/signUp',
   async (credentials: IUserCreationRequest) => {
     try {
       const registrationResponse = await createUser(credentials);
