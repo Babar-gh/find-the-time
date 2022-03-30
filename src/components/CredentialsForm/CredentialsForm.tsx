@@ -50,19 +50,19 @@ const CredentialsForm: React.VFC<IProps> = ({ type }) => {
 
   const errors: ValidationErrors = validate({ email, password }, constraints);
 
-  let action: typeof signIn | typeof signUp,
+  let actionToDispatch: typeof signIn | typeof signUp,
     headingText: string,
     errorText: string,
     buttonText: string,
-    links: JSX.Element[];
+    bottomAddons: JSX.Element[];
 
   switch (type) {
     case 'login':
-      action = signIn;
+      actionToDispatch = signIn;
       headingText = 'Sign In';
       errorText = 'The email or password that you have entered is incorrect.';
       buttonText = 'Sign in';
-      links = [
+      bottomAddons = [
         <>
           <Text>Need an account? </Text>
           {/* TODO: Replace with a proper <Link> component, add enum for all the different routes */}
@@ -80,11 +80,11 @@ const CredentialsForm: React.VFC<IProps> = ({ type }) => {
       break;
 
     case 'registration':
-      action = signUp;
+      actionToDispatch = signUp;
       headingText = 'Sign Up';
       errorText = 'Please try a different email address.';
       buttonText = 'Sign up';
-      links = [
+      bottomAddons = [
         <>
           <Text>Already have an account? </Text>
           {/* TODO: Replace with a proper <Link> component, add enum for all the different routes */}
@@ -112,7 +112,7 @@ const CredentialsForm: React.VFC<IProps> = ({ type }) => {
 
     setIsLoading(true);
 
-    await dispatch(action({ email, password }));
+    await dispatch(actionToDispatch({ email, password }));
 
     if (jwt.checkIfExists()) {
       const { returnUrl } = (location.state as LocationState) || {};
@@ -182,9 +182,9 @@ const CredentialsForm: React.VFC<IProps> = ({ type }) => {
         </h2>
         <ErrorDisplay isShown={submitHasFailed}>{errorText}</ErrorDisplay>
         {form}
-        <div className={styles['Links']}>
-          {links.map((link) => (
-            <p className={styles['LinkContainer']}>{cloneElement(link)}</p>
+        <div className={styles['BottomAddonContainer']}>
+          {bottomAddons.map((addon) => (
+            <p className={styles['BottomAddon']}>{cloneElement(addon)}</p>
           ))}
         </div>
       </div>
