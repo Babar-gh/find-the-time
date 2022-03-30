@@ -6,7 +6,6 @@ import Button from 'ui-kit/Button';
 import ErrorDisplay from 'ui-kit/ErrorDisplay';
 import Form from 'ui-kit/Form';
 import Input from 'ui-kit/Input';
-import LinkWrapper from 'components/LinkWrapper';
 import Loader from 'ui-kit/Loader';
 import Text from 'components/Text';
 import { LocationState } from 'types/location';
@@ -15,12 +14,22 @@ import { useAppDispatch } from 'store/hooks';
 import styles from './CredentialsForm.module.scss';
 
 interface IProps {
-  type: 'login' | 'registration';
+  actionToDispatch: typeof signIn | typeof signUp;
+  headingText: string;
+  errorText: string;
+  buttonText: string;
+  bottomAddons: JSX.Element[];
 }
 
 type ValidationErrors = { email?: string; password?: string } | undefined;
 
-const CredentialsForm: React.VFC<IProps> = ({ type }) => {
+const CredentialsForm: React.VFC<IProps> = ({
+  actionToDispatch,
+  headingText,
+  errorText,
+  buttonText,
+  bottomAddons,
+}) => {
   const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
@@ -49,58 +58,6 @@ const CredentialsForm: React.VFC<IProps> = ({ type }) => {
   };
 
   const errors: ValidationErrors = validate({ email, password }, constraints);
-
-  let actionToDispatch: typeof signIn | typeof signUp,
-    headingText: string,
-    errorText: string,
-    buttonText: string,
-    bottomAddons: JSX.Element[];
-
-  switch (type) {
-    case 'login':
-      actionToDispatch = signIn;
-      headingText = 'Sign In';
-      errorText = 'The email or password that you have entered is incorrect.';
-      buttonText = 'Sign in';
-      bottomAddons = [
-        <>
-          <Text>Need an account? </Text>
-          {/* TODO: Replace with a proper <Link> component, add enum for all the different routes */}
-          <LinkWrapper type="RouterLink" to={'/register'}>
-            <Text>Sign up!</Text>
-          </LinkWrapper>
-        </>,
-        <>
-          {/* TODO: Replace with a proper <Link> component, add enum for all the different routes */}
-          <LinkWrapper type="RouterLink" to={'/reset-password'}>
-            <Text>Forgot your password?</Text>
-          </LinkWrapper>
-        </>,
-      ];
-      break;
-
-    case 'registration':
-      actionToDispatch = signUp;
-      headingText = 'Sign Up';
-      errorText = 'Please try a different email address.';
-      buttonText = 'Sign up';
-      bottomAddons = [
-        <>
-          <Text>Already have an account? </Text>
-          {/* TODO: Replace with a proper <Link> component, add enum for all the different routes */}
-          <LinkWrapper type="RouterLink" to={'/login'}>
-            <Text>Sign in!</Text>
-          </LinkWrapper>
-        </>,
-        <>
-          {/* TODO: Replace with a proper <Link> component, add enum for all the different routes */}
-          <LinkWrapper type="RouterLink" to={'/reset-password'}>
-            <Text>Forgot your password?</Text>
-          </LinkWrapper>
-        </>,
-      ];
-      break;
-  }
 
   const handleButtonClick: MouseEventHandler = async (_e) => {
     if (errors) {
