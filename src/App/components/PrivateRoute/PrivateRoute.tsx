@@ -1,12 +1,7 @@
-import { Navigate, Route, RouteProps } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import * as jwt from 'jwt';
 
-const PrivateRoute: React.VFC<RouteProps> = (props) => {
-  if (jwt.checkIfExists()) {
-    return <Route {...props} />;
-  }
-
-  return <Navigate to="/login" />;
-};
+const PrivateRoute: React.FC = () =>
+  jwt.checkIfExists() ? <Outlet /> : <Navigate to="/login" />;
 
 export default PrivateRoute;
