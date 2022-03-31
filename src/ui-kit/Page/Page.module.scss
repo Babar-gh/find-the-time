@@ -1,7 +1,10 @@
+@use '/src/styles/constants' as *;
 @use '/src/styles/mixins' as *;
 
 .Root {
+  box-sizing: border-box;
   padding: 32px;
+  min-height: calc(100vh - $top-bar-height);
 }
 
 .Header {
