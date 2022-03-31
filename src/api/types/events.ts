@@ -7,7 +7,7 @@ interface ITimeInterval {
   end: string;
 }
 
-interface IEvent {
+export interface IEvent {
   id: Guid;
   title: string;
   duration: number;
