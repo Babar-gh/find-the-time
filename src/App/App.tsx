@@ -1,11 +1,21 @@
-import { useEffect } from 'react';
-import Button from 'ui-kit/Button';
-import DummyContent from 'ui-kit/DummyContent';
+import { lazy, Suspense, useEffect } from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import AuthLayout from 'components/AuthLayout';
 import Layout from 'components/Layout';
-import Page from 'ui-kit/Page';
-import bodyStyles from './Body.module.scss';
+import Loading from 'pages/Loading';
+import Login from 'components/Login/Login';
+import Registration from 'components/Registration';
+import Text from 'components/Text';
+import { AUTH, PRIVATE } from 'constants/routes';
+import PrivateRoute from './components/PrivateRoute';
 import useBreakpointUpdate from './hooks/useBreakpointUpdate';
 import useTheme from './hooks/useTheme';
+import bodyStyles from './Body.module.scss';
+import AuthRoute from './components/AuthRoute';
+
+const DummyPage = lazy(() => import('pages/DummyPage'));
+
+const dummyAuthPage = <Text size="big">TBD</Text>;
 
 const App: React.VFC = () => {
   const [theme, switchTheme] = useTheme();
@@ -16,21 +26,40 @@ const App: React.VFC = () => {
 
   useBreakpointUpdate();
 
+  const authOutlet = (
+    <AuthLayout onThemeSwitch={switchTheme}>
+      <AuthRoute />
+    </AuthLayout>
+  );
+
+  const privateOutlet = (
+    <Layout onThemeSwitch={switchTheme}>
+      <Suspense fallback={<Loading />}>
+        <PrivateRoute />
+      </Suspense>
+    </Layout>
+  );
+
+  /* TODO: Replace stubs with proper:
+    - password recovery component.
+    - events page
+    - account details page
+    - settings page */
+
   return (
-    <div>
-      <Layout onThemeSwitch={switchTheme}>
-        <Page
-          title="That's a Page!"
-          headerAddon={
-            <Button elementProps={{ onClick: () => alert('Kek!') }}>
-              I'm a header addon
-            </Button>
-          }
-        >
-          <DummyContent />
-        </Page>
-      </Layout>
-    </div>
+    <Routes>
+      <Route element={authOutlet}>
+        <Route path={AUTH.Login} element={<Login />} />
+        <Route path={AUTH.Registration} element={<Registration />} />
+        <Route path={AUTH.ResetPassword} element={dummyAuthPage} />
+      </Route>
+      <Route element={privateOutlet}>
+        <Route path={PRIVATE.Events} element={<DummyPage />} />
+        <Route path={PRIVATE.Account} element={<DummyPage />} />
+        <Route path={PRIVATE.Settings} element={<DummyPage />} />
+      </Route>
+      <Route path="*" element={<Navigate to={PRIVATE.Events} />} />
+    </Routes>
   );
 };
 
