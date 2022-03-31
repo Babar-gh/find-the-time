@@ -3,6 +3,7 @@ import Backdrop from 'ui-kit/Backdrop';
 import Menu from 'ui-kit/Menu';
 import Text from 'components/Text';
 import { getDisplayName } from 'helpers/users/getDisplayName';
+import { PRIVATE } from 'constants/routes';
 import { signOut } from 'store/slices/account';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import styles from './UserMenu.module.scss';
@@ -32,18 +33,16 @@ const UserMenu: React.FC = () => {
             </Text>
           </div>
           <Menu>
-            {/* TODO: Add enum for all the different routes*/}
             <Menu.Item
               id="account"
-              elementProps={{ type: 'RouterLink', to: '/account' }}
+              elementProps={{ type: 'RouterLink', to: PRIVATE.Account }}
               icon="AccountCircle"
             >
               Your account
             </Menu.Item>
-            {/* TODO: Add enum for all the different routes*/}
             <Menu.Item
               id="settings"
-              elementProps={{ type: 'RouterLink', to: '/settings' }}
+              elementProps={{ type: 'RouterLink', to: PRIVATE.Settings }}
               icon="Settings"
             >
               Settings

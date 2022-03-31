@@ -1,10 +1,11 @@
 import * as jwt from 'jwt';
 import history from 'browserHistory';
 import { AppThunk } from 'store';
-import { Token } from 'types/common';
+import { AUTH } from 'constants/routes';
 import { LocationState } from 'types/location';
-import { actions } from './account';
+import { Token } from 'types/common';
 import { parseUserToken } from './helpers';
+import { actions } from './account';
 
 const { update, clear } = actions;
 
@@ -23,6 +24,5 @@ export const signOut = (): AppThunk => (dispatch) => {
   dispatch(clear());
 
   const state: LocationState = { returnUrl: history.location.pathname };
-  // TODO: Add enum for all the different routes
-  history.push('/login', state);
+  history.push(AUTH.Login, state);
 };

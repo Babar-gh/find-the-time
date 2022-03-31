@@ -74,7 +74,6 @@ const CredentialsForm: React.VFC<IProps> = ({
     if (jwt.checkIfExists()) {
       const { returnUrl } = (location.state as LocationState) || {};
 
-      // TODO: add enum for all the different routes
       navigate(returnUrl || '/');
       setSubmitHasFailed(false);
     } else {
@@ -140,8 +139,10 @@ const CredentialsForm: React.VFC<IProps> = ({
         <ErrorDisplay isShown={submitHasFailed}>{errorText}</ErrorDisplay>
         {form}
         <div className={styles['BottomAddonContainer']}>
-          {bottomAddons.map((addon) => (
-            <p className={styles['BottomAddon']}>{cloneElement(addon)}</p>
+          {bottomAddons.map((addon, index) => (
+            <p className={styles['BottomAddon']} key={index}>
+              {cloneElement(addon)}
+            </p>
           ))}
         </div>
       </div>
