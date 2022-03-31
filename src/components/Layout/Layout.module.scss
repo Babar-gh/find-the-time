@@ -2,8 +2,6 @@
 @use '/src/styles/constants' as *;
 @use '/src/styles/mixins' as *;
 
-$top-bar-height: 60px;
-
 @mixin top-bar-interactions {
   &:hover,
   &:focus-visible,

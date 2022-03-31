@@ -99,6 +99,7 @@ $layout-min-width: map.get(
   nth-map-key($breakpoints, 1),
   'min-width'
 );
+$top-bar-height: 60px;
 $z-indexes: (
   'modal': 300,
   'modal-backdrop': 200,
