@@ -2,9 +2,9 @@ import { lazy, Suspense, useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import AuthLayout from 'components/AuthLayout';
 import Layout from 'components/Layout';
-import Loading from 'pages/Loading';
-import Login from 'components/Login/Login';
-import Registration from 'components/Registration';
+import Loading from 'pages/private/Loading';
+import Login from 'pages/auth/Login';
+import Registration from 'pages/auth/Registration';
 import Text from 'components/Text';
 import { AUTH, PRIVATE } from 'constants/routes';
 import PrivateRoute from './components/PrivateRoute';
@@ -13,7 +13,7 @@ import useTheme from './hooks/useTheme';
 import bodyStyles from './Body.module.scss';
 import AuthRoute from './components/AuthRoute';
 
-const DummyPage = lazy(() => import('pages/DummyPage'));
+const DummyPage = lazy(() => import('pages/private/DummyPage'));
 
 const dummyAuthPage = <Text size="big">TBD</Text>;
 
