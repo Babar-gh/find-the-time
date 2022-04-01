@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import AuthLayout from 'components/AuthLayout';
+import Events from 'pages/private/Events';
 import Layout from 'components/Layout';
 import Loading from 'pages/private/Loading';
 import Login from 'pages/auth/Login';
@@ -42,7 +43,6 @@ const App: React.VFC = () => {
 
   /* TODO: Replace stubs with proper:
     - password recovery component.
-    - events page
     - account details page
     - settings page */
 
@@ -54,7 +54,7 @@ const App: React.VFC = () => {
         <Route path={AUTH.ResetPassword} element={dummyAuthPage} />
       </Route>
       <Route element={privateOutlet}>
-        <Route path={PRIVATE.Events} element={<DummyPage />} />
+        <Route path={PRIVATE.Events} element={<Events />} />
         <Route path={PRIVATE.Account} element={<DummyPage />} />
         <Route path={PRIVATE.Settings} element={<DummyPage />} />
       </Route>
