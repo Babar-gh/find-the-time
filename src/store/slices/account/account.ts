@@ -1,18 +1,25 @@
 import { createSlice, isAnyOf, PayloadAction } from '@reduxjs/toolkit';
+import * as jwt from 'jwt';
 import { Guid } from 'types/common';
 import { IUser } from 'types/user';
+import { parseUserToken } from './helpers';
 import { signIn, signUp } from './asyncThunks';
 
 export interface IState extends IUser {
   isDemo: boolean;
 }
 
-const initialState: IState = {
+const persistedToken = jwt.get();
+const emptyState = {
   id: '' as Guid,
   email: '',
   name: '',
   isDemo: true,
 };
+
+const initialState: IState = persistedToken
+  ? parseUserToken(persistedToken)
+  : emptyState;
 
 export const accountSlice = createSlice({
   name: 'account',
@@ -30,9 +37,9 @@ export const accountSlice = createSlice({
   extraReducers: (builder) => {
     builder.addMatcher(
       isAnyOf(signIn.fulfilled, signUp.fulfilled),
-      (_state, { payload: accountData }) => {
-        if (accountData) {
-          return accountData;
+      (_state, { payload: newAccountData }) => {
+        if (newAccountData) {
+          return newAccountData;
         }
       }
     );

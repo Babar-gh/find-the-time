@@ -1,7 +1,7 @@
 import { JWT_STORAGE_KEY } from 'constants/localStorage';
 import { Token } from 'types/common';
 
-export const get = () => localStorage.getItem(JWT_STORAGE_KEY);
+export const get = () => localStorage.getItem(JWT_STORAGE_KEY) as Token | null;
 
 export const set = (token: Token) =>
   localStorage.setItem(JWT_STORAGE_KEY, token);
