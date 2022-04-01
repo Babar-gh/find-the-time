@@ -6,7 +6,6 @@ interface IProps extends Omit<IEvent, 'subscriptions'> {}
 
 const EventTile: React.VFC<IProps> = ({
   title,
-  organizedBy,
   created,
   location,
   comment,
@@ -18,10 +17,6 @@ const EventTile: React.VFC<IProps> = ({
       <h3>
         <Text>{title}</Text>
       </h3>
-      <p>
-        {/* TODO: Replace with a helper function for getting user display name */}
-        <Text>{organizedBy.name}</Text>
-      </p>
       <p>
         <Text>{`${created}, ${location}`}</Text>
       </p>
