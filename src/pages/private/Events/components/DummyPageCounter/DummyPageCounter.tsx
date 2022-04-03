@@ -1,15 +1,14 @@
+import Text from 'components/Text';
+
 export const DummyPageCounter: React.VFC<{
   currentPage: number;
   totalPages: number | null;
 }> = ({ currentPage, totalPages }) => {
-  const total = totalPages || 9999;
-  const current = Math.min(currentPage + 1, total);
-
   return (
     <div
       style={{
-        color: 'black',
-        backgroundColor: 'orange',
+        color: 'var(--ui-button-text)',
+        backgroundColor: 'var(--ui-button-danger-hover)',
         position: 'fixed',
         right: '16px',
         padding: '16px',
@@ -17,7 +16,14 @@ export const DummyPageCounter: React.VFC<{
         zIndex: 1000,
       }}
     >
-      Страница: {current} из {total}
+      {totalPages ? (
+        <Text color="inherit">{`Showing ${Math.min(
+          currentPage + 1,
+          totalPages
+        )} of ${totalPages} pages`}</Text>
+      ) : (
+        <Text color="inherit">Initial loading</Text>
+      )}
     </div>
   );
 };

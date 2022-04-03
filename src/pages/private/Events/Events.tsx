@@ -1,60 +1,37 @@
-import { useEffect, useRef, useState } from 'react';
-import Loader from 'ui-kit/Loader';
+import Button from 'ui-kit/Button';
 import Page from 'ui-kit/Page';
-import styles from './Events.module.scss';
+import useIntersection from 'hooks/useIntersection';
 import EventTile from './components/EventTile';
+import LoaderTile from './components/LoaderTile';
+import styles from './Events.module.scss';
 import useEventList from './hooks/useEventList';
 import { DummyPageCounter } from './components/DummyPageCounter/DummyPageCounter';
 
 const PAGE_SIZE = 10;
 
 const Events: React.VFC = () => {
-  const { list, isLoading, getNextPage, currentPage, totalPages } =
+  const { list, isLoading, getNextPage, currentPage, totalPages, applyFilter } =
     useEventList(PAGE_SIZE);
 
-  const [lastItem, setLastItem] = useState<HTMLDivElement | null>(null);
-
-  const observer = useRef(
-    new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        getNextPage();
-      }
-    })
-  );
-
-  useEffect(() => {
-    const currentElement = lastItem;
-    const currentObserver = observer.current;
-
-    if (currentElement) {
-      currentObserver.observe(currentElement);
-    }
-
-    return () => {
-      if (currentElement) {
-        currentObserver.unobserve(currentElement);
-      }
-    };
-  }, [lastItem]);
+  const { sentinel } = useIntersection(getNextPage);
 
   return (
     <Page
       title="Events"
       headerAddon={<DummyPageCounter {...{ currentPage, totalPages }} />}
     >
-      <Loader isShown={isLoading}>
-        <div className={styles['EventList']}>
-          {list.map(({ id, ...rest }, i) => {
-            const ref = i === list.length - 1 ? setLastItem : undefined;
-
-            return (
-              <div key={i} ref={ref}>
-                <EventTile id={id} {...rest} />
-              </div>
-            );
-          })}
-        </div>
-      </Loader>
+      <div style={{ marginBottom: '32px' }}>
+        <Button elementProps={{ onClick: () => applyFilter({ title: '1' }) }}>
+          Apply test filter
+        </Button>
+      </div>
+      <div className={styles['EventList']}>
+        {list.map(({ id, ...rest }, i) => (
+          <EventTile id={id} key={i} {...rest} />
+        ))}
+        <div ref={sentinel} />
+        {isLoading && <LoaderTile isShown={isLoading} />}
+      </div>
     </Page>
   );
 };
