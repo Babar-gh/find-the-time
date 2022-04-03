@@ -1,11 +1,15 @@
 import { useCallback, useEffect, useReducer, useState } from 'react';
 import { searchEvents } from 'api/events';
 import { IEventSearchResponse } from 'api/types/events';
-import { Filter, reducer } from './reducer';
+import { reducer } from './reducer';
+import { Payload } from './types';
 
 const useEventList = (pageSize: number) => {
-  const initialState = { pagination: { pageSize, pageNumber: 0 } };
-  const [constraints, dispatchConstraints] = useReducer(reducer, initialState);
+  const initialConstraints = { pagination: { pageSize, pageNumber: 0 } };
+  const [constraints, dispatchConstraints] = useReducer(
+    reducer,
+    initialConstraints
+  );
 
   const [list, setList] = useState<IEventSearchResponse['items']>([]);
   const [totalPages, setTotalPages] = useState<number | null>(null);
@@ -17,10 +21,13 @@ const useEventList = (pageSize: number) => {
     const response = await searchEvents(constraints);
 
     if (totalPages === null) {
-      setTotalPages(Math.ceil(response.data.totalItems / pageSize));
-    }
+      const responseTotalPages = Math.ceil(response.data.totalItems / pageSize);
+      setTotalPages(responseTotalPages);
 
-    setList((list) => [...list, ...response.data.items]);
+      setList([...response.data.items]);
+    } else {
+      setList((list) => [...list, ...response.data.items]);
+    }
 
     setIsLoading(false);
   }, [pageSize, totalPages, constraints]);
@@ -36,20 +43,26 @@ const useEventList = (pageSize: number) => {
     }
   }, [totalPages, constraints, getEvents]);
 
+  const getNextPage = () => dispatchConstraints({ type: 'pickNextPage' });
+
+  const applyFilter = (filter: Payload<'applyFilter'>) => {
+    setTotalPages(null);
+    dispatchConstraints({ type: 'applyFilter', payload: filter });
+  };
+
+  const applySorter = (sorter: Payload<'applySorter'>) => {
+    setTotalPages(null);
+    dispatchConstraints({ type: 'applySorter', payload: sorter });
+  };
+
   return {
     list,
     isLoading,
     currentPage: constraints.pagination.pageNumber,
     totalPages,
-    getNextPage: () => dispatchConstraints({ type: 'pickNextPage' }),
-    filterByOwnership: (isOrganizer: Filter['isOrganizer']) =>
-      dispatchConstraints({ type: 'filterByOwnership', payload: isOrganizer }),
-    filterByStatus: (status: Filter['status']) =>
-      dispatchConstraints({ type: 'filterByStatus', payload: status }),
-    filterByTitle: (title: Filter['title']) =>
-      dispatchConstraints({ type: 'filterByTitle', payload: title }),
-    filterByLocation: (location: Filter['location']) =>
-      dispatchConstraints({ type: 'filterByLocation', payload: location }),
+    getNextPage,
+    applyFilter,
+    applySorter,
   };
 };
 
