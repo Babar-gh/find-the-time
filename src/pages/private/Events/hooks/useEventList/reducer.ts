@@ -1,60 +1,34 @@
 import { IEventSearchRequest } from 'api/types/events';
-
-export type Filter = NonNullable<IEventSearchRequest['filter']>;
-
-type Action =
-  | { type: 'pickNextPage' }
-  | { type: 'filterByOwnership'; payload: Filter['isOrganizer'] }
-  | { type: 'filterByStatus'; payload: Filter['status'] }
-  | { type: 'filterByTitle'; payload: Filter['title'] }
-  | { type: 'filterByLocation'; payload: Filter['location'] };
-
-const cloneState = (state: IEventSearchRequest): IEventSearchRequest => ({
-  filter: { ...state.filter },
-  sorter: state.sorter ? { ...state.sorter } : undefined,
-  pagination: { ...state.pagination },
-});
+import { Action } from './types';
 
 export const reducer = (
   state: IEventSearchRequest,
   action: Action
 ): IEventSearchRequest => {
-  const upadetedState = cloneState(state);
+  const newState = { ...state };
 
   switch (action.type) {
     case 'pickNextPage': {
       const nextPageNumber = state.pagination.pageNumber + 1;
-      upadetedState.pagination.pageNumber = nextPageNumber;
+      newState.pagination = { ...state.pagination, pageNumber: nextPageNumber };
 
-      return upadetedState;
+      return newState;
     }
 
-    case 'filterByOwnership': {
-      upadetedState.filter ??= {};
-      upadetedState.filter.isOrganizer = action.payload;
+    case 'applyFilter': {
+      newState.pagination.pageNumber = 0;
 
-      return upadetedState;
+      newState.filter = { ...state.filter, ...action.payload };
+
+      return newState;
     }
 
-    case 'filterByStatus': {
-      upadetedState.filter ??= {};
-      upadetedState.filter.status = action.payload;
+    case 'applySorter': {
+      newState.pagination.pageNumber = 0;
 
-      return upadetedState;
-    }
+      newState.sorter = action.payload ? { ...action.payload } : undefined;
 
-    case 'filterByTitle': {
-      upadetedState.filter ??= {};
-      upadetedState.filter.title = action.payload;
-
-      return upadetedState;
-    }
-
-    case 'filterByLocation': {
-      upadetedState.filter ??= {};
-      upadetedState.filter.location = action.payload;
-
-      return upadetedState;
+      return newState;
     }
   }
 };
