@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const useIntersection = <T extends HTMLElement>(onIntersection: () => void) => {
   const observer = useRef(
@@ -9,19 +9,19 @@ const useIntersection = <T extends HTMLElement>(onIntersection: () => void) => {
     })
   );
 
-  const setSentinelRef = (sentinel: T | null) => {
-    if (sentinel) {
-      observer.current.observe(sentinel);
-    }
-  };
+  const [sentinelRef, setSentinelRef] = useState<T | null>(null);
 
   useEffect(() => {
     const observerInstance = observer.current;
 
+    if (sentinelRef) {
+      observerInstance.observe(sentinelRef);
+    }
+
     return () => {
       observerInstance.disconnect();
     };
-  }, []);
+  }, [sentinelRef]);
 
   return { setSentinelRef };
 };
