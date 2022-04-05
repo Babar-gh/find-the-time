@@ -1,9 +1,9 @@
 import Text from 'components/Text';
 
 export const DummyPageCounter: React.VFC<{
-  currentPage: number;
-  totalPages: number | null;
-}> = ({ currentPage, totalPages }) => {
+  current: number;
+  total: number | null;
+}> = ({ current, total }) => {
   return (
     <div
       style={{
@@ -16,11 +16,11 @@ export const DummyPageCounter: React.VFC<{
         zIndex: 1000,
       }}
     >
-      {totalPages ? (
+      {total ? (
         <Text color="inherit">{`Showing ${Math.min(
-          currentPage + 1,
-          totalPages
-        )} of ${totalPages} pages`}</Text>
+          current,
+          total
+        )} of ${total} items`}</Text>
       ) : (
         <Text color="inherit">Initial loading</Text>
       )}

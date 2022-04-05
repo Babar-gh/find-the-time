@@ -10,27 +10,33 @@ import { DummyPageCounter } from './components/DummyPageCounter/DummyPageCounter
 const PAGE_SIZE = 10;
 
 const Events: React.VFC = () => {
-  const { list, isLoading, getNextPage, currentPage, totalPages, applyFilter } =
-    useEventList(PAGE_SIZE);
+  const list = useEventList(PAGE_SIZE);
 
-  const { sentinel } = useIntersection(getNextPage);
+  const { sentinel } = useIntersection(list.getNextPage);
 
   return (
     <Page
       title="Events"
-      headerAddon={<DummyPageCounter {...{ currentPage, totalPages }} />}
+      headerAddon={
+        <DummyPageCounter
+          current={(list.pagination.pageNumber + 1) * PAGE_SIZE}
+          total={list.totalItems}
+        />
+      }
     >
       <div style={{ marginBottom: '32px' }}>
-        <Button elementProps={{ onClick: () => applyFilter({ title: '1' }) }}>
+        <Button
+          elementProps={{ onClick: () => list.applyFilter({ title: '1' }) }}
+        >
           Apply test filter
         </Button>
       </div>
       <div className={styles['EventList']}>
-        {list.map(({ id, ...rest }, i) => (
+        {list.items.map(({ id, ...rest }, i) => (
           <EventTile id={id} key={i} {...rest} />
         ))}
         <div ref={sentinel} />
-        {isLoading && <LoaderTile isShown={isLoading} />}
+        {list.isLoading && <LoaderTile isShown={list.isLoading} />}
       </div>
     </Page>
   );
