@@ -12,7 +12,7 @@ const PAGE_SIZE = 10;
 const Events: React.VFC = () => {
   const list = useEventList(PAGE_SIZE);
 
-  const { sentinel } = useIntersection(list.getNextPage);
+  const { setSentinelRef } = useIntersection<HTMLElement>(list.getNextPage);
 
   return (
     <Page
@@ -32,10 +32,18 @@ const Events: React.VFC = () => {
         </Button>
       </div>
       <div className={styles['EventList']}>
-        {list.items.map(({ id, ...rest }, i) => (
-          <EventTile id={id} key={i} {...rest} />
-        ))}
-        <div ref={sentinel} />
+        {list.items.map(({ id, ...rest }, index) => {
+          const isLast = list.items.length - 1 === index;
+
+          return (
+            <EventTile
+              key={id}
+              id={id}
+              ref={isLast ? setSentinelRef : undefined}
+              {...rest}
+            />
+          );
+        })}
         {list.isLoading && <LoaderTile isShown={list.isLoading} />}
       </div>
     </Page>

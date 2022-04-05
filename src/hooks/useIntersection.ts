@@ -1,8 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-const useIntersection = (onIntersection: () => void) => {
-  const sentinel = useRef<HTMLDivElement>(null);
-
+const useIntersection = <T extends HTMLElement>(onIntersection: () => void) => {
   const observer = useRef(
     new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) {
@@ -11,22 +9,21 @@ const useIntersection = (onIntersection: () => void) => {
     })
   );
 
-  useEffect(() => {
-    const currentElement = sentinel.current;
-    const currentObserver = observer.current;
-
-    if (currentElement) {
-      currentObserver.observe(sentinel.current);
+  const setSentinelRef = (sentinel: T | null) => {
+    if (sentinel) {
+      observer.current.observe(sentinel);
     }
+  };
+
+  useEffect(() => {
+    const observerInstance = observer.current;
 
     return () => {
-      if (currentElement) {
-        currentObserver.unobserve(currentElement);
-      }
+      observerInstance.disconnect();
     };
-  }, [sentinel]);
+  }, []);
 
-  return { sentinel };
+  return { setSentinelRef };
 };
 
 export default useIntersection;
