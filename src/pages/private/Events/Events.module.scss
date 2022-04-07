@@ -1,5 +1,25 @@
-.EventList {
+.List {
+  list-style: none;
+  width: fit-content;
+  margin: 0;
+  padding: 0;
   display: flex;
+  align-items: stretch;
   flex-wrap: wrap;
   gap: 16px;
+}
+
+.ListItem {
+  width: 230px;
+  background-color: var(--canvas-primary);
+  border-radius: 4px;
+
+  &:hover {
+    background-color: var(--canvas-primary-highlighted);
+  }
+
+  &_loader {
+    min-height: 230px;
+    height: 100%;
+  }
 }

@@ -1,11 +1,14 @@
+import classNames from 'classnames/bind';
 import Button from 'ui-kit/Button';
+import Loader from 'ui-kit/Loader';
 import Page from 'ui-kit/Page';
 import useIntersection from 'hooks/useIntersection';
 import EventTile from './components/EventTile';
-import LoaderTile from './components/LoaderTile';
 import styles from './Events.module.scss';
 import useEventList from './hooks/useEventList';
 import { DummyPageCounter } from './components/DummyPageCounter/DummyPageCounter';
+
+const cn = classNames.bind(styles);
 
 const PAGE_SIZE = 10;
 
@@ -31,21 +34,26 @@ const Events: React.VFC = () => {
           Apply test filter
         </Button>
       </div>
-      <div className={styles['EventList']}>
+      <ul className={styles['List']}>
         {list.items.map(({ id, ...rest }, index) => {
           const isLast = list.items.length - 1 === index;
 
           return (
-            <EventTile
+            <li
+              className={styles['ListItem']}
               key={id}
-              id={id}
               ref={isLast ? setSentinelRef : undefined}
-              {...rest}
-            />
+            >
+              <EventTile id={id} {...rest} />
+            </li>
           );
         })}
-        {list.isLoading && <LoaderTile isShown={list.isLoading} />}
-      </div>
+        {list.isLoading && (
+          <Loader isShown={true}>
+            <li className={cn('ListItem', 'ListItem_loader')} />
+          </Loader>
+        )}
+      </ul>
     </Page>
   );
 };

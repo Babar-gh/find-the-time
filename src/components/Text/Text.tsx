@@ -5,7 +5,7 @@ interface IProps {
   font?: 'primary' | 'primaryItalic' | 'primaryBold' | 'secondary' | 'brand';
   color?: 'primary' | 'secondary' | 'error' | 'inherit';
   size?: 'small' | 'regular' | 'big';
-  children: string;
+  children: string | string[];
 }
 
 const cn = classNames.bind(styles);
