@@ -14,9 +14,23 @@ const useEventList = (pageSize: number) => {
   };
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  const getNextPage = () => dispatch({ type: 'pickNextPage' });
+
+  const applyFilter = (filter: Payload<'applyFilter'>) =>
+    dispatch({ type: 'applyFilter', payload: filter });
+
+  const applySorter = (sorter: Payload<'applySorter'>) =>
+    dispatch({ type: 'applySorter', payload: sorter });
+
+  const parseResponse = (response: Payload<'parseResponse'>) =>
+    dispatch({ type: 'parseResponse', payload: response });
+
+  const setIsLoading = (isLoading: Payload<'setIsLoading'>) =>
+    dispatch({ type: 'setIsLoading', payload: isLoading });
+
   useEffect(() => {
     const fetchEvents = async () => {
-      dispatch({ type: 'setIsLoading', payload: true });
+      setIsLoading(true);
 
       const request: IEventSearchRequest = {
         pagination: state.pagination,
@@ -26,25 +40,19 @@ const useEventList = (pageSize: number) => {
 
       const response = await searchEvents(request);
 
-      dispatch({ type: 'parseResponse', payload: response.data });
+      parseResponse(response.data);
 
-      dispatch({ type: 'setIsLoading', payload: false });
+      setIsLoading(false);
     };
 
     fetchEvents();
   }, [state.pagination, state.filter, state.sorter]);
 
-  const externalDispatchHelpers = {
-    getNextPage: () => dispatch({ type: 'pickNextPage' }),
-    applyFilter: (filter: Payload<'applyFilter'>) =>
-      dispatch({ type: 'applyFilter', payload: filter }),
-    applySorter: (sorter: Payload<'applySorter'>) =>
-      dispatch({ type: 'applySorter', payload: sorter }),
-  };
-
   return {
     ...state,
-    ...externalDispatchHelpers,
+    getNextPage,
+    applyFilter,
+    applySorter,
   };
 };
 
