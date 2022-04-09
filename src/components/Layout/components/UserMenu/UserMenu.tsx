@@ -28,7 +28,8 @@ const UserMenu: React.FC = () => {
         <nav className={styles['Container']}>
           <div className={styles['DisplayNameContainer']}>
             <Text size="small">Signed in as </Text>
-            <Text font="primaryBold" size="small">
+            <br />
+            <Text font="primaryBold" clamp={1}>
               {displayName}
             </Text>
           </div>

@@ -55,17 +55,17 @@ const EventTile: React.VFC<IProps> = ({
       </h3>
       <ul className={styles['List']}>
         <ListItem icon="Person">
-          <Text>{getDisplayName(organizedBy)}</Text>
+          <Text clamp={1}>{getDisplayName(organizedBy)}</Text>
           <br />
           <Text font="primaryItalic" size="small">
             created {dayjs(created).fromNow()}
           </Text>
         </ListItem>
         <ListItem icon="LocationOn">
-          <Text>{location}</Text>
+          <Text clamp={1}>{location}</Text>
         </ListItem>
         <ListItem icon="Description">
-          <Text>{comment}</Text>
+          <Text clamp={3}>{comment}</Text>
         </ListItem>
         <ListItem icon="Timelapse">
           <Text>{`Will last ${dayjs

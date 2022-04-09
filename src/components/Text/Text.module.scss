@@ -61,4 +61,16 @@
       font-size: 32px;
     }
   }
+
+  &_clamp {
+    @for $i from 1 through 5 {
+      &_#{$i} {
+        /* stylelint-disable-next-line value-no-vendor-prefix */
+        display: -webkit-inline-box;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: $i;
+      }
+    }
+  }
 }
