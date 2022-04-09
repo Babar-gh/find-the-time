@@ -1,12 +1,14 @@
 import classNames from 'classnames/bind';
 import Button from 'ui-kit/Button';
+import LinkWrapper from 'components/LinkWrapper';
 import Loader from 'ui-kit/Loader';
 import Page from 'ui-kit/Page';
 import useIntersection from 'hooks/useIntersection';
-import EventTile from './components/EventTile';
+import { PRIVATE } from 'constants/routes';
 import styles from './Events.module.scss';
 import useEventList from './hooks/useEventList';
 import { DummyPageCounter } from './components/DummyPageCounter/DummyPageCounter';
+import EventTile from './components/EventTile';
 
 const cn = classNames.bind(styles);
 
@@ -44,7 +46,13 @@ const Events: React.VFC = () => {
               key={id}
               ref={isLast ? setSentinelRef : undefined}
             >
-              <EventTile id={id} {...rest} />
+              <LinkWrapper
+                type="RouterLink"
+                to={`${PRIVATE.Events}/${id}`}
+                className={styles['ListItemLink']}
+              >
+                <EventTile id={id} {...rest} />
+              </LinkWrapper>
             </li>
           );
         })}
