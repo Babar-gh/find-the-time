@@ -1,37 +1,27 @@
+import { useLocation } from 'react-router-dom';
 import Menu from 'ui-kit/Menu';
+import { PRIVATE } from 'constants/routes';
 import styles from './NavMenu.module.scss';
 
-const NavMenu: React.FC = () => {
+const NavMenu: React.VFC = () => {
+  const { pathname } = useLocation();
+
   return (
     <nav className={styles['Root']}>
-      <Menu selectedId="Ipsum">
+      <Menu selectedId={pathname}>
         <Menu.Item
-          id="Lorem"
-          elementProps={{ type: 'HTMLAnchor', href: '/lorem' }}
-          icon="EventAvailable"
+          id={PRIVATE.Events}
+          icon="Event"
+          elementProps={{ type: 'RouterLink', to: PRIVATE.Events }}
         >
-          Lorem
+          Events
         </Menu.Item>
         <Menu.Item
-          id="Ipsum"
-          elementProps={{ type: 'RouterLink', to: '/ipsum' }}
+          id={PRIVATE.About}
+          icon="Info"
+          elementProps={{ type: 'RouterLink', to: PRIVATE.About }}
         >
-          Ipsum
-        </Menu.Item>
-        <Menu.Item
-          id="Dolor"
-          element="HTMLButton"
-          elementProps={{ onClick: () => alert('Dolor!') }}
-          icon="Menu"
-        >
-          Dolor
-        </Menu.Item>
-        <Menu.Item
-          id="Sit"
-          element="HTMLButton"
-          elementProps={{ onClick: () => alert('Sit!') }}
-        >
-          Sit
+          About
         </Menu.Item>
       </Menu>
     </nav>

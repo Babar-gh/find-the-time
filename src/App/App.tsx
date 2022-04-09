@@ -54,8 +54,9 @@ const App: React.VFC = () => {
         <Route path={AUTH.ResetPassword} element={dummyAuthPage} />
       </Route>
       <Route element={privateOutlet}>
-        <Route path={PRIVATE.Events} element={<Events />} />
+        <Route path={PRIVATE.About} element={<DummyPage />} />
         <Route path={PRIVATE.Account} element={<DummyPage />} />
+        <Route path={PRIVATE.Events} element={<Events />} />
         <Route path={PRIVATE.Settings} element={<DummyPage />} />
       </Route>
       <Route path="*" element={<Navigate to={PRIVATE.Events} />} />

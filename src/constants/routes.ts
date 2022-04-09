@@ -5,7 +5,8 @@ export enum AUTH {
 }
 
 export enum PRIVATE {
-  Events = '/events',
+  About = '/about',
   Account = '/account',
+  Events = '/events',
   Settings = '/settings',
 }
