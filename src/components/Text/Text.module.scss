@@ -6,6 +6,10 @@
       font-family: Roboto, sans-serif;
     }
 
+    &_primary {
+      font-weight: 400;
+    }
+
     &_primaryItalic {
       font-style: italic;
       font-weight: 300;
@@ -16,6 +20,7 @@
     }
 
     &_secondary {
+      font-weight: 400;
       font-family: 'Roboto Slab', serif;
     }
 
