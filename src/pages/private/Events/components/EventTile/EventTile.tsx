@@ -1,14 +1,30 @@
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import Icon from 'components/Icon';
+import { ComponentProps } from 'react';
 import Text from 'components/Text';
+import Icon from 'components/Icon';
 import { getDisplayName } from 'helpers/users/getDisplayName';
 import { IEvent } from 'api/types/events';
 import styles from './EventTile.module.scss';
 
 dayjs.extend(duration);
 dayjs.extend(relativeTime);
+
+interface IListItemProps {
+  icon: ComponentProps<typeof Icon>['type'];
+}
+
+const ListItem: React.FC<IListItemProps> = ({ icon, children }) => {
+  return (
+    <li className={styles['ListItem']}>
+      <div className={styles['ListItemIconContainer']}>
+        <Icon isCentered={false} type={icon} />
+      </div>
+      <p className={styles['ListItemTextContainer']}>{children}</p>
+    </li>
+  );
+};
 
 type Status = 'notYetScheduled' | 'pending' | 'past';
 
@@ -38,66 +54,41 @@ const EventTile: React.VFC<IProps> = ({
         </Text>
       </h3>
       <ul className={styles['List']}>
-        <li className={styles['ListItem']}>
-          <div className={styles['ListItemIconContainer']}>
-            <Icon isCentered={false} type="Person" />
-          </div>
-          <p className={styles['ListItemTextContainer']}>
-            <Text>{getDisplayName(organizedBy)}</Text>
-            <br />
-            <Text font="primaryItalic" size="small">
-              created {dayjs(created).fromNow()}
-            </Text>
-          </p>
-        </li>
-        <li className={styles['ListItem']}>
-          <div className={styles['ListItemIconContainer']}>
-            <Icon isCentered={false} type="LocationOn" />
-          </div>
-          <p className={styles['ListItemTextContainer']}>
-            <Text>{location}</Text>
-          </p>
-        </li>
-        <li className={styles['ListItem']}>
-          <div className={styles['ListItemIconContainer']}>
-            <Icon isCentered={false} type="Description" />
-          </div>
-          <p className={styles['ListItemTextContainer']}>
-            <Text>{comment}</Text>
-          </p>
-        </li>
-        <li className={styles['ListItem']}>
-          <div className={styles['ListItemIconContainer']}>
-            <Icon isCentered={false} type="Timelapse" />
-          </div>
-          <p className={styles['ListItemTextContainer']}>
-            <Text>{`Will last ${dayjs
-              .duration(duration, 'minutes')
-              .asHours()} hours`}</Text>
-          </p>
-        </li>
-        <li className={styles['ListItem']}>
-          <div className={styles['ListItemIconContainer']}>
-            {status === 'notYetScheduled' && (
-              <Icon isCentered={false} type="EditCalendar" />
-            )}
-            {status === 'pending' && <Icon isCentered={false} type="Event" />}
-            {status === 'past' && (
-              <Icon isCentered={false} type="EventAvailable" />
-            )}
-          </div>
-          <p className={styles['ListItemTextContainer']}>
-            {status === 'notYetScheduled' && <Text>Not scheduled yet</Text>}
-            {status === 'pending' && (
-              <Text>{`Scheduled for ${dayjs(chosenInterval?.start).format(
-                'MMM D, YYYY'
-              )}`}</Text>
-            )}
-            {status === 'past' && (
-              <Text>{`Ended for ${dayjs(chosenInterval?.end).fromNow()}`}</Text>
-            )}
-          </p>
-        </li>
+        <ListItem icon="Person">
+          <Text>{getDisplayName(organizedBy)}</Text>
+          <br />
+          <Text font="primaryItalic" size="small">
+            created {dayjs(created).fromNow()}
+          </Text>
+        </ListItem>
+        <ListItem icon="LocationOn">
+          <Text>{location}</Text>
+        </ListItem>
+        <ListItem icon="Description">
+          <Text>{comment}</Text>
+        </ListItem>
+        <ListItem icon="Timelapse">
+          <Text>{`Will last ${dayjs
+            .duration(duration, 'minutes')
+            .asHours()} hours`}</Text>
+        </ListItem>
+        {status === 'notYetScheduled' && (
+          <ListItem icon="EditCalendar">
+            <Text>Not scheduled yet</Text>
+          </ListItem>
+        )}
+        {status === 'pending' && (
+          <ListItem icon="Event">
+            <Text>{`Scheduled for ${dayjs(chosenInterval?.start).format(
+              'MMM D, YYYY'
+            )}`}</Text>
+          </ListItem>
+        )}
+        {status === 'past' && (
+          <ListItem icon="EventAvailable">
+            <Text>{`Ended for ${dayjs(chosenInterval?.end).fromNow()}`}</Text>
+          </ListItem>
+        )}
       </ul>
     </article>
   );
