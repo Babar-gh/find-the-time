@@ -47,6 +47,7 @@ const App: React.VFC = () => {
     - password recovery page
     - about page
     - account details page
+    - event creation page
     - settings page */
 
   return (
@@ -59,6 +60,7 @@ const App: React.VFC = () => {
       <Route element={privateOutlet}>
         <Route path={PRIVATE.About} element={<DummyPage />} />
         <Route path={PRIVATE.Account} element={<DummyPage />} />
+        <Route path={PRIVATE.CreateEvent} element={<DummyPage />} />
         <Route path={PRIVATE.Events} element={<Events />} />
         <Route path={PRIVATE.Settings} element={<DummyPage />} />
       </Route>
