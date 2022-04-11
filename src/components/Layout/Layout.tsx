@@ -1,19 +1,20 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import Backdrop from 'ui-kit/Backdrop';
-import Button from 'ui-kit/Button';
 import Logo from 'components/Logo';
+import ThemeSwitchButton from 'components/ThemeSwitchButton';
 import useBreakpointCheck from 'hooks/useBreakpointCheck';
+import useTheme from 'App/hooks/useTheme';
 import { ReactComponent as MenuIcon } from 'assets/icons/Menu.svg';
+import UserMenu from './components/UserMenu';
 import NavMenu from './components/NavMenu';
 import styles from './Layout.module.scss';
-import UserMenu from './components/UserMenu';
 
 interface IProps {
-  onThemeSwitch: () => void;
+  theme: ReturnType<typeof useTheme>;
 }
 
-const Layout: React.FC<IProps> = ({ onThemeSwitch, children }) => {
+const Layout: React.FC<IProps> = ({ theme, children }) => {
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
   const bp = useBreakpointCheck();
 
@@ -44,18 +45,9 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch, children }) => {
     </div>
   );
 
-  // TODO: Replace with a custom button.
-  const tempSwitchThemeButton = (
-    <div
-      style={{ alignSelf: 'center', marginLeft: 'auto', marginRight: '16px' }}
-    >
-      <Button
-        elementProps={{
-          onClick: onThemeSwitch,
-        }}
-      >
-        Switch theme
-      </Button>
+  const themeSwitchButton = (
+    <div className={styles['SwitchThemeButtonContainer']}>
+      <ThemeSwitchButton theme={theme} />
     </div>
   );
 
@@ -70,7 +62,7 @@ const Layout: React.FC<IProps> = ({ onThemeSwitch, children }) => {
       <header className={styles['Header']}>
         {bp('Mobile', 'Tablet') && menuButton}
         {logo}
-        {tempSwitchThemeButton}
+        {themeSwitchButton}
         {userMenuButton}
       </header>
 

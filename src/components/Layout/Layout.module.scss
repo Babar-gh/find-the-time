@@ -49,9 +49,14 @@
   height: 32px;
 }
 
+.SwitchThemeButtonContainer,
 .UserMenuButtonContainer {
   align-self: center;
   margin-right: 16px;
+}
+
+.SwitchThemeButtonContainer {
+  margin-left: auto;
 }
 
 .ColumnWrapper {

@@ -19,22 +19,24 @@ const DummyPage = lazy(() => import('pages/private/DummyPage'));
 const dummyAuthPage = <Text size="big">TBD</Text>;
 
 const App: React.VFC = () => {
-  const [theme, switchTheme] = useTheme();
+  const theme = useTheme();
 
   useEffect(() => {
-    document.body.className = bodyStyles[`Root_theme_${theme}`];
+    const [current] = theme;
+
+    document.body.className = bodyStyles[`Root_theme_${current}`];
   }, [theme]);
 
   useBreakpointUpdate();
 
   const authOutlet = (
-    <AuthLayout onThemeSwitch={switchTheme}>
+    <AuthLayout theme={theme}>
       <AuthRoute />
     </AuthLayout>
   );
 
   const privateOutlet = (
-    <Layout onThemeSwitch={switchTheme}>
+    <Layout theme={theme}>
       <Suspense fallback={<Loading />}>
         <PrivateRoute />
       </Suspense>
@@ -42,7 +44,8 @@ const App: React.VFC = () => {
   );
 
   /* TODO: Replace stubs with proper:
-    - password recovery component.
+    - password recovery page
+    - about page
     - account details page
     - settings page */
 
