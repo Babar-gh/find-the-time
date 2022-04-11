@@ -8,6 +8,7 @@ import styles from './Item.module.scss';
 interface ISharedProps {
   id: string;
   icon?: React.ComponentProps<typeof Icon>['type'];
+  iconIsShownOnlyIfSelected?: boolean;
   isSelected?: boolean;
   children: string;
 }
@@ -33,13 +34,18 @@ const Item: React.FC<IProps> = ({
   element = 'LinkWrapper',
   elementProps,
   icon,
+  iconIsShownOnlyIfSelected,
   isSelected,
   children,
 }) => {
+  const iconIsShown = iconIsShownOnlyIfSelected
+    ? Boolean(icon) && isSelected
+    : Boolean(icon);
+
   const content = (
     <div className={cn('Container', { Container_selected: isSelected })}>
       <span className={styles['IconContainer']}>
-        {icon && <Icon type={icon} />}
+        {iconIsShown && <Icon type={icon!} />}
       </span>
       <Text color="inherit">{children}</Text>
     </div>
