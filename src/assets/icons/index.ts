@@ -1,6 +1,7 @@
 import { ReactComponent as AccountCircle } from './AccountCircle.svg';
 import { ReactComponent as ArrowDownward } from './ArrowDownward.svg';
 import { ReactComponent as ArrowUpward } from './ArrowUpward.svg';
+import { ReactComponent as Check } from './Check.svg';
 import { ReactComponent as DarkMode } from './DarkMode.svg';
 import { ReactComponent as Description } from './Description.svg';
 import { ReactComponent as EditCalendar } from './EditCalendar.svg';
@@ -24,6 +25,7 @@ export default {
   AccountCircle,
   ArrowDownward,
   ArrowUpward,
+  Check,
   DarkMode,
   Description,
   EditCalendar,
