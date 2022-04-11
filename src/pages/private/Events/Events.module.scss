@@ -1,16 +1,24 @@
+.Controls {
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+$width: 230px;
+
 .List {
   list-style: none;
-  width: fit-content;
   margin: 0;
   padding: 0;
-  display: flex;
-  align-items: stretch;
-  flex-wrap: wrap;
-  gap: 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax($width, max-content));
+  grid-gap: 24px;
+  justify-content: center;
 }
 
 .ListItem {
-  width: 230px;
+  width: $width;
   background-color: var(--canvas-primary);
   border-radius: 4px;
 
@@ -19,7 +27,7 @@
   }
 
   &_loader {
-    min-height: 230px;
+    min-height: $width;
     height: 100%;
   }
 }
