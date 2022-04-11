@@ -1,15 +1,36 @@
 .Root {
+  position: relative;
+  color: var(--text-primary);
+
+  &:hover,
+  &:focus-within,
+  &:active {
+    color: var(--text-secondary);
+  }
+}
+
+.IconContainer {
+  pointer-events: none;
+  position: absolute;
+  top: 8px;
+  left: 8px;
+}
+
+.Input {
   box-sizing: border-box;
   display: block;
   width: 100%;
   height: 40px;
   padding: 10px;
-  color: var(--text-primary);
-  background-color: var(--canvas-secondary-deeper);
+  color: inherit;
   border: 1px solid transparent;
-  border-radius: 8px;
+  border-radius: 4px;
   font-family: Roboto, sans-serif;
   font-size: 16px;
+
+  &_icon {
+    padding-left: 40px;
+  }
 
   &:hover {
     border-color: var(--ui-button-hover);
@@ -18,6 +39,22 @@
   &:focus-visible {
     outline: none;
     border-color: var(--ui-button);
+  }
+
+  &_theme {
+    &_default {
+      background-color: var(--canvas-secondary-deeper);
+    }
+
+    &_alternative {
+      background-color: var(--canvas-primary);
+
+      &:hover,
+      &:focus-visible,
+      &:active {
+        background-color: var(--canvas-primary-highlighted);
+      }
+    }
   }
 
   &_validation {
