@@ -4,22 +4,26 @@
   &_layout {
     &_vertical {
       flex-direction: column;
-      gap: 4px;
     }
 
     &_horizontal {
       flex-direction: row;
       justify-content: flex-end;
       align-items: flex-start;
-      gap: 8px;
     }
   }
 }
 
 .LabelContainer {
   &_layout {
+    &_vertical {
+      width: fit-content;
+      padding-bottom: 4px;
+    }
+
     &_horizontal {
       height: 40px;
+      padding-right: 8px;
       display: flex;
       align-items: center;
       text-align: right;
