@@ -10,19 +10,19 @@
   border: 1px solid transparent;
   border-radius: 4px;
 
-  &_selected,
+  &_pressed,
   &:hover,
   &:active {
     color: var(--text-secondary);
     background-color: var(--canvas-primary-highlighted);
   }
 
-  &:hover:not(&_selected) {
+  &:hover:not(&_pressed) {
     border-color: var(--ui-button-hover);
   }
 
-  &_selected,
-  &:active:not(&_selected) {
+  &_pressed,
+  &:active:not(&_pressed) {
     border-color: var(--ui-button);
   }
 }
