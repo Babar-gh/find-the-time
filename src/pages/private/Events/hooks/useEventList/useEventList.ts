@@ -7,6 +7,16 @@ import { IState, Payload } from './types';
 const useEventList = (pageSize: number) => {
   const initialState: IState = {
     pagination: { pageSize, pageNumber: 0 },
+    sorter: {
+      sortBy: 'created',
+      direction: 'descending',
+    },
+    filter: {
+      isOrganizer: null,
+      location: null,
+      status: null,
+      title: null,
+    },
     items: [],
     totalItems: null,
     pageSize,
