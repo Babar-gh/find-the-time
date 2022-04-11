@@ -25,10 +25,10 @@ export interface IEvent {
 type EventStatus = 'pending' | 'past';
 
 interface IEventFilter {
-  isOrganizer?: boolean | null;
-  title?: string | null;
-  location?: string | null;
-  status?: EventStatus[] | null;
+  isOrganizer: boolean | null;
+  title: string | null;
+  location: string | null;
+  status: EventStatus | null;
 }
 
 type EventSortableBy = 'created' | 'chosenInterval' | 'subscriptions';

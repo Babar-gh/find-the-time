@@ -34,7 +34,7 @@ export const reducer = (state: IState, action: Action): IState => {
         ...state,
         pagination: { ...state.pagination, pageNumber: 0 },
         totalItems: null,
-        sorter: action.payload ? { ...action.payload } : undefined,
+        sorter: { ...state.sorter, ...action.payload },
       };
     }
 

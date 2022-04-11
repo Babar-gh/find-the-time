@@ -11,8 +11,8 @@ export interface IPagination {
 }
 
 export interface ISearchConstraints<Filter, SortableBy> {
-  filter?: Filter;
-  sorter?: ISorter<SortableBy>;
+  filter: Filter;
+  sorter: ISorter<SortableBy>;
   pagination: IPagination;
 }
 
