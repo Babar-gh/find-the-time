@@ -1,10 +1,12 @@
 .Root {
   list-style: none;
+  font-size: 0;
   margin: 0;
   padding: 0;
   background-color: var(--canvas-secondary);
 }
 
 .Item:not(.Item:last-child) {
+  font-size: 0;
   margin-bottom: 2px;
 }
