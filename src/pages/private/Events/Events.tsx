@@ -1,16 +1,17 @@
 import classNames from 'classnames/bind';
+import Button from 'ui-kit/Button';
 import LinkWrapper from 'components/LinkWrapper';
 import Loader from 'ui-kit/Loader';
 import Page from 'ui-kit/Page';
 import useIntersection from 'hooks/useIntersection';
 import { PRIVATE } from 'constants/routes';
-import Button from 'ui-kit/Button';
+import EventTile from './components/EventTile';
+import FilterControls from './components/FilterControls';
+import SearchInput from './components/SearchInput';
+import SortByMenu from './components/SortByMenu';
+import SortOrderSwitchButton from './components/SortOrderSwitchButton';
 import styles from './Events.module.scss';
 import useEventList from './hooks/useEventList';
-import EventTile from './components/EventTile';
-import SearchInput from './components/SearchInput';
-import SortOrderSwitchButton from './components/SortOrderSwitchButton';
-import SortByMenu from './components/SortByMenu';
 
 const cn = classNames.bind(styles);
 
@@ -40,6 +41,7 @@ const Events: React.VFC = () => {
         <SearchInput {...filterProps} />
         <SortOrderSwitchButton {...sorterProps} />
         <SortByMenu {...sorterProps} />
+        <FilterControls {...filterProps} />
       </div>
       <ul className={styles['List']}>
         {list.items.map(({ id, ...rest }, index) => {
