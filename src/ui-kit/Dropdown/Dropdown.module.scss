@@ -1,0 +1,33 @@
+.Content {
+  position: absolute;
+  top: 8px;
+  padding: 8px 0;
+  background-color: var(--canvas-secondary);
+  border: 1px solid var(--ui-button);
+  border-radius: 4px;
+
+  &_align {
+    &_center {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    &_right {
+      right: 0;
+    }
+  }
+
+  &_width {
+    &_narrow {
+      width: 150px;
+    }
+
+    &_default {
+      width: 200px;
+    }
+
+    &_wide {
+      width: 300px;
+    }
+  }
+}
