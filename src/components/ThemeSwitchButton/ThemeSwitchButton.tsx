@@ -10,7 +10,7 @@ const ThemeSwitchButton: React.VFC<IProps> = ({ theme }) => {
 
   const icon = current === 'dark' ? 'LightMode' : 'DarkMode';
 
-  return <IconButton icon={icon} onClick={handleClick} />;
+  return <IconButton icon={icon} elementProps={{ onClick: handleClick }} />;
 };
 
 export default ThemeSwitchButton;
