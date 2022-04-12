@@ -7,6 +7,7 @@ interface IProps {
   trigger: ReactNode;
   width?: 'narrow' | 'default' | 'wide';
   align?: 'left' | 'center' | 'right';
+  closeOnClick?: boolean;
 }
 
 const cn = classNames.bind(styles);
@@ -15,6 +16,7 @@ const Dropdown: React.FC<IProps> = ({
   trigger,
   width = 'default',
   align = 'center',
+  closeOnClick = true,
   children,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,13 +27,27 @@ const Dropdown: React.FC<IProps> = ({
     `Content_width_${width}`
   );
 
+  const handleClick = () => setIsOpen((current) => !current);
+
   return (
-    <div onClick={() => setIsOpen((current) => !current)}>
-      {isValidElement(trigger)
-        ? cloneElement(trigger, { isPressed: isOpen })
-        : trigger}
-      <Backdrop isOpen={isOpen} theme="transparent" withoutPortal>
-        <div className={contentClassName}>{children}</div>
+    <div>
+      <div onClick={handleClick}>
+        {isValidElement(trigger)
+          ? cloneElement(trigger, { isPressed: isOpen })
+          : trigger}
+      </div>
+      <Backdrop
+        isOpen={isOpen}
+        theme="transparent"
+        withoutPortal
+        onBackdropClick={handleClick}
+      >
+        <div
+          onClick={closeOnClick ? handleClick : undefined}
+          className={contentClassName}
+        >
+          {children}
+        </div>
       </Backdrop>
     </div>
   );
