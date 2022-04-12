@@ -1,31 +1,31 @@
-import { useState } from 'react';
-import Backdrop from 'ui-kit/Backdrop';
+import Dropdown from 'ui-kit/Dropdown';
 import IconButton from 'ui-kit/IconButton';
 import Menu from 'ui-kit/Menu';
+import useBreakpointCheck from 'hooks/useBreakpointCheck';
 import useEventList from '../../hooks/useEventList';
-import styles from './SortByMenu.module.scss';
 
 interface IProps extends Pick<ReturnType<typeof useEventList>, 'sorter'> {
   onSorterChange: ReturnType<typeof useEventList>['applySorter'];
 }
 
 const SortByMenu: React.VFC<IProps> = ({ sorter, onSorterChange }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const bp = useBreakpointCheck();
+  const align = bp('Mobile') ? 'right' : 'center';
 
   const getMenuItem = (id: typeof sorter.sortBy, text: string) => {
+    const handleMenuItemClick = () => {
+      if (id !== sorter.sortBy) {
+        onSorterChange({ sortBy: id });
+      }
+    };
+
     return (
       <Menu.Item
         id={id}
         icon={'Check'}
         iconIsShownOnlyIfSelected
         element="HTMLButton"
-        elementProps={{
-          onClick: () => {
-            if (id !== sorter.sortBy) {
-              onSorterChange({ sortBy: id });
-            }
-          },
-        }}
+        elementProps={{ onClick: handleMenuItemClick }}
       >
         {text}
       </Menu.Item>
@@ -33,18 +33,13 @@ const SortByMenu: React.VFC<IProps> = ({ sorter, onSorterChange }) => {
   };
 
   return (
-    <div onClick={() => setIsOpen((current) => !current)}>
-      <IconButton icon="SortByAlpha" isPressed={isOpen} />
-      <Backdrop isOpen={isOpen} theme="transparent" withoutPortal>
-        <div className={styles['Container']}>
-          <Menu selectedId={sorter.sortBy}>
-            {getMenuItem('created', 'Created on')}
-            {getMenuItem('chosenInterval', 'Scheduled for')}
-            {getMenuItem('subscriptions', 'Possible start')}
-          </Menu>
-        </div>
-      </Backdrop>
-    </div>
+    <Dropdown align={align} trigger={<IconButton icon="SortByAlpha" />}>
+      <Menu selectedId={sorter.sortBy}>
+        {getMenuItem('created', 'Created on')}
+        {getMenuItem('chosenInterval', 'Scheduled for')}
+        {getMenuItem('subscriptions', 'Possible start')}
+      </Menu>
+    </Dropdown>
   );
 };
 
