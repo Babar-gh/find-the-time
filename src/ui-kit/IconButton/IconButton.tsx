@@ -1,20 +1,21 @@
-import classNames from 'classnames/bind';
-import { ComponentProps, HTMLAttributes } from 'react';
-import Icon from 'components/Icon';
-import styles from './IconButton.module.scss';
+import { ComponentProps } from 'react';
+import Button from 'ui-kit/Button';
+import { ButtonElementSpecificProps } from 'ui-kit/Button/Button';
 
-interface IProps extends Omit<HTMLAttributes<HTMLButtonElement>, 'className'> {
-  icon: ComponentProps<typeof Icon>['type'];
-  isPressed?: boolean;
-}
+type Props = {
+  icon: ComponentProps<typeof Button>['leftIcon'];
+  isPressed?: ComponentProps<typeof Button>['isPressed'];
+} & ButtonElementSpecificProps;
 
-const cn = classNames.bind(styles);
-
-const IconButton: React.VFC<IProps> = ({ icon, isPressed, ...rest }) => {
+const IconButton: React.VFC<Props> = ({ icon, isPressed, ...rest }) => {
   return (
-    <button className={cn('Root', { Root_pressed: isPressed })} {...rest}>
-      <Icon type={icon}></Icon>
-    </button>
+    <Button
+      leftIcon={icon}
+      isPressed={isPressed}
+      width="square"
+      theme="secondary"
+      {...rest}
+    />
   );
 };
 
