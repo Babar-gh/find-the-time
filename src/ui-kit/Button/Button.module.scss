@@ -1,9 +1,15 @@
 @use '/src/styles/mixins' as *;
 
-$button-height: 34px;
+$normal-button-height: 34px;
+$square-button-size: 40px;
 
 .Root {
   &_width {
+    &_fitContent,
+    &_block {
+      height: $normal-button-height;
+    }
+
     &_fitContent {
       width: fit-content;
       min-width: 60px;
@@ -11,6 +17,11 @@ $button-height: 34px;
 
     &_block {
       width: 100%;
+    }
+
+    &_square {
+      width: $square-button-size;
+      height: $square-button-size;
     }
   }
 }
@@ -26,37 +37,66 @@ $button-height: 34px;
 .Link,
 .Button {
   width: 100%;
+  height: 100%;
 }
 
 .Container {
+  box-sizing: border-box;
   display: flex;
   align-items: center;
-  height: $button-height;
-  color: var(--ui-button-text);
+  height: 100%;
   border-radius: 4px;
-  padding: 0 8px;
 
   &_theme {
     &_primary {
+      color: var(--ui-button-text);
       background-color: var(--ui-button);
+      padding: 0 8px;
 
-      &:hover {
+      &:hover:not(&Pressed) {
         background-color: var(--ui-button-hover);
       }
 
-      &:active {
+      &Pressed,
+      &:active:not(&Pressed) {
         background-color: var(--ui-button-active);
       }
     }
 
-    &_danger {
-      background-color: var(--ui-button-danger);
+    &_secondary {
+      color: var(--text-primary);
+      background-color: var(--canvas-primary);
+      padding: 0 7px;
+      border: 1px solid transparent;
 
-      &:hover {
+      &Pressed,
+      &:hover,
+      &:active {
+        color: var(--text-secondary);
+        background-color: var(--canvas-primary-highlighted);
+      }
+
+      &:hover:not(&Pressed) {
+        border-color: var(--ui-button-hover);
+      }
+
+      &Pressed,
+      &:active:not(&Pressed) {
+        border-color: var(--ui-button);
+      }
+    }
+
+    &_danger {
+      color: var(--ui-button-text);
+      background-color: var(--ui-button-danger);
+      padding: 0 8px;
+
+      &:hover:not(&Pressed) {
         background-color: var(--ui-button-danger-hover);
       }
 
-      &:active {
+      &Pressed,
+      &:active:not(&Pressed) {
         background-color: var(--ui-button-danger-active);
       }
     }

@@ -8,28 +8,23 @@ import styles from './Button.module.scss';
 type IconType = React.ComponentProps<typeof Icon>['type'];
 
 interface ISharedProps {
-  // TODO: Add 'secondary' and 'tertiary' theme styles.
+  // TODO: Add 'tertiary' theme style.
   theme?: 'primary' | 'secondary' | 'tertiary' | 'danger';
-  width?: 'fitContent' | 'block';
+  width?: 'fitContent' | 'block' | 'square';
   leftIcon?: IconType;
   rightIcon?: IconType;
-  children: string;
+  isPressed?: boolean;
+  children?: string;
 }
 
 type LinkProps = React.ComponentProps<typeof LinkWrapper>;
 type ButtonProps = HTMLAttributes<HTMLButtonElement>;
 
-type IProps = ISharedProps &
-(
-  | {
-    element?: 'HTMLButton';
-    elementProps: ButtonProps;
-  }
-  | {
-    element: 'LinkWrapper';
-    elementProps: LinkProps;
-  }
-);
+export type ButtonElementSpecificProps =
+  | { element?: 'HTMLButton'; elementProps?: ButtonProps }
+  | { element: 'LinkWrapper'; elementProps?: LinkProps };
+
+type IProps = ISharedProps & ButtonElementSpecificProps;
 
 const cn = classNames.bind(styles);
 
@@ -48,16 +43,23 @@ const Button: React.FC<IProps> = ({
   width = 'fitContent',
   leftIcon,
   rightIcon,
+  isPressed,
   children,
 }) => {
   const content = (
-    <div className={cn('Container', `Container_theme_${theme}`)}>
+    <div
+      className={cn('Container', `Container_theme_${theme}`, {
+        [`Container_theme_${theme}Pressed`]: isPressed,
+      })}
+    >
       {leftIcon && getIconWithContainer(leftIcon)}
-      <span className={styles['TextContainer']}>
-        <Text color="inherit" size="small">
-          {children}
-        </Text>
-      </span>
+      {children && (
+        <span className={styles['TextContainer']}>
+          <Text color="inherit" size="small">
+            {children}
+          </Text>
+        </span>
+      )}
       {rightIcon && getIconWithContainer(rightIcon)}
     </div>
   );
