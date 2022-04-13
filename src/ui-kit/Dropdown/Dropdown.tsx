@@ -1,6 +1,7 @@
 import classNames from 'classnames/bind';
 import { cloneElement, isValidElement, ReactNode, useState } from 'react';
 import Backdrop from 'ui-kit/Backdrop';
+import IconButton from 'ui-kit/IconButton';
 import Separator from './components/Separator';
 import styles from './Dropdown.module.scss';
 
@@ -35,7 +36,7 @@ const Dropdown: DropdownComponent = ({
   return (
     <div>
       <div onClick={handleClick}>
-        {isValidElement(trigger)
+        {isValidElement(trigger) && trigger.type === IconButton
           ? cloneElement(trigger, { isPressed: isOpen })
           : trigger}
       </div>
