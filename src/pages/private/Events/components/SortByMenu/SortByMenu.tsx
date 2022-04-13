@@ -10,7 +10,7 @@ interface IProps extends Pick<ReturnType<typeof useEventList>, 'sorter'> {
 
 const SortByMenu: React.VFC<IProps> = ({ sorter, onSorterChange }) => {
   const bp = useBreakpointCheck();
-  const align = bp('Mobile') ? 'right' : 'center';
+  const align = bp('Mobile', 'Tablet') ? 'right' : 'center';
 
   const getMenuItem = (id: typeof sorter.sortBy, text: string) => {
     const handleMenuItemClick = () => {
@@ -33,7 +33,10 @@ const SortByMenu: React.VFC<IProps> = ({ sorter, onSorterChange }) => {
   };
 
   return (
-    <Dropdown align={align} trigger={<IconButton icon="SortByAlpha" />}>
+    <Dropdown
+      align={align}
+      trigger={<IconButton icon="SortByAlpha" isHighlighted />}
+    >
       <Menu selectedId={sorter.sortBy}>
         {getMenuItem('created', 'Created on')}
         {getMenuItem('chosenInterval', 'Scheduled for')}
