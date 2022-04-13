@@ -1,5 +1,6 @@
 import Dropdown from 'ui-kit/Dropdown';
 import Menu from 'ui-kit/Menu';
+import Separator from 'ui-kit/Separator';
 import Text from 'components/Text';
 import { getDisplayName } from 'helpers/users/getDisplayName';
 import { PRIVATE } from 'constants/routes';
@@ -31,7 +32,7 @@ const UserMenu: React.FC = () => {
           {displayName}
         </Text>
       </div>
-      <Dropdown.Separator />
+      <Separator context="dropdown" />
       <Menu>
         <Menu.Item
           id="account"

@@ -1,0 +1,15 @@
+.Root {
+  height: 1px;
+  margin: 8px 0;
+  border: none;
+
+  &_context {
+    &_dropdown {
+      background-color: var(--ui-button);
+    }
+
+    &_menu {
+      background-color: var(--canvas-modifier-selected);
+    }
+  }
+}

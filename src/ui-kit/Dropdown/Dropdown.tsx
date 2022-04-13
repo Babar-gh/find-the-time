@@ -2,7 +2,6 @@ import classNames from 'classnames/bind';
 import { cloneElement, isValidElement, ReactNode, useState } from 'react';
 import Backdrop from 'ui-kit/Backdrop';
 import IconButton from 'ui-kit/IconButton';
-import Separator from './components/Separator';
 import styles from './Dropdown.module.scss';
 
 interface IProps {
@@ -14,9 +13,7 @@ interface IProps {
 
 const cn = classNames.bind(styles);
 
-type DropdownComponent = React.FC<IProps> & { Separator: typeof Separator };
-
-const Dropdown: DropdownComponent = ({
+const Dropdown: React.FC<IProps> = ({
   trigger,
   width = 'default',
   align = 'center',
@@ -56,7 +53,5 @@ const Dropdown: DropdownComponent = ({
     </div>
   );
 };
-
-Dropdown.Separator = Separator;
 
 export default Dropdown;

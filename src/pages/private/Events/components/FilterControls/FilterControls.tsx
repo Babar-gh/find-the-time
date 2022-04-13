@@ -1,6 +1,7 @@
 import Dropdown from 'ui-kit/Dropdown';
 import IconButton from 'ui-kit/IconButton';
 import Menu from 'ui-kit/Menu';
+import Separator from 'ui-kit/Separator';
 import Switch from 'ui-kit/Switch';
 import Text from 'components/Text';
 import useBreakpointCheck from 'hooks/useBreakpointCheck';
@@ -54,7 +55,7 @@ const FilterControls: React.VFC<IProps> = ({ filter, onFilterChange }) => {
         {getSelectStatusMenuItem('pending', 'Pending')}
         {getSelectStatusMenuItem('past', 'Past')}
       </Menu>
-      <Dropdown.Separator />
+      <Separator context="dropdown" />
       <label className={styles['SwitchRow']}>
         <Text color="inherit">Hide created by others</Text>
         <Switch
