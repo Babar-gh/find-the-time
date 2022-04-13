@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 import Dropdown from 'ui-kit/Dropdown';
 import IconButton from 'ui-kit/IconButton';
+import Menu from 'ui-kit/Menu';
+import Switch from 'ui-kit/Switch';
 import Text from 'components/Text';
 import useBreakpointCheck from 'hooks/useBreakpointCheck';
 import useEventList from '../../hooks/useEventList';
+import styles from './FilterControls.module.scss';
 
 interface IProps extends Pick<ReturnType<typeof useEventList>, 'filter'> {
   onFilterChange: ReturnType<typeof useEventList>['applyFilter'];
@@ -11,68 +14,57 @@ interface IProps extends Pick<ReturnType<typeof useEventList>, 'filter'> {
 
 const FilterControls: React.VFC<IProps> = ({ filter, onFilterChange }) => {
   const bp = useBreakpointCheck();
-  const align = bp('Mobile') ? 'right' : 'center';
+  const align = bp('Mobile', 'Tablet') ? 'right' : 'center';
 
-  const [pendingAreShown, setPendingAreShown] = useState(true);
-  const [pastAreShown, setPastAreShown] = useState(true);
+  const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
-    const status =
-      pendingAreShown && pastAreShown
-        ? null
-        : pendingAreShown
-          ? 'pending'
-          : 'past';
+    setIsActive(Boolean(filter.isOrganizer || filter.status));
+  }, [filter.isOrganizer, filter.status]);
 
-    if (filter.status !== status) {
-      onFilterChange({ status });
-    }
-  }, [pendingAreShown, pastAreShown, filter.status, onFilterChange]);
+  const getSelectStatusMenuItem = (id: typeof filter.status, text: string) => {
+    const handleMenuItemClick = () => {
+      if (id !== filter.status) {
+        onFilterChange({ status: id });
+      }
+    };
+
+    return (
+      <Menu.Item
+        id={id || 'all'}
+        icon={'Check'}
+        iconIsShownOnlyIfSelected
+        element="HTMLButton"
+        elementProps={{ onClick: handleMenuItemClick }}
+      >
+        {text}
+      </Menu.Item>
+    );
+  };
 
   return (
     <Dropdown
       align={align}
       width="wide"
       closeOnClick={false}
-      trigger={<IconButton icon="FilterList" />}
+      trigger={<IconButton isHighlighted={isActive} icon="FilterList" />}
     >
-      <ul style={{ listStyle: 'none' }}>
-        <li>
-          <input
-            type="checkbox"
-            checked={filter.isOrganizer === null}
-            onChange={(e) =>
-              onFilterChange({ isOrganizer: e.target.checked ? null : true })
-            }
-            id="1"
-          />
-          <label htmlFor="1">
-            <Text>Organized by others</Text>
-          </label>
-        </li>
-        <li>
-          <input
-            type="checkbox"
-            checked={pendingAreShown}
-            onChange={(e) => setPendingAreShown(e.target.checked)}
-            id="2"
-          />
-          <label htmlFor="2">
-            <Text>Pending</Text>
-          </label>
-        </li>
-        <li>
-          <input
-            type="checkbox"
-            checked={pastAreShown}
-            onChange={(e) => setPastAreShown(e.target.checked)}
-            id="3"
-          />
-          <label htmlFor="3">
-            <Text>Past</Text>
-          </label>
-        </li>
-      </ul>
+      <Menu selectedId={filter.status || 'all'}>
+        {getSelectStatusMenuItem(null, 'Show all')}
+        {getSelectStatusMenuItem('pending', 'Pending')}
+        {getSelectStatusMenuItem('past', 'Past')}
+      </Menu>
+      <Dropdown.Separator />
+      <label className={styles['SwitchRow']}>
+        <Text color="inherit">Hide created by others</Text>
+        <Switch
+          type="checkbox"
+          checked={filter.isOrganizer !== null}
+          onChange={(e) =>
+            onFilterChange({ isOrganizer: e.target.checked || null })
+          }
+        />
+      </label>
     </Dropdown>
   );
 };
