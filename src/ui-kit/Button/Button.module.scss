@@ -86,6 +86,19 @@ $square-button-size: 40px;
       }
     }
 
+    &_secondaryInverted {
+      color: var(--canvas-primary);
+      background-color: var(--text-primary);
+      padding: 0 8px;
+
+      &Pressed,
+      &:hover,
+      &:active {
+        color: var(--canvas-primary-highlighted);
+        background-color: var(--text-secondary);
+      }
+    }
+
     &_danger {
       color: var(--ui-button-text);
       background-color: var(--ui-button-danger);

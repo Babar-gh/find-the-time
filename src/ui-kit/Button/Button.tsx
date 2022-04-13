@@ -9,7 +9,7 @@ type IconType = React.ComponentProps<typeof Icon>['type'];
 
 interface ISharedProps {
   // TODO: Add 'tertiary' theme style.
-  theme?: 'primary' | 'secondary' | 'tertiary' | 'danger';
+  theme?: 'primary' | 'secondary' | 'secondaryInverted' | 'tertiary' | 'danger';
   width?: 'fitContent' | 'block' | 'square';
   leftIcon?: IconType;
   rightIcon?: IconType;
