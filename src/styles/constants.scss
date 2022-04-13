@@ -78,6 +78,18 @@ $colors: (
     'dark': rgba(#000, 0.6),
     'light': rgba(#000, 0.6),
   ),
+  'ui-switch-track-on': (
+    'dark': #3ba55d,
+    'light': #3ba55d,
+  ),
+  'ui-switch-track-off': (
+    'dark': #72767d,
+    'light': #72767d,
+  ),
+  'ui-switch-thumb': (
+    'dark': #fff,
+    'light': #fff,
+  ),
 );
 $breakpoints: (
   'Mobile': (
