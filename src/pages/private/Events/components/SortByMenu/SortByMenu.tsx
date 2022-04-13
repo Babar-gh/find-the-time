@@ -35,7 +35,12 @@ const SortByMenu: React.VFC<IProps> = ({ sorter, onSorterChange }) => {
   return (
     <Dropdown
       align={align}
-      trigger={<IconButton icon="SortByAlpha" isHighlighted />}
+      trigger={
+        <IconButton
+          icon="SortByAlpha"
+          isHighlighted={sorter.sortBy !== 'created'}
+        />
+      }
     >
       <Menu selectedId={sorter.sortBy}>
         {getMenuItem('created', 'Created on')}
