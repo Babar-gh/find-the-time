@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import Dropdown from 'ui-kit/Dropdown';
 import IconButton from 'ui-kit/IconButton';
 import Menu from 'ui-kit/Menu';
@@ -15,12 +14,6 @@ interface IProps extends Pick<ReturnType<typeof useEventList>, 'filter'> {
 const FilterControls: React.VFC<IProps> = ({ filter, onFilterChange }) => {
   const bp = useBreakpointCheck();
   const align = bp('Mobile', 'Tablet') ? 'right' : 'center';
-
-  const [isActive, setIsActive] = useState(false);
-
-  useEffect(() => {
-    setIsActive(Boolean(filter.isOrganizer || filter.status));
-  }, [filter.isOrganizer, filter.status]);
 
   const getNonNullableId = (id: typeof filter.status) => id || 'all';
 
@@ -49,7 +42,12 @@ const FilterControls: React.VFC<IProps> = ({ filter, onFilterChange }) => {
       align={align}
       width="wide"
       closeOnClick={false}
-      trigger={<IconButton isHighlighted={isActive} icon="FilterList" />}
+      trigger={
+        <IconButton
+          isHighlighted={Boolean(filter.isOrganizer || filter.status)}
+          icon="FilterList"
+        />
+      }
     >
       <Menu selectedId={getNonNullableId(filter.status)}>
         {getSelectStatusMenuItem(null, 'Show all')}
