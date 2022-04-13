@@ -3,10 +3,8 @@ import IconButton from 'ui-kit/IconButton';
 import Menu from 'ui-kit/Menu';
 import Separator from 'ui-kit/Separator';
 import Switch from 'ui-kit/Switch';
-import Text from 'components/Text';
 import useBreakpointCheck from 'hooks/useBreakpointCheck';
 import useEventList from '../../hooks/useEventList';
-import styles from './FilterControls.module.scss';
 
 interface IProps extends Pick<ReturnType<typeof useEventList>, 'filter'> {
   onFilterChange: ReturnType<typeof useEventList>['applyFilter'];
@@ -56,16 +54,13 @@ const FilterControls: React.VFC<IProps> = ({ filter, onFilterChange }) => {
         {getSelectStatusMenuItem('past', 'Past')}
       </Menu>
       <Separator context="dropdown" />
-      <label className={styles['SwitchRow']}>
-        <Text color="inherit">Hide created by others</Text>
-        <Switch
-          type="checkbox"
-          checked={filter.isOrganizer !== null}
-          onChange={(e) =>
-            onFilterChange({ isOrganizer: e.target.checked || null })
-          }
-        />
-      </label>
+      <Switch
+        label="Hide created by others"
+        checked={filter.isOrganizer !== null}
+        onChange={(e) =>
+          onFilterChange({ isOrganizer: e.target.checked || null })
+        }
+      />
     </Dropdown>
   );
 };
