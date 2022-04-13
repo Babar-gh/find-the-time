@@ -11,7 +11,7 @@ const AuthLayout: React.FC<IProps> = ({ theme, children }) => {
   return (
     <div className={styles['Root']}>
       <div className={styles['SwitchThemeButtonContainer']}>
-        <ThemeSwitchButton theme={theme} />
+        <ThemeSwitchButton theme={theme} isHighlighted />
       </div>
       <div className={styles['ContentContainer']}>
         <div className={styles['LogoContainer']}>
