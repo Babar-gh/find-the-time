@@ -22,6 +22,8 @@ const FilterControls: React.VFC<IProps> = ({ filter, onFilterChange }) => {
     setIsActive(Boolean(filter.isOrganizer || filter.status));
   }, [filter.isOrganizer, filter.status]);
 
+  const getNonNullableId = (id: typeof filter.status) => id || 'all';
+
   const getSelectStatusMenuItem = (id: typeof filter.status, text: string) => {
     const handleMenuItemClick = () => {
       if (id !== filter.status) {
@@ -31,7 +33,7 @@ const FilterControls: React.VFC<IProps> = ({ filter, onFilterChange }) => {
 
     return (
       <Menu.Item
-        id={id || 'all'}
+        id={getNonNullableId(id)}
         icon={'Check'}
         iconIsShownOnlyIfSelected
         element="HTMLButton"
@@ -49,7 +51,7 @@ const FilterControls: React.VFC<IProps> = ({ filter, onFilterChange }) => {
       closeOnClick={false}
       trigger={<IconButton isHighlighted={isActive} icon="FilterList" />}
     >
-      <Menu selectedId={filter.status || 'all'}>
+      <Menu selectedId={getNonNullableId(filter.status)}>
         {getSelectStatusMenuItem(null, 'Show all')}
         {getSelectStatusMenuItem('pending', 'Pending')}
         {getSelectStatusMenuItem('past', 'Past')}
