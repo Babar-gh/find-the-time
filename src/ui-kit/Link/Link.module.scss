@@ -1,7 +1,26 @@
 .Root {
   &_theme {
-    &_wrapper {
+    &_wrapper,
+    &_primary,
+    &_danger {
       text-decoration: none;
+    }
+
+    &_primary,
+    &_danger {
+      &:hover,
+      &:focus-visible,
+      &:active {
+        text-decoration: underline;
+      }
+    }
+
+    &_primary {
+      color: var(--ui-link);
+    }
+
+    &_danger {
+      color: var(--ui-button-danger);
     }
   }
 }
