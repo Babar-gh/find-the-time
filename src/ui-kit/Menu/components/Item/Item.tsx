@@ -47,7 +47,7 @@ const Item: React.FC<IProps> = ({
   );
 
   return element === 'Link' ? (
-    <Link theme="wrapper" {...(elementProps as LinkProps)}>
+    <Link isWrapper {...(elementProps as LinkProps)}>
       {content}
     </Link>
   ) : (

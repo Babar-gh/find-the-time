@@ -9,8 +9,8 @@ import Text from 'components/Text';
 import styles from './Link.module.scss';
 
 type SharedProps =
-  | { theme: 'wrapper'; children: ReactNode }
-  | { theme?: 'primary' | 'danger'; children: string };
+  | { isWrapper: true; theme?: never; children: ReactNode }
+  | { isWrapper?: false; theme?: 'primary' | 'danger'; children: string };
 
 type RouterLinkTypeProps = Omit<RouterLinkProps, 'children'>;
 type NavLinkTypeProps = Omit<NavLinkProps, 'children'>;
@@ -24,19 +24,19 @@ export type LinkTypeSpecificProps =
 type IProps = SharedProps & LinkTypeSpecificProps;
 
 const Link: React.VFC<IProps> = ({
+  isWrapper,
   theme = 'primary',
   type,
   children,
   ...rest
 }) => {
-  const className = styles[`Root_theme_${theme}`];
+  const className = styles[`Root_theme_${isWrapper ? 'wrapper' : theme}`];
 
-  const content =
-    theme === 'wrapper' ? (
-      children
-    ) : (
-      <Text color="inherit">{children as string}</Text>
-    );
+  const content = isWrapper ? (
+    children
+  ) : (
+    <Text color="inherit">{children as string}</Text>
+  );
 
   switch (type) {
     case 'RouterLink':

@@ -53,11 +53,7 @@ const Events: React.VFC = () => {
               key={id}
               ref={isLast ? setSentinelRef : undefined}
             >
-              <Link
-                type="RouterLink"
-                to={`${PRIVATE.Events}/${id}`}
-                theme="wrapper"
-              >
+              <Link type="RouterLink" to={`${PRIVATE.Events}/${id}`} isWrapper>
                 <EventTile id={id} {...rest} />
               </Link>
             </li>

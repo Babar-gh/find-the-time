@@ -72,7 +72,7 @@ const Button: React.FC<IProps> = ({
           {content}
         </button>
       ) : (
-        <Link {...(elementProps as LinkProps)} theme="wrapper">
+        <Link isWrapper {...(elementProps as LinkProps)}>
           {content}
         </Link>
       )}
