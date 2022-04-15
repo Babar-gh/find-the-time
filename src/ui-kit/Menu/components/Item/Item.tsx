@@ -3,6 +3,7 @@ import { HTMLAttributes } from 'react';
 import Icon from 'components/Icon';
 import Link from 'ui-kit/Link';
 import Text from 'components/Text';
+import { LinkTypeSpecificProps } from 'ui-kit/Link/Link';
 import styles from './Item.module.scss';
 
 interface ISharedProps {
@@ -13,8 +14,8 @@ interface ISharedProps {
   children: string;
 }
 
-type LinkProps = React.ComponentProps<typeof Link>;
-type ButtonProps = HTMLAttributes<HTMLButtonElement>;
+type LinkProps = LinkTypeSpecificProps;
+type ButtonProps = Omit<HTMLAttributes<HTMLButtonElement>, 'children'>;
 
 type ElementSpecificProps =
   | { element?: 'Link'; elementProps: LinkProps }

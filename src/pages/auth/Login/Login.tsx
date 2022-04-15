@@ -15,12 +15,12 @@ const Login: React.VFC = () => {
         <>
           <Text>Need an account? </Text>
           <Link type="RouterLink" to={AUTH.Registration}>
-            <Text>Sign up!</Text>
+            Sign up!
           </Link>
         </>,
         <>
           <Link type="RouterLink" to={AUTH.ResetPassword}>
-            <Text>Forgot your password?</Text>
+            Forgot your password?
           </Link>
         </>,
       ]}
