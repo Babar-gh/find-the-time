@@ -5,6 +5,7 @@ import Events from 'pages/private/Events';
 import Layout from 'components/Layout';
 import Loading from 'pages/private/Loading';
 import Login from 'pages/auth/Login';
+import NewEvent from 'pages/private/NewEvent';
 import Registration from 'pages/auth/Registration';
 import Text from 'components/Text';
 import { AUTH, PRIVATE } from 'constants/routes';
@@ -47,7 +48,6 @@ const App: React.VFC = () => {
     - password recovery page
     - about page
     - account details page
-    - event creation page
     - settings page */
 
   return (
@@ -60,7 +60,7 @@ const App: React.VFC = () => {
       <Route element={privateOutlet}>
         <Route path={PRIVATE.About} element={<DummyPage />} />
         <Route path={PRIVATE.Account} element={<DummyPage />} />
-        <Route path={PRIVATE.CreateEvent} element={<DummyPage />} />
+        <Route path={PRIVATE.CreateEvent} element={<NewEvent />} />
         <Route path={PRIVATE.Events} element={<Events />} />
         <Route path={PRIVATE.Settings} element={<DummyPage />} />
       </Route>
