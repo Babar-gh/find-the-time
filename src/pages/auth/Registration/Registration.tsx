@@ -1,5 +1,5 @@
 import CredentialsForm from 'components/CredentialsForm';
-import LinkWrapper from 'components/LinkWrapper';
+import Link from 'ui-kit/Link';
 import Text from 'components/Text';
 import { AUTH } from 'constants/routes';
 import { signUp } from 'store/slices/account';
@@ -14,16 +14,14 @@ const Registration: React.VFC = () => {
       bottomAddons={[
         <>
           <Text>Already have an account? </Text>
-          {/* TODO: Replace with a proper <Link> component */}
-          <LinkWrapper type="RouterLink" to={AUTH.Login}>
+          <Link type="RouterLink" to={AUTH.Login}>
             <Text>Sign in!</Text>
-          </LinkWrapper>
+          </Link>
         </>,
         <>
-          {/* TODO: Replace with a proper <Link> component */}
-          <LinkWrapper type="RouterLink" to={AUTH.ResetPassword}>
+          <Link type="RouterLink" to={AUTH.ResetPassword}>
             <Text>Forgot your password?</Text>
-          </LinkWrapper>
+          </Link>
         </>,
       ]}
     />

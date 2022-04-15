@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import { HTMLAttributes } from 'react';
 import Icon from 'components/Icon';
-import LinkWrapper from 'components/LinkWrapper';
+import Link from 'ui-kit/Link';
 import Text from 'components/Text';
 import styles from './Item.module.scss';
 
@@ -13,25 +13,19 @@ interface ISharedProps {
   children: string;
 }
 
-type LinkProps = React.ComponentProps<typeof LinkWrapper>;
+type LinkProps = React.ComponentProps<typeof Link>;
 type ButtonProps = HTMLAttributes<HTMLButtonElement>;
 
-type IProps = ISharedProps &
-(
-  | {
-    element?: 'LinkWrapper';
-    elementProps: LinkProps;
-  }
-  | {
-    element: 'HTMLButton';
-    elementProps: ButtonProps;
-  }
-);
+type ElementSpecificProps =
+  | { element?: 'Link'; elementProps: LinkProps }
+  | { element: 'HTMLButton'; elementProps: ButtonProps };
+
+type IProps = ISharedProps & ElementSpecificProps;
 
 const cn = classNames.bind(styles);
 
 const Item: React.FC<IProps> = ({
-  element = 'LinkWrapper',
+  element = 'Link',
   elementProps,
   icon,
   iconIsShownOnlyIfSelected,
@@ -51,10 +45,10 @@ const Item: React.FC<IProps> = ({
     </div>
   );
 
-  return element === 'LinkWrapper' ? (
-    <LinkWrapper className={styles['Link']} {...(elementProps as LinkProps)}>
+  return element === 'Link' ? (
+    <Link theme="wrapper" {...(elementProps as LinkProps)}>
       {content}
-    </LinkWrapper>
+    </Link>
   ) : (
     <button className={styles['Button']} {...(elementProps as ButtonProps)}>
       {content}

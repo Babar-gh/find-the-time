@@ -26,10 +26,6 @@ $square-button-size: 40px;
   }
 }
 
-.Link {
-  text-decoration: none;
-}
-
 .Button {
   @include reset-button;
 }

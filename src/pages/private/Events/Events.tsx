@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import Button from 'ui-kit/Button';
-import LinkWrapper from 'components/LinkWrapper';
+import Link from 'ui-kit/Link';
 import Loader from 'ui-kit/Loader';
 import Page from 'ui-kit/Page';
 import useIntersection from 'hooks/useIntersection';
@@ -30,7 +30,7 @@ const Events: React.VFC = () => {
       title="Events"
       headerAddon={
         <Button
-          element="LinkWrapper"
+          element="Link"
           elementProps={{ type: 'RouterLink', to: PRIVATE.CreateEvent }}
         >
           Create new event
@@ -53,13 +53,13 @@ const Events: React.VFC = () => {
               key={id}
               ref={isLast ? setSentinelRef : undefined}
             >
-              <LinkWrapper
+              <Link
                 type="RouterLink"
                 to={`${PRIVATE.Events}/${id}`}
-                className={styles['ListItemLink']}
+                theme="wrapper"
               >
                 <EventTile id={id} {...rest} />
-              </LinkWrapper>
+              </Link>
             </li>
           );
         })}
