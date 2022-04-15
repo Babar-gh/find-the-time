@@ -36,17 +36,15 @@ const FilterControls: React.VFC<IProps> = ({ filter, onFilterChange }) => {
     );
   };
 
+  const governedByThisControl = [filter.isOrganizer, filter.status];
+  const isHighlighted = governedByThisControl.some((filter) => filter !== null);
+
   return (
     <Dropdown
       align={align}
       width="wide"
       closeOnClick={false}
-      trigger={
-        <IconButton
-          isHighlighted={Boolean(filter.isOrganizer || filter.status)}
-          icon="FilterList"
-        />
-      }
+      trigger={<IconButton icon="FilterList" {...{ isHighlighted }} />}
     >
       <Menu selectedId={getNonNullableId(filter.status)}>
         {getSelectStatusMenuItem(null, 'Show all')}
