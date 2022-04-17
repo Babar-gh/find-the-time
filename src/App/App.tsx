@@ -1,5 +1,6 @@
-import { lazy, Suspense, useEffect } from 'react';
+import { lazy, Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
+import { ThemeProvider } from '@mui/material/styles';
 import AuthLayout from 'components/AuthLayout';
 import Events from 'pages/private/Events';
 import Layout from 'components/Layout';
@@ -12,7 +13,7 @@ import { AUTH, PRIVATE } from 'constants/routes';
 import PrivateRoute from './components/PrivateRoute';
 import useBreakpointUpdate from './hooks/useBreakpointUpdate';
 import useTheme from './hooks/useTheme';
-import bodyStyles from './Body.module.scss';
+import useThemeUpdate from './hooks/useThemeUpdate';
 import AuthRoute from './components/AuthRoute';
 
 const DummyPage = lazy(() => import('pages/private/DummyPage'));
@@ -22,12 +23,7 @@ const dummyAuthPage = <Text size="big">TBD</Text>;
 const App: React.VFC = () => {
   const theme = useTheme();
 
-  useEffect(() => {
-    const [current] = theme;
-
-    document.body.className = bodyStyles[`Root_theme_${current}`];
-  }, [theme]);
-
+  useThemeUpdate(theme);
   useBreakpointUpdate();
 
   const authOutlet = (
@@ -37,11 +33,13 @@ const App: React.VFC = () => {
   );
 
   const privateOutlet = (
-    <Layout theme={theme}>
-      <Suspense fallback={<Loading />}>
-        <PrivateRoute />
-      </Suspense>
-    </Layout>
+    <ThemeProvider theme={theme.muiCurrent}>
+      <Layout theme={theme}>
+        <Suspense fallback={<Loading />}>
+          <PrivateRoute />
+        </Suspense>
+      </Layout>
+    </ThemeProvider>
   );
 
   /* TODO: Replace stubs with proper:

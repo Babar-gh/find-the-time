@@ -7,13 +7,11 @@ interface IProps {
 }
 
 const ThemeSwitchButton: React.VFC<IProps> = ({ theme, isHighlighted }) => {
-  const [current, handleClick] = theme;
-
-  const icon = current === 'dark' ? 'LightMode' : 'DarkMode';
+  const icon = theme.current === 'dark' ? 'LightMode' : 'DarkMode';
 
   return (
     <IconButton
-      elementProps={{ onClick: handleClick }}
+      elementProps={{ onClick: theme.switch }}
       {...{ icon, isHighlighted }}
     />
   );
