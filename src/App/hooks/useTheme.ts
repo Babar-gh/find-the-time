@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { THEME_STORAGE_KEY } from 'constants/localStorage';
+import { dark, light } from 'App/styles/muiThemes';
 
 type Theme = 'dark' | 'light';
 
@@ -11,7 +12,7 @@ const inferDefaultTheme = () => {
   return darkIsDefault ? 'dark' : 'light';
 };
 
-const useTheme = (): [Theme, () => void] => {
+const useTheme = () => {
   const [theme, setTheme] = useState<Theme>(() => {
     const storedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
 
@@ -19,6 +20,8 @@ const useTheme = (): [Theme, () => void] => {
       ? storedTheme
       : inferDefaultTheme();
   });
+
+  const muiTheme = useMemo(() => (theme === 'dark' ? dark : light), [theme]);
 
   const switchTheme = useCallback(() => {
     setTheme((currentTheme) => {
@@ -30,7 +33,11 @@ const useTheme = (): [Theme, () => void] => {
     window.localStorage.setItem(THEME_STORAGE_KEY, theme);
   }, [theme]);
 
-  return [theme, switchTheme];
+  return {
+    current: theme,
+    muiCurrent: muiTheme,
+    switch: switchTheme,
+  };
 };
 
 export default useTheme;
