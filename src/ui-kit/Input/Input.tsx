@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { ComponentProps, InputHTMLAttributes } from 'react';
+import { ComponentProps, forwardRef, InputHTMLAttributes } from 'react';
 import Icon from 'components/Icon';
 import styles from './Input.module.scss';
 
@@ -12,25 +12,22 @@ interface IProps
 
 const cn = classNames.bind(styles);
 
-const Input: React.VFC<IProps> = ({
-  icon,
-  theme = 'default',
-  validationStatus,
-  ...rest
-}) => {
-  const inputClassName = cn('Input', `Input_theme_${theme}`, {
-    [`Input_validation_${validationStatus}`]: validationStatus,
-    Input_icon: icon,
-  });
+const Input = forwardRef<HTMLInputElement, IProps>(
+  ({ icon, theme = 'default', validationStatus, ...rest }, ref) => {
+    const inputClassName = cn('Input', `Input_theme_${theme}`, {
+      [`Input_validation_${validationStatus}`]: validationStatus,
+      Input_icon: icon,
+    });
 
-  return (
-    <div className={styles['Root']}>
-      <div className={styles['IconContainer']}>
-        {icon && <Icon type={icon} />}
+    return (
+      <div className={styles['Root']}>
+        <div className={styles['IconContainer']}>
+          {icon && <Icon type={icon} />}
+        </div>
+        <input ref={ref} {...rest} className={inputClassName} />
       </div>
-      <input className={inputClassName} {...rest} />
-    </div>
-  );
-};
+    );
+  }
+);
 
 export default Input;
