@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { THEME_STORAGE_KEY } from 'constants/localStorage';
 import { dark, light } from 'App/styles/muiThemes';
+import bodyStyles from '../styles/Body.module.scss';
 
 type Theme = 'dark' | 'light';
 
@@ -31,6 +32,8 @@ const useTheme = () => {
 
   useEffect(() => {
     window.localStorage.setItem(THEME_STORAGE_KEY, theme);
+
+    document.body.className = bodyStyles[`Root_theme_${theme}`];
   }, [theme]);
 
   return {
