@@ -1,21 +1,23 @@
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { lazy, Suspense } from 'react';
+import { LocalizationProvider } from '@mui/x-date-pickers';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import AuthLayout from 'components/AuthLayout';
-import Events from 'pages/private/Events';
 import Layout from 'components/Layout';
 import Loading from 'pages/private/Loading';
 import Login from 'pages/auth/Login';
-import NewEvent from 'pages/private/NewEvent';
 import Registration from 'pages/auth/Registration';
 import Text from 'components/Text';
 import { AUTH, PRIVATE } from 'constants/routes';
 import PrivateRoute from './components/PrivateRoute';
 import useBreakpointUpdate from './hooks/useBreakpointUpdate';
 import useTheme from './hooks/useTheme';
-import useThemeUpdate from './hooks/useThemeUpdate';
 import AuthRoute from './components/AuthRoute';
+import 'dayjs/locale/en-gb';
 
+const Events = lazy(() => import('pages/private/Events'));
+const NewEvent = lazy(() => import('pages/private/NewEvent'));
 const DummyPage = lazy(() => import('pages/private/DummyPage'));
 
 const dummyAuthPage = <Text size="big">TBD</Text>;
@@ -23,7 +25,6 @@ const dummyAuthPage = <Text size="big">TBD</Text>;
 const App: React.VFC = () => {
   const theme = useTheme();
 
-  useThemeUpdate(theme);
   useBreakpointUpdate();
 
   const authOutlet = (
@@ -34,11 +35,13 @@ const App: React.VFC = () => {
 
   const privateOutlet = (
     <ThemeProvider theme={theme.muiCurrent}>
-      <Layout theme={theme}>
-        <Suspense fallback={<Loading />}>
-          <PrivateRoute />
-        </Suspense>
-      </Layout>
+      <LocalizationProvider dateAdapter={AdapterDayjs} locale="en-gb">
+        <Layout theme={theme}>
+          <Suspense fallback={<Loading />}>
+            <PrivateRoute />
+          </Suspense>
+        </Layout>
+      </LocalizationProvider>
     </ThemeProvider>
   );
 

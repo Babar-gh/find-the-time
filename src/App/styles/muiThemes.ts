@@ -1,4 +1,5 @@
 import { createTheme, ThemeOptions } from '@mui/material/styles';
+import type {} from '@mui/lab/themeAugmentation';
 
 const themeOptions: ThemeOptions = {
   palette: {
