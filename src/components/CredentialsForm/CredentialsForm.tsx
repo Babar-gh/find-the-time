@@ -21,6 +21,18 @@ interface IProps {
   bottomAddons: JSX.Element[];
 }
 
+const constraints = {
+  email: {
+    email: { message: 'is not valid' },
+  },
+  password: {
+    length: {
+      minimum: 3,
+      max: 32,
+    },
+  },
+};
+
 type ValidationErrors = { email?: string; password?: string } | undefined;
 
 const CredentialsForm: React.VFC<IProps> = ({
@@ -44,18 +56,6 @@ const CredentialsForm: React.VFC<IProps> = ({
   const [passwordIsTouched, setPasswordIsTouched] = useState(false);
 
   const [submitHasFailed, setSubmitHasFailed] = useState(false);
-
-  const constraints = {
-    email: {
-      email: { message: 'is not valid' },
-    },
-    password: {
-      length: {
-        minimum: 3,
-        max: 32,
-      },
-    },
-  };
 
   const errors: ValidationErrors = validate({ email, password }, constraints);
 
@@ -99,6 +99,7 @@ const CredentialsForm: React.VFC<IProps> = ({
                   setEmailIsTouched(true);
                 }
               }}
+              autoComplete="username"
             />
           </Form.Item>
           <Form.Item
@@ -114,6 +115,7 @@ const CredentialsForm: React.VFC<IProps> = ({
                 }
               }}
               type="password"
+              autoComplete="current-password"
             />
           </Form.Item>
           <Button
