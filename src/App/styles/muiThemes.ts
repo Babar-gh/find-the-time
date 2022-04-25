@@ -15,7 +15,7 @@ const themeOptions: ThemeOptions = {
           backgroundColor: 'var(--canvas-secondary)',
           backgroundImage: 'none',
           border: '1px solid var(--ui-button)',
-          marginTop: '8px',
+          margin: '8px',
         },
       },
     },
