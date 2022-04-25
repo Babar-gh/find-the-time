@@ -1,35 +1,63 @@
 import classNames from 'classnames/bind';
-import { cloneElement, ComponentProps, ReactElement } from 'react';
+import { uniqueId } from 'lodash';
+import {
+  cloneElement,
+  ComponentProps,
+  ReactElement,
+  ReactNode,
+  useState,
+} from 'react';
 import Input from 'ui-kit/Input';
 import Text from 'components/Text';
 import styles from './Item.module.scss';
+import useLabelWidth from './hooks/useLabelWidth';
 
 interface IProps {
-  _id?: string;
   _formLayout?: 'vertical' | 'horizontal';
+  _placement?: 'inColumn' | 'inRow' | 'firstInRow';
   label: string;
   isRequired?: boolean;
   errorMessage?: string;
+  addons?: ReactNode;
   children: ReactElement<ComponentProps<typeof Input>>;
 }
 
 const cn = classNames.bind(styles);
 
 const Item: React.VFC<IProps> = ({
-  _id,
   _formLayout,
+  _placement,
   label,
   isRequired,
   errorMessage,
+  addons,
   children: child,
 }) => {
+  const [id] = useState(uniqueId());
+  const { ref, width } = useLabelWidth();
+
   const validationStatus = errorMessage ? 'error' : undefined;
 
+  const requiresAdjustment =
+    _formLayout === 'horizontal' && _placement === 'firstInRow';
+
   return (
-    <div className={cn('Root', `Root_layout_${_formLayout}`)}>
+    <div
+      className={cn(
+        'Root',
+        `Root_${_formLayout}`,
+        `Root_${_formLayout}_${_placement}`
+      )}
+      style={requiresAdjustment ? { marginLeft: `-${width}px` } : undefined}
+    >
       <label
-        htmlFor={_id}
-        className={cn('LabelContainer', `LabelContainer_layout_${_formLayout}`)}
+        className={cn(
+          'LabelContainer',
+          `LabelContainer_${_formLayout}`,
+          `LabelContainer_${_formLayout}_${_placement}`
+        )}
+        ref={requiresAdjustment ? ref : null}
+        htmlFor={'123'}
       >
         <span>
           {isRequired && <Text color="error">*&nbsp;</Text>}
@@ -37,9 +65,13 @@ const Item: React.VFC<IProps> = ({
         </span>
       </label>
       <div
-        className={cn('InputContainer', `InputContainer_layout_${_formLayout}`)}
+        className={cn(
+          'InputContainer',
+          `InputContainer_${_formLayout}`,
+          `InputContainer_${_formLayout}_${_placement}`
+        )}
       >
-        {cloneElement(child, { id: _id, validationStatus })}
+        {cloneElement(child, { validationStatus, id })}
         {errorMessage && (
           <p className={styles['ErrorMessage']}>
             <Text color="error" font="primary" size="small">
@@ -48,6 +80,7 @@ const Item: React.VFC<IProps> = ({
           </p>
         )}
       </div>
+      {addons}
     </div>
   );
 };
