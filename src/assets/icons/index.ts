@@ -1,4 +1,5 @@
 import { ReactComponent as AccountCircle } from './AccountCircle.svg';
+import { ReactComponent as Add } from './Add.svg';
 import { ReactComponent as ArrowDownward } from './ArrowDownward.svg';
 import { ReactComponent as ArrowUpward } from './ArrowUpward.svg';
 import { ReactComponent as Check } from './Check.svg';
@@ -16,6 +17,7 @@ import { ReactComponent as Logout } from './Logout.svg';
 import { ReactComponent as Menu } from './Menu.svg';
 import { ReactComponent as Password } from './Password.svg';
 import { ReactComponent as Person } from './Person.svg';
+import { ReactComponent as Remove } from './Remove.svg';
 import { ReactComponent as Search } from './Search.svg';
 import { ReactComponent as Settings } from './Settings.svg';
 import { ReactComponent as SortByAlpha } from './SortByAlpha.svg';
@@ -23,6 +25,7 @@ import { ReactComponent as Timelapse } from './Timelapse.svg';
 
 export default {
   AccountCircle,
+  Add,
   ArrowDownward,
   ArrowUpward,
   Check,
@@ -40,6 +43,7 @@ export default {
   Menu,
   Password,
   Person,
+  Remove,
   Search,
   Settings,
   SortByAlpha,
