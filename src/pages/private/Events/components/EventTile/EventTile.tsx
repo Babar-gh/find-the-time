@@ -70,7 +70,7 @@ const EventTile: React.VFC<IProps> = ({
         <ListItem icon="Timelapse">
           <Text>{`Will last ${dayjs
             .duration(duration, 'minutes')
-            .asHours()} hours`}</Text>
+            .humanize()}`}</Text>
         </ListItem>
         {status === 'notYetScheduled' && (
           <ListItem icon="EditCalendar">
