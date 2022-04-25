@@ -1,0 +1,12 @@
+.Root {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  gap: 16px;
+
+  &_layout {
+    &_horizontal {
+      padding: 0 120px;
+    }
+  }
+}
