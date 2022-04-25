@@ -1,0 +1,46 @@
+@use '/src/styles/mixins' as *;
+
+.Container {
+  --gap: 16px;
+
+  @include apply-to(Mobile) {
+    margin: 0 24px;
+  }
+
+  @include apply-to(Tablet, Laptop, Desktop) {
+    max-width: 620px;
+    margin: 0 auto;
+  }
+}
+
+.PickerButtons {
+  position: absolute;
+  left: calc(100% + 8px);
+  display: flex;
+  gap: 8px;
+
+  @include apply-to(Mobile) {
+    top: 23px;
+    flex-direction: column;
+  }
+}
+
+.FormErrorDisplay {
+  @include apply-to(Mobile) {
+    margin-top: -16px;
+  }
+
+  @include apply-to(Tablet, Laptop, Desktop) {
+    margin: -16px 120px 0;
+  }
+}
+
+.FormText {
+  @include apply-to(Mobile) {
+    margin: 20px 0;
+  }
+
+  @include apply-to(Tablet, Laptop, Desktop) {
+    margin: 0 120px 20px;
+  }
+}
