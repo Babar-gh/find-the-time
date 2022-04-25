@@ -1,24 +1,33 @@
-import { DateTimePicker, DateTimePickerProps } from '@mui/x-date-pickers';
+import { DateTimePicker } from '@mui/x-date-pickers';
+import { Dayjs } from 'dayjs';
 import { useState } from 'react';
 import Input from 'ui-kit/Input';
 
-type NotExposedProps = 'open' | 'onOpen' | 'onClose' | 'renderInput';
-interface IProps extends Omit<DateTimePickerProps, NotExposedProps> {}
+interface IProps {
+  id?: string;
+  value: Dayjs | null;
+  onChange: (date: Dayjs | null) => void;
+}
 
-const DatePicker: React.VFC<IProps> = (props) => {
+const DatePicker: React.VFC<IProps> = ({ id, value, onChange }) => {
   const [open, setOpen] = useState(false);
 
   return (
     <DateTimePicker
-      {...props}
+      value={value}
+      onChange={onChange}
       open={open}
       onOpen={() => setOpen(true)}
       onClose={() => setOpen(false)}
-      renderInput={(props) => {
+      renderInput={({ inputRef, inputProps }) => {
         return (
-          <div ref={props.ref} onClick={() => setOpen(true)}>
-            <Input ref={props.inputRef} {...props.inputProps} readOnly />
-          </div>
+          <Input
+            id={id}
+            onClick={() => setOpen(true)}
+            ref={inputRef}
+            {...inputProps}
+            readOnly
+          />
         );
       }}
     />
