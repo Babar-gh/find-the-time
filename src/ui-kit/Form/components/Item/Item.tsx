@@ -1,12 +1,12 @@
 import classNames from 'classnames/bind';
-import { uniqueId } from 'lodash';
 import {
   cloneElement,
   ComponentProps,
   ReactElement,
   ReactNode,
-  useState,
+  useRef,
 } from 'react';
+import { uniqueId } from 'lodash';
 import Input from 'ui-kit/Input';
 import Text from 'components/Text';
 import styles from './Item.module.scss';
@@ -33,7 +33,7 @@ const Item: React.VFC<IProps> = ({
   addons,
   children: child,
 }) => {
-  const [id] = useState(uniqueId());
+  const { current: id } = useRef(uniqueId());
   const { ref, width } = useLabelWidth();
 
   const validationStatus = errorMessage ? 'error' : undefined;
@@ -57,7 +57,7 @@ const Item: React.VFC<IProps> = ({
           `LabelContainer_${_formLayout}_${_placement}`
         )}
         ref={requiresAdjustment ? ref : null}
-        htmlFor={'123'}
+        htmlFor={id}
       >
         <span>
           {isRequired && <Text color="error">*&nbsp;</Text>}
