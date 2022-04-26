@@ -20,7 +20,7 @@ import Page from 'ui-kit/Page';
 import Row from 'ui-kit/Form/components/Row';
 import Text from 'components/Text';
 import { createEvent } from 'api/events';
-import { DEFAULT_DATETIME } from 'constants/formats';
+import { DATETIME_DEFAULT } from 'constants/formats';
 import { PRIVATE } from 'constants/routes';
 import styles from './NewEvent.module.scss';
 
@@ -32,8 +32,8 @@ type Interval = { start: Dayjs; end: Dayjs; key: string };
 
 const parseIntervalsForRequest = (intervals: Interval[]) =>
   intervals.map(({ start, end }) => ({
-    start: start.format(DEFAULT_DATETIME),
-    end: end.format(DEFAULT_DATETIME),
+    start: start.format(DATETIME_DEFAULT),
+    end: end.format(DATETIME_DEFAULT),
   }));
 
 validate.validators.longerThan = (
