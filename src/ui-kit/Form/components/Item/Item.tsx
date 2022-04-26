@@ -86,3 +86,5 @@ const Item: React.VFC<IProps> = ({
 };
 
 export default Item;
+
+export type ItemElement = ReactElement<ComponentProps<typeof Item>>;

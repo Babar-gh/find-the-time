@@ -1,24 +1,11 @@
-import {
-  Children,
-  cloneElement,
-  ComponentProps,
-  FormEvent,
-  FormHTMLAttributes,
-  ReactElement,
-} from 'react';
+import { Children, cloneElement, FormEvent, FormHTMLAttributes } from 'react';
 import useBreakpointCheck from 'hooks/useBreakpointCheck';
 import Column from './components/Column';
 import CustomItem from './components/CustomItem';
 import Item from './components/Item';
 import Row from './components/Row';
 import styles from './Form.module.scss';
-
-type RowComponent = typeof Row;
-type ItemComponent = typeof Item;
-type CustomItemComponent = typeof CustomItem;
-
-type ColumnComponent = typeof Column;
-type ColumnElement = ReactElement<ComponentProps<ColumnComponent>>;
+import { ColumnElement } from './components/Column/Column';
 
 interface IProps extends FormHTMLAttributes<HTMLFormElement> {
   defaultPreventedOnSubmission: boolean;
@@ -30,10 +17,10 @@ interface IProps extends FormHTMLAttributes<HTMLFormElement> {
 }
 
 type FormComponent = React.VFC<IProps> & {
-  Item: ItemComponent;
-  CustomItem: CustomItemComponent;
-  Column: ColumnComponent;
-  Row: RowComponent;
+  Item: typeof Item;
+  CustomItem: typeof CustomItem;
+  Column: typeof Column;
+  Row: typeof Row;
 };
 
 const Form: FormComponent = ({

@@ -3,16 +3,11 @@ import { Children, cloneElement, ComponentProps, ReactElement } from 'react';
 import Button from 'ui-kit/Button';
 import CustomItem from '../CustomItem';
 import Item from '../Item';
+import { CustomItemElement } from '../CustomItem/CustomItem';
+import { ItemElement } from '../Item/Item';
 import styles from './Row.module.scss';
 
-type ItemComponent = typeof Item;
-type ItemElement = ReactElement<ComponentProps<ItemComponent>>;
-
-type CustomItemComponent = typeof CustomItem;
-type CustomItemElement = ReactElement<ComponentProps<CustomItemComponent>>;
-
-type ButtonComponent = typeof Button;
-type ButtonElement = ReactElement<ComponentProps<ButtonComponent>>;
+type ButtonElement = ReactElement<ComponentProps<typeof Button>>;
 
 type Child =
   | ItemElement
@@ -65,3 +60,5 @@ const Row: React.VFC<IProps> = ({ _formLayout, children }) => {
 };
 
 export default Row;
+
+export type RowElement = ReactElement<ComponentProps<typeof Row>>;

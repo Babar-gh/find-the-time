@@ -3,12 +3,7 @@ import isBetween from 'dayjs/plugin/isBetween';
 import validate from 'validate.js';
 import { uniqueId } from 'lodash';
 import { useNavigate } from 'react-router-dom';
-import {
-  ComponentProps,
-  MouseEventHandler,
-  ReactElement,
-  useState,
-} from 'react';
+import { MouseEventHandler, useState } from 'react';
 import Button from 'ui-kit/Button';
 import DatePicker from 'ui-kit/DatePicker';
 import ErrorDisplay from 'ui-kit/ErrorDisplay';
@@ -17,16 +12,14 @@ import IconButton from 'ui-kit/IconButton';
 import Input from 'ui-kit/Input';
 import Loader from 'ui-kit/Loader';
 import Page from 'ui-kit/Page';
-import Row from 'ui-kit/Form/components/Row';
 import Text from 'components/Text';
 import { createEvent } from 'api/events';
 import { DATETIME_DEFAULT } from 'constants/formats';
 import { PRIVATE } from 'constants/routes';
+import { RowElement } from 'ui-kit/Form/components/Row/Row';
 import styles from './NewEvent.module.scss';
 
 dayjs.extend(isBetween);
-
-type RowElement = ReactElement<ComponentProps<typeof Row>>;
 
 type Interval = { start: Dayjs; end: Dayjs; key: string };
 
