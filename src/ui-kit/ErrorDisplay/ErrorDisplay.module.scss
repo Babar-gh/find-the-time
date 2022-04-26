@@ -1,21 +1,19 @@
-$parent-gap-compensated: calc(-1 * (var(--gap) / 2));
-
 @mixin hidden {
-  margin: $parent-gap-compensated 0;
+  margin: 0;
   height: 0;
   opacity: 0;
 }
 
 @mixin shown {
-  margin: 0;
+  margin: 20px 0;
   height: 70px;
   opacity: 1;
 }
 
 .Root {
-  height: 70px;
+  @include shown;
+
   line-height: 1.6;
-  margin: 0;
   padding: 0 16px;
   display: flex;
   align-items: center;

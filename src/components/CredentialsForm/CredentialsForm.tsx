@@ -84,50 +84,48 @@ const CredentialsForm: React.VFC<IProps> = ({
   };
 
   const form = (
-    <div className={styles['FormContainer']}>
-      <Form defaultPreventedOnSubmission layout="vertical">
-        <Form.Column>
-          <Form.Item
-            label="Email"
-            errorMessage={emailIsTouched ? errors?.email : undefined}
-          >
-            <Input
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              onBlur={(e) => {
-                if (e.target.value !== '') {
-                  setEmailIsTouched(true);
-                }
-              }}
-              autoComplete="username"
-            />
-          </Form.Item>
-          <Form.Item
-            label="Password"
-            errorMessage={passwordIsTouched ? errors?.password : undefined}
-          >
-            <Input
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              onBlur={(e) => {
-                if (e.target.value !== '') {
-                  setPasswordIsTouched(true);
-                }
-              }}
-              type="password"
-              autoComplete="current-password"
-            />
-          </Form.Item>
-          <Button
-            elementProps={{
-              onClick: handleButtonClick,
+    <Form defaultPreventedOnSubmission layout="vertical">
+      <Form.Column>
+        <Form.Item
+          label="Email"
+          errorMessage={emailIsTouched ? errors?.email : undefined}
+        >
+          <Input
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            onBlur={(e) => {
+              if (e.target.value !== '') {
+                setEmailIsTouched(true);
+              }
             }}
-          >
-            {buttonText}
-          </Button>
-        </Form.Column>
-      </Form>
-    </div>
+            autoComplete="username"
+          />
+        </Form.Item>
+        <Form.Item
+          label="Password"
+          errorMessage={passwordIsTouched ? errors?.password : undefined}
+        >
+          <Input
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            onBlur={(e) => {
+              if (e.target.value !== '') {
+                setPasswordIsTouched(true);
+              }
+            }}
+            type="password"
+            autoComplete="current-password"
+          />
+        </Form.Item>
+        <Button
+          elementProps={{
+            onClick: handleButtonClick,
+          }}
+        >
+          {buttonText}
+        </Button>
+      </Form.Column>
+    </Form>
   );
 
   return (
@@ -138,8 +136,10 @@ const CredentialsForm: React.VFC<IProps> = ({
             {headingText}
           </Text>
         </h2>
-        <ErrorDisplay isShown={submitHasFailed}>{errorText}</ErrorDisplay>
-        {form}
+        <div className={styles['ErrorDisplayContainer']}>
+          <ErrorDisplay isShown={submitHasFailed}>{errorText}</ErrorDisplay>
+        </div>
+        <div className={styles['FormContainer']}>{form}</div>
         <div className={styles['BottomAddonContainer']}>
           {bottomAddons.map((addon, index) => (
             <p className={styles['BottomAddon']} key={index}>
