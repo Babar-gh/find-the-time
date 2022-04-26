@@ -8,9 +8,7 @@ const useLabelWidth = () => {
   useLayoutEffect(() => {
     const computedWidth = ref.current?.offsetWidth;
 
-    if (computedWidth) {
-      setWidth((known) => (known === null ? computedWidth : known));
-    }
+    computedWidth && setWidth(computedWidth);
   }, []);
 
   return { ref, width };
