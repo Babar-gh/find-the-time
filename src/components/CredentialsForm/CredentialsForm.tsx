@@ -61,16 +61,16 @@ const CredentialsForm: React.VFC<IProps> = ({
 
     await dispatch(actionToDispatch({ email, password }));
 
+    setIsLoading(false);
+
     if (jwt.checkIfExists()) {
       const { returnUrl } = (location.state as LocationState) || {};
 
-      navigate(returnUrl || '/');
       setSubmitHasFailed(false);
+      navigate(returnUrl || '/');
     } else {
       setSubmitHasFailed(true);
     }
-
-    setIsLoading(false);
   };
 
   const form = (

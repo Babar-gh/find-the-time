@@ -176,12 +176,14 @@ const NewEvent: React.VFC = () => {
         initialIntervals: parseIntervalsForRequest(intervals),
       });
 
+      setIsLoading(false);
+      setSubmitHasFailed(false);
+
       navigate(`${PRIVATE.Events}/${response.data.id}`);
     } catch {
+      setIsLoading(false);
       setSubmitHasFailed(true);
     }
-
-    setIsLoading(false);
   };
 
   return (
