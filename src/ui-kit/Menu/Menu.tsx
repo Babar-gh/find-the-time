@@ -1,16 +1,14 @@
-import { Children, cloneElement, ReactElement } from 'react';
+import { Children, cloneElement } from 'react';
 import Item from './components/Item';
 import styles from './Menu.module.scss';
-
-type ItemComponent = typeof Item;
-type ItemElement = ReactElement<React.ComponentProps<ItemComponent>>;
+import { ItemElement } from '.';
 
 interface IProps {
   selectedId?: string;
   children: ItemElement | ItemElement[];
 }
 
-type MenuComponent = React.VFC<IProps> & { Item: ItemComponent };
+type MenuComponent = React.VFC<IProps> & { Item: typeof Item };
 
 const Menu: MenuComponent = ({ selectedId, children }) => {
   return (

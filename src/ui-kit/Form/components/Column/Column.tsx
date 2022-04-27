@@ -1,15 +1,11 @@
 import classNames from 'classnames/bind';
-import { Children, cloneElement, ComponentProps, ReactElement } from 'react';
-import Button from 'ui-kit/Button';
+import { Children, cloneElement } from 'react';
+import Button, { ButtonElement } from 'ui-kit/Button';
+import { CustomItemElement, ItemElement, RowElement } from 'ui-kit/Form';
 import CustomItem from '../CustomItem';
 import Item from '../Item';
 import Row from '../Row';
-import { CustomItemElement } from '../CustomItem/CustomItem';
-import { ItemElement } from '../Item/Item';
-import { RowElement } from '../Row/Row';
 import styles from './Column.module.scss';
-
-type ButtonElement = ReactElement<ComponentProps<typeof Button>>;
 
 type Child =
   | RowElement
@@ -74,5 +70,3 @@ const Column: React.VFC<IProps> = ({ _formLayout, children }) => {
 };
 
 export default Column;
-
-export type ColumnElement = ReactElement<ComponentProps<typeof Column>>;

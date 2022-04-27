@@ -5,7 +5,7 @@ import CustomItem from './components/CustomItem';
 import Item from './components/Item';
 import Row from './components/Row';
 import styles from './Form.module.scss';
-import { ColumnElement } from './components/Column/Column';
+import { ColumnElement } from '.';
 
 interface IProps extends FormHTMLAttributes<HTMLFormElement> {
   defaultPreventedOnSubmission: boolean;

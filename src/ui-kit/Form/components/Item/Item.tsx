@@ -1,14 +1,8 @@
 import classNames from 'classnames/bind';
-import {
-  cloneElement,
-  ComponentProps,
-  ReactElement,
-  ReactNode,
-  useRef,
-} from 'react';
 import { uniqueId } from 'lodash';
-import Input from 'ui-kit/Input';
+import { cloneElement, ReactNode, useRef } from 'react';
 import Text from 'components/Text';
+import { InputElement } from 'ui-kit/Input';
 import styles from './Item.module.scss';
 import useLabelWidth from './hooks/useLabelWidth';
 
@@ -19,7 +13,7 @@ interface IProps {
   isRequired?: boolean;
   errorMessage?: string;
   addons?: ReactNode;
-  children: ReactElement<ComponentProps<typeof Input>>;
+  children: InputElement;
 }
 
 const cn = classNames.bind(styles);
@@ -86,5 +80,3 @@ const Item: React.VFC<IProps> = ({
 };
 
 export default Item;
-
-export type ItemElement = ReactElement<ComponentProps<typeof Item>>;
