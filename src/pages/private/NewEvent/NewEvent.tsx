@@ -1,8 +1,8 @@
 import dayjs from 'dayjs';
 import validate from 'validate.js';
+import { MouseEventHandler, useState } from 'react';
 import { uniqueId } from 'lodash';
 import { useNavigate } from 'react-router-dom';
-import { MouseEventHandler, useState } from 'react';
 import Button from 'ui-kit/Button';
 import DatePicker from 'ui-kit/DatePicker';
 import ErrorDisplay from 'ui-kit/ErrorDisplay';
@@ -17,6 +17,7 @@ import { DATETIME_DEFAULT } from 'constants/formats';
 import { PRIVATE } from 'constants/routes';
 import { RowElement } from 'ui-kit/Form/components/Row/Row';
 import { TimeInterval } from 'types/common';
+import { constraints, NewEventValidation } from './constraints';
 import styles from './NewEvent.module.scss';
 
 interface Interval extends TimeInterval {
@@ -28,33 +29,6 @@ const parseIntervalsForRequest = (intervals: Interval[]) =>
     start: start.format(DATETIME_DEFAULT),
     end: end.format(DATETIME_DEFAULT),
   }));
-
-type ValidationErrors =
-  | { title?: string; location?: string; duration?: string; intervals?: string }
-  | undefined;
-
-const constraints: any = {
-  title: {
-    length: {
-      minimum: 3,
-      max: 64,
-    },
-  },
-  location: {
-    length: {
-      minimum: 3,
-      max: 64,
-    },
-  },
-  duration: {
-    numericality: {
-      greaterThan: 0,
-    },
-  },
-  intervals: {
-    noIntersections: true,
-  },
-};
 
 const NewEvent: React.VFC = () => {
   const navigate = useNavigate();
@@ -83,7 +57,7 @@ const NewEvent: React.VFC = () => {
     },
   ]);
 
-  const errors: ValidationErrors = validate(
+  const errors: NewEventValidation = validate(
     { title, location, duration, intervals },
     constraints
   );

@@ -11,6 +11,7 @@ import Text from 'components/Text';
 import { LocationState } from 'types/location';
 import { signIn, signUp } from 'store/slices/account';
 import { useAppDispatch } from 'store/hooks';
+import { constraints, CredentialsValidation } from './constraints';
 import styles from './CredentialsForm.module.scss';
 
 interface IProps {
@@ -20,20 +21,6 @@ interface IProps {
   buttonText: string;
   bottomAddons: JSX.Element[];
 }
-
-const constraints = {
-  email: {
-    email: { message: 'is not valid' },
-  },
-  password: {
-    length: {
-      minimum: 3,
-      max: 32,
-    },
-  },
-};
-
-type ValidationErrors = { email?: string; password?: string } | undefined;
 
 const CredentialsForm: React.VFC<IProps> = ({
   actionToDispatch,
@@ -57,7 +44,10 @@ const CredentialsForm: React.VFC<IProps> = ({
 
   const [submitHasFailed, setSubmitHasFailed] = useState(false);
 
-  const errors: ValidationErrors = validate({ email, password }, constraints);
+  const errors: CredentialsValidation = validate(
+    { email, password },
+    constraints
+  );
 
   const handleButtonClick: MouseEventHandler = async (_e) => {
     if (errors) {

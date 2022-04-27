@@ -31,3 +31,7 @@ validate.validators.noIntersections = (
   )
     ? 'must not intersect'
     : null;
+
+export type ValidationErrors<Constraints> =
+  | { [Key in keyof Constraints]: string }
+  | undefined;
