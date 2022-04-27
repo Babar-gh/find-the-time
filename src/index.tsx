@@ -8,6 +8,7 @@ import reportWebVitals from 'reportWebVitals';
 import { store } from 'store';
 import './initAxios';
 import './initDayjs';
+import './initValidatejs';
 import './index.css';
 
 ReactDOM.render(

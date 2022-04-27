@@ -1,4 +1,4 @@
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 import validate from 'validate.js';
 import { uniqueId } from 'lodash';
 import { useNavigate } from 'react-router-dom';
@@ -16,43 +16,18 @@ import { createEvent } from 'api/events';
 import { DATETIME_DEFAULT } from 'constants/formats';
 import { PRIVATE } from 'constants/routes';
 import { RowElement } from 'ui-kit/Form/components/Row/Row';
+import { TimeInterval } from 'types/common';
 import styles from './NewEvent.module.scss';
 
-type Interval = { start: Dayjs; end: Dayjs; key: string };
+interface Interval extends TimeInterval {
+  key: string;
+}
 
 const parseIntervalsForRequest = (intervals: Interval[]) =>
   intervals.map(({ start, end }) => ({
     start: start.format(DATETIME_DEFAULT),
     end: end.format(DATETIME_DEFAULT),
   }));
-
-validate.validators.longerThan = (
-  interval: Interval,
-  options: { duration: number }
-) =>
-  interval.end.diff(interval.start, 'minute') < options.duration
-    ? '^Shorter than duration '
-    : null;
-
-validate.validators.startIsBeforeEnd = (interval: Interval, options: boolean) =>
-  options && interval.end.diff(interval.start, 'minute') < 0
-    ? '^Later than end'
-    : null;
-
-validate.validators.noIntersections = (
-  intervals: Interval[],
-  options: boolean
-) =>
-  options &&
-  intervals.some((outerInterval) =>
-    intervals.some(
-      (innerInterval) =>
-        innerInterval.start.isBetween(outerInterval.start, outerInterval.end) ||
-        innerInterval.end.isBetween(outerInterval.start, outerInterval.end)
-    )
-  )
-    ? 'must not intersect'
-    : null;
 
 type ValidationErrors =
   | { title?: string; location?: string; duration?: string; intervals?: string }
