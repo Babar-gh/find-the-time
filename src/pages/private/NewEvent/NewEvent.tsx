@@ -7,7 +7,6 @@ import Button from 'ui-kit/Button';
 import DatePicker from 'ui-kit/DatePicker';
 import ErrorDisplay from 'ui-kit/ErrorDisplay';
 import Form, { RowElement } from 'ui-kit/Form';
-import IconButton from 'ui-kit/IconButton';
 import Input from 'ui-kit/Input';
 import Loader from 'ui-kit/Loader';
 import Page from 'ui-kit/Page';
@@ -15,18 +14,15 @@ import Text from 'components/Text';
 import { createEvent } from 'api/events';
 import { DATETIME_DEFAULT } from 'constants/formats';
 import { PRIVATE } from 'constants/routes';
-import { TimeInterval } from 'types/common';
-import { constraints, NewEventValidation } from './constraints';
+import RangePickerButtons from './components/RangePickerButtons/RangePickerButtons';
 import styles from './NewEvent.module.scss';
+import { constraints, NewEventValidation } from './constraints';
+import { Interval } from './types';
 import {
   parsePositiveInt,
   treatNaNAsEmptyString,
   treatNaNAsZero,
 } from './helpers';
-
-interface Interval extends TimeInterval {
-  key: string;
-}
 
 const parseIntervalsForRequest = (intervals: Interval[]) =>
   intervals.map(({ start, end }) => ({
@@ -69,43 +65,6 @@ const NewEvent: React.VFC = () => {
   let individualIntervalsAreInvalid: boolean;
 
   const getRangePicker = (index: number): RowElement => {
-    const intervalPickerButtons = (
-      <div className={styles['PickerButtons']}>
-        {intervals.length > 1 && (
-          <IconButton
-            icon="Remove"
-            elementProps={{
-              onClick: () =>
-                setIntervals((current) => {
-                  const updated = [...current];
-                  updated.splice(index, 1);
-
-                  return updated;
-                }),
-            }}
-          />
-        )}
-        {index === intervals.length - 1 && (
-          <IconButton
-            icon="Add"
-            elementProps={{
-              onClick: () =>
-                setIntervals((current) => {
-                  const updated = [...current];
-                  updated.push({
-                    start: dayjs(current[index].start).add(1, 'day'),
-                    end: dayjs(current[index].end).add(1, 'day'),
-                    key: uniqueId(),
-                  });
-
-                  return updated;
-                }),
-            }}
-          />
-        )}
-      </div>
-    );
-
     const startError: string | undefined = validate.single(intervals[index], {
       startIsBeforeEnd: true,
     });
@@ -137,7 +96,12 @@ const NewEvent: React.VFC = () => {
           label="End"
           errorMessage={endError}
           isRequired
-          addons={intervalPickerButtons}
+          addons={
+            <RangePickerButtons
+              intervalsState={[intervals, setIntervals]}
+              index={index}
+            />
+          }
         >
           <DatePicker
             value={intervals[index].end}
