@@ -19,6 +19,11 @@ import { RowElement } from 'ui-kit/Form/components/Row/Row';
 import { TimeInterval } from 'types/common';
 import { constraints, NewEventValidation } from './constraints';
 import styles from './NewEvent.module.scss';
+import {
+  parsePositiveInt,
+  treatNaNAsEmptyString,
+  treatNaNAsZero,
+} from './helpers';
 
 interface Interval extends TimeInterval {
   key: string;
@@ -46,7 +51,7 @@ const NewEvent: React.VFC = () => {
 
   const [hrs, setHrs] = useState<number>(0);
   const [mins, setMins] = useState<number>(30);
-  const duration = (isNaN(hrs) ? 0 : hrs) * 60 + (isNaN(mins) ? 0 : mins);
+  const duration = treatNaNAsZero(hrs) * 60 + treatNaNAsZero(mins);
   const [durationIsTouched, setDurationIsTouched] = useState(false);
 
   const [intervals, setIntervals] = useState<Interval[]>([
@@ -241,17 +246,10 @@ const NewEvent: React.VFC = () => {
                   <Input
                     type="number"
                     min="0"
-                    value={isNaN(hrs) ? '' : hrs}
-                    onChange={(e) => setHrs(Math.abs(parseInt(e.target.value)))}
+                    value={treatNaNAsEmptyString(hrs)}
+                    onChange={(e) => setHrs(parsePositiveInt(e.target.value))}
                     onBlur={() => {
-                      setHrs((input) => {
-                        if (isNaN(input)) {
-                          return 0;
-                        }
-
-                        return input;
-                      });
-
+                      setHrs((input) => treatNaNAsZero(input));
                       setDurationIsTouched(true);
                     }}
                   />
@@ -261,23 +259,17 @@ const NewEvent: React.VFC = () => {
                     type="number"
                     min="0"
                     max="60"
-                    value={isNaN(mins) ? '' : mins}
-                    onChange={(e) =>
-                      setMins(Math.abs(parseInt(e.target.value)))
-                    }
+                    value={treatNaNAsEmptyString(mins)}
+                    onChange={(e) => setMins(parsePositiveInt(e.target.value))}
                     onBlur={() => {
                       setMins((input) => {
-                        if (isNaN(input)) {
-                          return 0;
-                        }
-
                         if (input > 60) {
                           setHrs((hrs) => hrs + Math.floor(input / 60));
 
                           return input % 60;
                         }
 
-                        return input;
+                        return treatNaNAsZero(input);
                       });
 
                       setDurationIsTouched(true);
