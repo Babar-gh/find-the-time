@@ -38,8 +38,8 @@ const EventTile: React.VFC<IProps> = ({
     chosenInterval === null
       ? 'notYetScheduled'
       : dayjs(chosenInterval.end).isAfter(dayjs())
-      ? 'pending'
-      : 'past';
+        ? 'pending'
+        : 'past';
 
   return (
     <article className={styles['Root']}>
