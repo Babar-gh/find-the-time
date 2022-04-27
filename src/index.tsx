@@ -7,6 +7,7 @@ import history from 'browserHistory';
 import reportWebVitals from 'reportWebVitals';
 import { store } from 'store';
 import './initAxios';
+import './initDayjs';
 import './index.css';
 
 ReactDOM.render(

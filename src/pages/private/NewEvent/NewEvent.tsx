@@ -1,5 +1,4 @@
 import dayjs, { Dayjs } from 'dayjs';
-import isBetween from 'dayjs/plugin/isBetween';
 import validate from 'validate.js';
 import { uniqueId } from 'lodash';
 import { useNavigate } from 'react-router-dom';
@@ -18,8 +17,6 @@ import { DATETIME_DEFAULT } from 'constants/formats';
 import { PRIVATE } from 'constants/routes';
 import { RowElement } from 'ui-kit/Form/components/Row/Row';
 import styles from './NewEvent.module.scss';
-
-dayjs.extend(isBetween);
 
 type Interval = { start: Dayjs; end: Dayjs; key: string };
 

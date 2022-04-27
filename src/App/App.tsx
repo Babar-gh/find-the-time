@@ -14,7 +14,6 @@ import PrivateRoute from './components/PrivateRoute';
 import useBreakpointUpdate from './hooks/useBreakpointUpdate';
 import useTheme from './hooks/useTheme';
 import AuthRoute from './components/AuthRoute';
-import 'dayjs/locale/en-gb';
 
 const Events = lazy(() => import('pages/private/Events'));
 const NewEvent = lazy(() => import('pages/private/NewEvent'));

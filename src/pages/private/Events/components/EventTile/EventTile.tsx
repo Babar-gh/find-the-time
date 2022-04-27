@@ -1,15 +1,10 @@
 import dayjs from 'dayjs';
-import duration from 'dayjs/plugin/duration';
-import relativeTime from 'dayjs/plugin/relativeTime';
 import { ComponentProps } from 'react';
 import Text from 'components/Text';
 import Icon from 'components/Icon';
 import { getDisplayName } from 'helpers/users/getDisplayName';
 import { IEvent } from 'api/types/events';
 import styles from './EventTile.module.scss';
-
-dayjs.extend(duration);
-dayjs.extend(relativeTime);
 
 interface IListItemProps {
   icon: ComponentProps<typeof Icon>['type'];
@@ -43,8 +38,8 @@ const EventTile: React.VFC<IProps> = ({
     chosenInterval === null
       ? 'notYetScheduled'
       : dayjs(chosenInterval.end).isAfter(dayjs())
-        ? 'pending'
-        : 'past';
+      ? 'pending'
+      : 'past';
 
   return (
     <article className={styles['Root']}>
