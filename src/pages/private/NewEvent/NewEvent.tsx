@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from 'ui-kit/Button';
 import DatePicker from 'ui-kit/DatePicker';
 import ErrorDisplay from 'ui-kit/ErrorDisplay';
-import Form, { RowElement } from 'ui-kit/Form';
+import Form from 'ui-kit/Form';
 import Input from 'ui-kit/Input';
 import Loader from 'ui-kit/Loader';
 import Page from 'ui-kit/Page';
@@ -64,7 +64,7 @@ const NewEvent: React.VFC = () => {
 
   let individualIntervalsAreInvalid: boolean;
 
-  const getRangePicker = (index: number): RowElement => {
+  const getRangePickers = (index: number) => {
     const startError: string | undefined = validate.single(intervals[index], {
       startIsBeforeEnd: true,
     });
@@ -75,50 +75,63 @@ const NewEvent: React.VFC = () => {
 
     individualIntervalsAreInvalid = Boolean(startError || endError);
 
-    return (
-      <Form.Row key={intervals[index].key}>
-        <Form.Item label="Start" errorMessage={startError} isRequired>
-          <DatePicker
-            value={intervals[index].start}
-            onChange={(value) => {
-              if (value) {
-                setIntervals((current) => {
-                  const updated = [...current];
-                  updated[index].start = value;
+    const startPicker = (
+      <DatePicker
+        value={intervals[index].start}
+        onChange={(value) => {
+          if (value) {
+            setIntervals((current) => {
+              const updated = [...current];
+              updated[index].start = value;
 
-                  return updated;
-                });
-              }
-            }}
-          />
-        </Form.Item>
-        <Form.Item
-          label="End"
-          errorMessage={endError}
-          isRequired
-          addons={
+              return updated;
+            });
+          }
+        }}
+      />
+    );
+
+    const endPicker = (
+      <DatePicker
+        value={intervals[index].end}
+        onChange={(value) => {
+          if (value) {
+            setIntervals((current) => {
+              const updated = [...current];
+              updated[index].end = value;
+
+              return updated;
+            });
+          }
+        }}
+      />
+    );
+
+    return [
+      {
+        formItemProps: {
+          label: 'Start',
+          errorMessage: startError,
+          isRequired: true,
+          addons: null,
+        },
+        picker: startPicker,
+      },
+      {
+        formItemProps: {
+          label: 'End',
+          errorMessage: endError,
+          isRequired: true,
+          addons: (
             <RangePickerButtons
               intervalsState={[intervals, setIntervals]}
               index={index}
             />
-          }
-        >
-          <DatePicker
-            value={intervals[index].end}
-            onChange={(value) => {
-              if (value) {
-                setIntervals((current) => {
-                  const updated = [...current];
-                  updated[index].end = value;
-
-                  return updated;
-                });
-              }
-            }}
-          />
-        </Form.Item>
-      </Form.Row>
-    );
+          ),
+        },
+        picker: endPicker,
+      },
+    ];
   };
 
   const handleButtonClick: MouseEventHandler = async (_e) => {
@@ -265,7 +278,17 @@ const NewEvent: React.VFC = () => {
                   </ErrorDisplay>
                 </div>
               </Form.CustomItem>
-              {intervals.map((_, index) => getRangePicker(index))}
+              {intervals.map((_, intervalIndex) => (
+                <Form.Row key={intervals[intervalIndex].key}>
+                  {getRangePickers(intervalIndex).map(
+                    ({ formItemProps, picker }, pickerIndex) => (
+                      <Form.Item {...formItemProps} key={pickerIndex}>
+                        {picker}
+                      </Form.Item>
+                    )
+                  )}
+                </Form.Row>
+              ))}
               <Button elementProps={{ onClick: handleButtonClick }}>
                 Create
               </Button>
