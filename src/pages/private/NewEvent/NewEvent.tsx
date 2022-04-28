@@ -65,6 +65,28 @@ const NewEvent: React.VFC = () => {
   let individualIntervalsAreInvalid: boolean;
 
   const getRangePickers = (index: number) => {
+    const handleAddInterval = () => {
+      setIntervals((current) => {
+        const updated = [...current];
+        updated.push({
+          start: dayjs(current[index].start).add(1, 'day'),
+          end: dayjs(current[index].end).add(1, 'day'),
+          key: uniqueId(),
+        });
+
+        return updated;
+      });
+    };
+
+    const handleRemoveInterval = () => {
+      setIntervals((current) => {
+        const updated = [...current];
+        updated.splice(index, 1);
+
+        return updated;
+      });
+    };
+
     const startError: string | undefined = validate.single(intervals[index], {
       startIsBeforeEnd: true,
     });
@@ -124,7 +146,9 @@ const NewEvent: React.VFC = () => {
           isRequired: true,
           addons: (
             <RangePickerButtons
-              intervalsState={[intervals, setIntervals]}
+              intervals={intervals}
+              onAddInterval={handleAddInterval}
+              onRemoveInterval={handleRemoveInterval}
               index={index}
             />
           ),
