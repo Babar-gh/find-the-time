@@ -1,5 +1,5 @@
 import { CSSTransition } from 'react-transition-group';
-import Text from 'components/Text';
+import InfoDisplay from 'ui-kit/InfoDisplay';
 import styles from './ErrorDisplay.module.scss';
 
 interface IProps {
@@ -26,9 +26,11 @@ const ErrorDisplay: React.FC<IProps> = ({ isShown, children }) => {
       classNames={getTransitionClassName()}
       unmountOnExit
     >
-      <p className={styles['Root']}>
-        <Text font="primary">{children}</Text>
-      </p>
+      <div className={styles['Root']}>
+        <InfoDisplay theme="danger" height="fill" clamp={2}>
+          {children}
+        </InfoDisplay>
+      </div>
     </CSSTransition>
   );
 };

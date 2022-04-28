@@ -13,15 +13,6 @@
 .Root {
   @include shown;
 
-  line-height: 1.6;
-  padding: 0 16px;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  background-color: var(--canvas-secondary-deeper);
-  border: 1px solid var(--ui-button-danger-active);
-  border-radius: 2px;
-
   &_transition {
     &_enter {
       @include hidden;

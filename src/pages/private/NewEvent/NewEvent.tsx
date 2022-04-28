@@ -7,10 +7,10 @@ import Button from 'ui-kit/Button';
 import DatePicker from 'ui-kit/DatePicker';
 import ErrorDisplay from 'ui-kit/ErrorDisplay';
 import Form from 'ui-kit/Form';
+import InfoDisplay from 'ui-kit/InfoDisplay';
 import Input from 'ui-kit/Input';
 import Loader from 'ui-kit/Loader';
 import Page from 'ui-kit/Page';
-import Text from 'components/Text';
 import { createEvent } from 'api/events';
 import { DATETIME_DEFAULT } from 'constants/formats';
 import { PRIVATE } from 'constants/routes';
@@ -257,18 +257,12 @@ const NewEvent: React.VFC = () => {
               </Form.Row>
               <Form.CustomItem>
                 <div className={styles['FormText']}>
-                  <p>
-                    <Text>
-                      Pick the time intervals in which your event can possibly
-                      take place.
-                    </Text>
-                  </p>
-                  <p>
-                    <Text>
-                      Participants will be able to narrow down these intervals
-                      depending on their availability.
-                    </Text>
-                  </p>
+                  <InfoDisplay>
+                    {[
+                      'Pick the time intervals in which your event can possiblytake place.',
+                      'Participants will be able to narrow down these intervals depending on their availability.',
+                    ]}
+                  </InfoDisplay>
                 </div>
               </Form.CustomItem>
               <Form.CustomItem>
