@@ -1,9 +1,10 @@
 import classNames from 'classnames/bind';
-import { HTMLAttributes } from 'react';
+import { ButtonHTMLAttributes } from 'react';
 import Icon from 'components/Icon';
 import Link from 'ui-kit/Link';
 import Text from 'components/Text';
 import { LinkTypeSpecificProps } from 'ui-kit/Link/Link';
+import { WithoutChildren } from 'types/utility';
 import styles from './Button.module.scss';
 
 type IconType = React.ComponentProps<typeof Icon>['type'];
@@ -19,7 +20,7 @@ interface ISharedProps {
 }
 
 type LinkProps = LinkTypeSpecificProps;
-type ButtonProps = Omit<HTMLAttributes<HTMLButtonElement>, 'children'>;
+type ButtonProps = WithoutChildren<ButtonHTMLAttributes<HTMLButtonElement>>;
 
 export type ButtonElementSpecificProps =
   | { element?: 'HTMLButton'; elementProps?: ButtonProps }

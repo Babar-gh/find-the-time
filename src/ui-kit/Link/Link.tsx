@@ -1,4 +1,4 @@
-import { HTMLAttributes, ReactNode } from 'react';
+import { AnchorHTMLAttributes, ReactNode } from 'react';
 import {
   Link as RouterLink,
   LinkProps as RouterLinkProps,
@@ -6,15 +6,16 @@ import {
   NavLinkProps,
 } from 'react-router-dom';
 import Text from 'components/Text';
+import { WithoutChildren } from 'types/utility';
 import styles from './Link.module.scss';
 
 type SharedProps =
   | { isWrapper: true; theme?: never; children: ReactNode }
   | { isWrapper?: false; theme?: 'primary' | 'danger'; children: string };
 
-type RouterLinkTypeProps = Omit<RouterLinkProps, 'children'>;
-type NavLinkTypeProps = Omit<NavLinkProps, 'children'>;
-type AnchorTypeProps = Omit<HTMLAttributes<HTMLAnchorElement>, 'children'>;
+type RouterLinkTypeProps = WithoutChildren<RouterLinkProps>;
+type NavLinkTypeProps = WithoutChildren<NavLinkProps>;
+type AnchorTypeProps = WithoutChildren<AnchorHTMLAttributes<HTMLAnchorElement>>;
 
 export type LinkTypeSpecificProps =
   | ({ type: 'RouterLink' } & RouterLinkTypeProps)
