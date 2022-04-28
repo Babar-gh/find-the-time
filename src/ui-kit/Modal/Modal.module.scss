@@ -1,0 +1,41 @@
+@use '/src/styles/mixins' as *;
+
+$padding: 40px;
+
+.Root {
+  box-sizing: border-box;
+  width: fit-content;
+  height: fit-content;
+  position: fixed;
+  padding: $padding 0;
+  left: 50vw;
+  top: 50vh;
+  transform: translate(-50%, -50%);
+  border-radius: 30px;
+  background-color: var(--canvas-secondary);
+  display: flex;
+  flex-direction: column;
+
+  @include apply-to(Tablet, Laptop, Desktop) {
+    max-width: 66vh;
+    max-height: 80vh;
+  }
+
+  @include apply-to(Mobile) {
+    max-width: 400px;
+    max-height: 90vh;
+  }
+}
+
+.Container {
+  padding: 0 $padding 0 $padding + 12;
+}
+
+.Content {
+  margin-bottom: $padding / 2;
+}
+
+.Buttons {
+  display: flex;
+  gap: 16px;
+}
