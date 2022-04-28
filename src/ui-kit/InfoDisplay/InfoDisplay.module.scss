@@ -1,0 +1,37 @@
+.Root {
+  line-height: 1.5;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid;
+  border-radius: 4px;
+
+  &_theme {
+    &_neutral {
+      background-color: var(--canvas-secondary);
+      border-color: var(--canvas-secondary-deeper);
+    }
+
+    &_danger {
+      background-color: var(--canvas-secondary-deeper);
+      border-color: var(--ui-button-danger-active);
+    }
+  }
+
+  &_height {
+    &_auto {
+      height: auto;
+      padding: 16px;
+    }
+
+    &_fill {
+      height: 100%;
+    }
+  }
+}
+
+.Paragraph {
+  margin: 0;
+}
