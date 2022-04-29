@@ -44,14 +44,12 @@ const Modal: React.FC<IProps> = ({
     <Backdrop {...{ isOpen, onBackdropClick }}>
       <div className={styles['Root']}>
         <Scroll>
-          <div className={styles['Container']}>
-            <div className={styles['Content']}>{children}</div>
-            <div className={styles['Buttons']}>
-              <Button {...okProps} />
-              <Button {...cancelProps} />
-            </div>
-          </div>
+          <div className={styles['Content']}>{children}</div>
         </Scroll>
+        <div className={styles['Buttons']}>
+          <Button {...okProps} />
+          <Button {...cancelProps} />
+        </div>
       </div>
     </Backdrop>
   );
