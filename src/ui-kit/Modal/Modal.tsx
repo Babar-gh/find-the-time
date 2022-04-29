@@ -6,32 +6,39 @@ import styles from './Modal.module.scss';
 
 interface IProps
   extends Pick<ComponentProps<typeof Backdrop>, 'isOpen' | 'onBackdropClick'> {
-  onOkButtonClick: MouseEventHandler;
-  okButtonText?: string;
-  okButtonProps?: ComponentProps<typeof Button>;
-  onCancelButtonClick: MouseEventHandler;
-  cancelButtonText?: string;
-  cancelButtonProps?: ComponentProps<typeof Button>;
+  onOkClick: MouseEventHandler;
+  okText?: string;
+  okProps?: ComponentProps<typeof Button>;
+  onCancelClick: MouseEventHandler;
+  cancelText?: string;
+  cancelProps?: ComponentProps<typeof Button>;
 }
+
+const populateButtonProps = (
+  allProps: ComponentProps<typeof Button>,
+  onClick: MouseEventHandler,
+  text: string,
+  fallbackTheme: ComponentProps<typeof Button>['theme']
+) => {
+  allProps.elementProps ??= {};
+  allProps.elementProps.onClick = onClick;
+  allProps.children = text;
+  allProps.theme ??= fallbackTheme;
+};
 
 const Modal: React.FC<IProps> = ({
   isOpen,
   onBackdropClick,
-  onOkButtonClick,
-  okButtonText = 'OK',
-  okButtonProps = {},
-  onCancelButtonClick,
-  cancelButtonText = 'Cancel',
-  cancelButtonProps = {},
+  onOkClick,
+  okText = 'OK',
+  okProps = {},
+  onCancelClick,
+  cancelText = 'Cancel',
+  cancelProps = {},
   children,
 }) => {
-  okButtonProps.elementProps ??= {};
-  okButtonProps.elementProps.onClick = onOkButtonClick;
-  okButtonProps.children = okButtonText;
-
-  cancelButtonProps.elementProps ??= {};
-  cancelButtonProps.elementProps.onClick = onCancelButtonClick;
-  cancelButtonProps.children = cancelButtonText;
+  populateButtonProps(okProps, onOkClick, okText, 'primary');
+  populateButtonProps(cancelProps, onCancelClick, cancelText, 'secondary');
 
   return (
     <Backdrop {...{ isOpen, onBackdropClick }}>
@@ -40,8 +47,8 @@ const Modal: React.FC<IProps> = ({
           <div className={styles['Container']}>
             <div className={styles['Content']}>{children}</div>
             <div className={styles['Buttons']}>
-              <Button {...okButtonProps} />
-              <Button {...cancelButtonProps} />
+              <Button {...okProps} />
+              <Button {...cancelProps} />
             </div>
           </div>
         </Scroll>
