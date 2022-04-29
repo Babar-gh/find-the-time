@@ -1,10 +1,9 @@
-import dayjs from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import validate from 'validate.js';
-import { MouseEventHandler, useState } from 'react';
+import { MouseEventHandler, useRef, useState } from 'react';
 import { uniqueId } from 'lodash';
 import { useNavigate } from 'react-router-dom';
 import Button from 'ui-kit/Button';
-import DatePicker from 'ui-kit/DatePicker';
 import ErrorDisplay from 'ui-kit/ErrorDisplay';
 import Form from 'ui-kit/Form';
 import InfoDisplay from 'ui-kit/InfoDisplay';
@@ -14,11 +13,11 @@ import Page from 'ui-kit/Page';
 import { createEvent } from 'api/events';
 import { DATETIME_DEFAULT } from 'constants/formats';
 import { PRIVATE } from 'constants/routes';
-import RangePickerButtons from './components/RangePickerButtons/RangePickerButtons';
 import styles from './NewEvent.module.scss';
 import { constraints, NewEventValidation } from './constraints';
 import { Interval } from './types';
 import {
+  getRangePickers,
   parsePositiveInt,
   treatNaNAsEmptyString,
   treatNaNAsZero,
@@ -62,104 +61,56 @@ const NewEvent: React.VFC = () => {
     constraints
   );
 
-  let individualIntervalsAreInvalid: boolean;
+  const someIntervalsAreInvalid = useRef(true);
 
-  const getRangePickers = (index: number) => {
-    const handleAddInterval = () => {
-      setIntervals((current) => {
-        const updated = [...current];
-        updated.push({
-          start: dayjs(current[index].start).add(1, 'day'),
-          end: dayjs(current[index].end).add(1, 'day'),
-          key: uniqueId(),
-        });
-
-        return updated;
+  const getAddIntervalHandler = (index: number) => () => {
+    setIntervals((current) => {
+      const updated = [...current];
+      updated.push({
+        start: dayjs(current[index].start).add(1, 'day'),
+        end: dayjs(current[index].end).add(1, 'day'),
+        key: uniqueId(),
       });
-    };
 
-    const handleRemoveInterval = () => {
-      setIntervals((current) => {
-        const updated = [...current];
-        updated.splice(index, 1);
-
-        return updated;
-      });
-    };
-
-    const startError: string | undefined = validate.single(intervals[index], {
-      startIsBeforeEnd: true,
+      return updated;
     });
-
-    const endError: string | undefined = validate.single(intervals[index], {
-      longerThan: { duration },
-    });
-
-    individualIntervalsAreInvalid = Boolean(startError || endError);
-
-    const startPicker = (
-      <DatePicker
-        value={intervals[index].start}
-        onChange={(value) => {
-          if (value) {
-            setIntervals((current) => {
-              const updated = [...current];
-              updated[index].start = value;
-
-              return updated;
-            });
-          }
-        }}
-      />
-    );
-
-    const endPicker = (
-      <DatePicker
-        value={intervals[index].end}
-        onChange={(value) => {
-          if (value) {
-            setIntervals((current) => {
-              const updated = [...current];
-              updated[index].end = value;
-
-              return updated;
-            });
-          }
-        }}
-      />
-    );
-
-    return [
-      {
-        formItemProps: {
-          label: 'Start',
-          errorMessage: startError,
-          isRequired: true,
-          addons: null,
-        },
-        picker: startPicker,
-      },
-      {
-        formItemProps: {
-          label: 'End',
-          errorMessage: endError,
-          isRequired: true,
-          addons: (
-            <RangePickerButtons
-              intervals={intervals}
-              onAddInterval={handleAddInterval}
-              onRemoveInterval={handleRemoveInterval}
-              index={index}
-            />
-          ),
-        },
-        picker: endPicker,
-      },
-    ];
   };
 
+  const getRemoveIntervalHandler = (index: number) => () => {
+    setIntervals((current) => {
+      const updated = [...current];
+      updated.splice(index, 1);
+
+      return updated;
+    });
+  };
+
+  const getStartPickerChangeHandler =
+    (index: number) => (value: Dayjs | null) => {
+      if (value) {
+        setIntervals((current) => {
+          const updated = [...current];
+          updated[index].start = value;
+
+          return updated;
+        });
+      }
+    };
+
+  const getEndPickerChangeHandler =
+    (index: number) => (value: Dayjs | null) => {
+      if (value) {
+        setIntervals((current) => {
+          const updated = [...current];
+          updated[index].end = value;
+
+          return updated;
+        });
+      }
+    };
+
   const handleButtonClick: MouseEventHandler = async (_e) => {
-    if (errors || individualIntervalsAreInvalid) {
+    if (errors || someIntervalsAreInvalid.current) {
       setTitleIsTouched(true);
       setLocationIsTouched(true);
 
@@ -298,13 +249,20 @@ const NewEvent: React.VFC = () => {
               </Form.CustomItem>
               {intervals.map((_, intervalIndex) => (
                 <Form.Row key={intervals[intervalIndex].key}>
-                  {getRangePickers(intervalIndex).map(
-                    ({ formItemProps, picker }, pickerIndex) => (
-                      <Form.Item {...formItemProps} key={pickerIndex}>
-                        {picker}
-                      </Form.Item>
-                    )
-                  )}
+                  {getRangePickers(
+                    intervalIndex,
+                    intervals,
+                    duration,
+                    someIntervalsAreInvalid,
+                    getAddIntervalHandler,
+                    getRemoveIntervalHandler,
+                    getStartPickerChangeHandler,
+                    getEndPickerChangeHandler
+                  ).map(({ formItemProps, picker }, pickerIndex) => (
+                    <Form.Item {...formItemProps} key={pickerIndex}>
+                      {picker}
+                    </Form.Item>
+                  ))}
                 </Form.Row>
               ))}
               <Button elementProps={{ onClick: handleButtonClick }}>
