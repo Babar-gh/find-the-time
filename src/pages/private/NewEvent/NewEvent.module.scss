@@ -38,10 +38,10 @@ $gap-negation: (-$form-gap / 2);
 
 .FormText {
   @include apply-to(Mobile) {
-    margin: 20px 0;
+    margin: 0;
   }
 
   @include apply-to(Tablet, Laptop, Desktop) {
-    margin: 0 120px 20px;
+    margin: 0 120px;
   }
 }

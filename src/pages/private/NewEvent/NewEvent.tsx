@@ -234,7 +234,7 @@ const NewEvent: React.VFC = () => {
                 <div className={styles['FormText']}>
                   <InfoDisplay>
                     {[
-                      'Pick the time intervals in which your event can possiblytake place.',
+                      'Pick the time intervals in which your event can possibly take place.',
                       'Participants will be able to narrow down these intervals depending on their availability.',
                     ]}
                   </InfoDisplay>
