@@ -18,7 +18,7 @@ $padding: 40px;
   flex-direction: column;
 
   @include apply-to(Tablet, Laptop, Desktop) {
-    max-width: 66vh;
+    max-width: 66vw;
     max-height: 80vh;
   }
 

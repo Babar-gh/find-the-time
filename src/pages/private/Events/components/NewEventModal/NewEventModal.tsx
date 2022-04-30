@@ -3,13 +3,12 @@ import validate from 'validate.js';
 import { MouseEventHandler, useRef, useState } from 'react';
 import { uniqueId } from 'lodash';
 import { useNavigate } from 'react-router-dom';
-import Button from 'ui-kit/Button';
 import ErrorDisplay from 'ui-kit/ErrorDisplay';
 import Form from 'ui-kit/Form';
 import InfoDisplay from 'ui-kit/InfoDisplay';
 import Input from 'ui-kit/Input';
 import Loader from 'ui-kit/Loader';
-import Page from 'ui-kit/Page';
+import Modal from 'ui-kit/Modal';
 import { createEvent } from 'api/events';
 import { DATETIME_DEFAULT } from 'constants/formats';
 import { PRIVATE } from 'constants/routes';
@@ -18,7 +17,7 @@ import {
   treatNaNAsEmptyString,
   treatNaNAsZero,
 } from 'utility';
-import styles from './NewEvent.module.scss';
+import styles from './NewEventModal.module.scss';
 import { constraints, NewEventValidation } from './constraints';
 import { getRangePickers } from './helpers';
 import { Interval } from './types';
@@ -29,7 +28,7 @@ const parseIntervalsForRequest = (intervals: Interval[]) =>
     end: end.format(DATETIME_DEFAULT),
   }));
 
-const NewEvent: React.VFC = () => {
+const NewEventModal: React.VFC = () => {
   const navigate = useNavigate();
 
   const [submitHasFailed, setSubmitHasFailed] = useState(false);
@@ -109,7 +108,7 @@ const NewEvent: React.VFC = () => {
       }
     };
 
-  const handleButtonClick: MouseEventHandler = async (_e) => {
+  const handleOkClick: MouseEventHandler = async (_e) => {
     if (errors || someIntervalsAreInvalid.current) {
       setTitleIsTouched(true);
       setLocationIsTouched(true);
@@ -138,8 +137,16 @@ const NewEvent: React.VFC = () => {
     }
   };
 
+  const returnToPage = () => navigate(PRIVATE.Events);
+
   return (
-    <Page title="New Event">
+    <Modal
+      isOpen
+      onOkClick={handleOkClick}
+      okText="Create"
+      onCancelClick={returnToPage}
+      onBackdropClick={returnToPage}
+    >
       <Loader isShown={isLoading}>
         <div className={styles['Container']}>
           <Form defaultPreventedOnSubmission layout="responsive">
@@ -265,15 +272,12 @@ const NewEvent: React.VFC = () => {
                   ))}
                 </Form.Row>
               ))}
-              <Button elementProps={{ onClick: handleButtonClick }}>
-                Create
-              </Button>
             </Form.Column>
           </Form>
         </div>
       </Loader>
-    </Page>
+    </Modal>
   );
 };
 
-export default NewEvent;
+export default NewEventModal;

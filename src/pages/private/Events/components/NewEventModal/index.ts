@@ -1,1 +1,1 @@
-export { default } from './NewEvent';
+export { default } from './NewEventModal';
