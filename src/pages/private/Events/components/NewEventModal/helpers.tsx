@@ -1,7 +1,7 @@
 import validate from 'validate.js';
 import { Dayjs } from 'dayjs';
 import DatePicker from 'ui-kit/DatePicker';
-import RangePickerButtons from './components/RangePickerButtons/RangePickerButtons';
+import RangePickerButtons from '../RangePickerButtons';
 import { Interval } from './types';
 
 export const getRangePickers = (
