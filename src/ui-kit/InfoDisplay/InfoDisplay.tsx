@@ -21,9 +21,9 @@ const InfoDisplay: React.FC<IProps> = ({
 
   return (
     <div className={cn('Root', `Root_theme_${theme}`, `Root_height_${height}`)}>
-      {paragraphs.map((paragraph, i) => (
-        <p className={styles['Paragraph']} key={i}>
-          <Text {...clamp}>{paragraph}</Text>
+      {paragraphs.map((paragraph, index) => (
+        <p className={styles['Paragraph']} key={index}>
+          <Text clamp={clamp}>{paragraph}</Text>
         </p>
       ))}
     </div>
