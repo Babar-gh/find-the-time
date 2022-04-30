@@ -13,15 +13,15 @@ import Page from 'ui-kit/Page';
 import { createEvent } from 'api/events';
 import { DATETIME_DEFAULT } from 'constants/formats';
 import { PRIVATE } from 'constants/routes';
-import styles from './NewEvent.module.scss';
-import { constraints, NewEventValidation } from './constraints';
-import { Interval } from './types';
 import {
-  getRangePickers,
   parsePositiveInt,
   treatNaNAsEmptyString,
   treatNaNAsZero,
-} from './helpers';
+} from 'utility';
+import styles from './NewEvent.module.scss';
+import { constraints, NewEventValidation } from './constraints';
+import { getRangePickers } from './helpers';
+import { Interval } from './types';
 
 const parseIntervalsForRequest = (intervals: Interval[]) =>
   intervals.map(({ start, end }) => ({

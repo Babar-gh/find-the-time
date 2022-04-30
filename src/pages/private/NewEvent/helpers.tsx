@@ -4,12 +4,6 @@ import DatePicker from 'ui-kit/DatePicker';
 import RangePickerButtons from './components/RangePickerButtons/RangePickerButtons';
 import { Interval } from './types';
 
-export const parsePositiveInt = (input: string) => Math.abs(parseInt(input));
-
-export const treatNaNAsZero = (number: number) => (isNaN(number) ? 0 : number);
-export const treatNaNAsEmptyString = (number: number) =>
-  isNaN(number) ? '' : number;
-
 export const getRangePickers = (
   index: number,
   intervals: Interval[],
