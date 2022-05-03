@@ -142,9 +142,11 @@ const NewEventModal: React.VFC = () => {
   return (
     <Modal
       isOpen
+      title="Create a New Event"
       onOkClick={handleOkClick}
       okText="Create"
       onCancelClick={returnToPage}
+      onCloseClick={returnToPage}
       onBackdropClick={returnToPage}
     >
       <Loader isShown={isLoading}>

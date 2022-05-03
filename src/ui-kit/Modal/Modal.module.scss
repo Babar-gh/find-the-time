@@ -2,6 +2,7 @@
 @use 'sass:math';
 
 $padding: 40px;
+$padding-scrollbar-side: 40px - 12px;
 
 .Root {
   box-sizing: border-box;
@@ -28,13 +29,23 @@ $padding: 40px;
   }
 }
 
-.Content,
+.Header,
 .Buttons {
-  padding: 0 $padding 0 $padding + 12;
+  padding: 0 $padding;
+}
+
+.Header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.Content {
+  padding: 0 $padding-scrollbar-side 0 $padding;
+  margin-bottom: 20px;
 }
 
 .Buttons {
-  margin-top: 20px;
   display: flex;
   gap: 16px;
 }

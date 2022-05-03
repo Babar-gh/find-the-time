@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import Text from 'components/Text';
+import Heading from 'ui-kit/Heading';
 import styles from './Page.module.scss';
 
 interface IProps {
@@ -11,11 +11,7 @@ const Page: React.FC<IProps> = ({ title, headerAddon, children }) => {
   return (
     <div className={styles['Root']}>
       <header className={styles['Header']}>
-        <h2 className={styles['Title']}>
-          <Text font="brand" size="big">
-            {title}
-          </Text>
-        </h2>
+        <Heading>{title}</Heading>
         {headerAddon}
       </header>
       <section className={styles['Content']}>{children}</section>

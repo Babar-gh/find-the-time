@@ -1,11 +1,15 @@
 import { ComponentProps, MouseEventHandler } from 'react';
 import Backdrop from 'ui-kit/Backdrop';
 import Button from 'ui-kit/Button';
+import Heading from 'ui-kit/Heading';
+import IconButton from 'ui-kit/IconButton';
 import Scroll from 'ui-kit/Scroll';
 import styles from './Modal.module.scss';
 
 interface IProps
   extends Pick<ComponentProps<typeof Backdrop>, 'isOpen' | 'onBackdropClick'> {
+  title: string;
+  onCloseClick: MouseEventHandler;
   onOkClick: MouseEventHandler;
   okText?: string;
   okProps?: ComponentProps<typeof Button>;
@@ -29,6 +33,8 @@ const populateButtonProps = (
 const Modal: React.FC<IProps> = ({
   isOpen,
   onBackdropClick,
+  title,
+  onCloseClick,
   onOkClick,
   okText = 'OK',
   okProps = {},
@@ -43,6 +49,10 @@ const Modal: React.FC<IProps> = ({
   return (
     <Backdrop {...{ isOpen, onBackdropClick }}>
       <div className={styles['Root']}>
+        <div className={styles['Header']}>
+          <Heading>{title}</Heading>
+          <IconButton icon="Close" elementProps={{ onClick: onCloseClick }} />
+        </div>
         <Scroll>
           <div className={styles['Content']}>{children}</div>
         </Scroll>
