@@ -3,6 +3,7 @@ import { ReactComponent as Add } from './Add.svg';
 import { ReactComponent as ArrowDownward } from './ArrowDownward.svg';
 import { ReactComponent as ArrowUpward } from './ArrowUpward.svg';
 import { ReactComponent as Check } from './Check.svg';
+import { ReactComponent as Close } from './Close.svg';
 import { ReactComponent as DarkMode } from './DarkMode.svg';
 import { ReactComponent as Description } from './Description.svg';
 import { ReactComponent as EditCalendar } from './EditCalendar.svg';
@@ -29,6 +30,7 @@ export default {
   ArrowDownward,
   ArrowUpward,
   Check,
+  Close,
   DarkMode,
   Description,
   EditCalendar,
