@@ -1,4 +1,4 @@
-import { ComponentProps, MouseEventHandler } from 'react';
+import { ComponentProps, MouseEventHandler, useEffect } from 'react';
 import Backdrop from 'ui-kit/Backdrop';
 import Button from 'ui-kit/Button';
 import Heading from 'ui-kit/Heading';
@@ -45,6 +45,14 @@ const Modal: React.FC<IProps> = ({
 }) => {
   populateButtonProps(okProps, onOkClick, okText, 'primary');
   populateButtonProps(cancelProps, onCancelClick, cancelText, 'secondary');
+
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : 'visible';
+
+    return () => {
+      document.body.style.overflow = 'visible';
+    };
+  }, [isOpen]);
 
   return (
     <Backdrop {...{ isOpen, onBackdropClick }}>
