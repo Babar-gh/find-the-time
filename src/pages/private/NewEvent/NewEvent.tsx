@@ -17,7 +17,7 @@ import {
   treatNaNAsEmptyString,
   treatNaNAsZero,
 } from 'utility';
-import styles from './NewEventModal.module.scss';
+import styles from './NewEvent.module.scss';
 import { constraints, NewEventValidation } from './constraints';
 import { getRangePickers } from './helpers';
 import { Interval } from './types';
@@ -28,7 +28,7 @@ const parseIntervalsForRequest = (intervals: Interval[]) =>
     end: end.format(DATETIME_DEFAULT),
   }));
 
-const NewEventModal: React.VFC = () => {
+const NewEvent: React.VFC = () => {
   const navigate = useNavigate();
 
   const [submitHasFailed, setSubmitHasFailed] = useState(false);
@@ -282,4 +282,4 @@ const NewEventModal: React.VFC = () => {
   );
 };
 
-export default NewEventModal;
+export default NewEvent;

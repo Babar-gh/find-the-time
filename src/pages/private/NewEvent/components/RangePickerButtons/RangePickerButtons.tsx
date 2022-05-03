@@ -1,5 +1,5 @@
 import IconButton from 'ui-kit/IconButton';
-import { Interval } from '../NewEventModal/types';
+import { Interval } from '../../types';
 import styles from './RangePickerButtons.module.scss';
 
 interface IProps {
