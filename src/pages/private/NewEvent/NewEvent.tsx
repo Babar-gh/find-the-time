@@ -16,7 +16,7 @@ import {
   parsePositiveInt,
   treatNaNAsEmptyString,
   treatNaNAsZero,
-} from 'utility';
+} from 'utilities/numbers';
 import styles from './NewEvent.module.scss';
 import { constraints, NewEventValidation } from './constraints';
 import { getRangePickers } from './helpers';
