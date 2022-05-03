@@ -19,8 +19,8 @@ interface IProps {
 const cn = classNames.bind(styles);
 
 const Item: React.VFC<IProps> = ({
-  _formLayout,
-  _placement,
+  _formLayout = 'vertical',
+  _placement = 'inColumn',
   label,
   isRequired,
   errorMessage,
@@ -28,7 +28,7 @@ const Item: React.VFC<IProps> = ({
   children: child,
 }) => {
   const { current: id } = useRef(uniqueId());
-  const { ref, width } = useLabelWidth();
+  const { ref, width } = useLabelWidth(_formLayout);
 
   const validationStatus = errorMessage ? 'error' : undefined;
 
