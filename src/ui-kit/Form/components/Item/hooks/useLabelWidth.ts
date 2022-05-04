@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef, useState } from 'react';
 
-const useLabelWidth = (_formLayout: 'vertical' | 'horizontal') => {
+const useLabelWidth = (formLayout: 'vertical' | 'horizontal') => {
   const ref = useRef<HTMLLabelElement>(null);
 
   const [width, setWidth] = useState<number | null>(null);
@@ -9,7 +9,7 @@ const useLabelWidth = (_formLayout: 'vertical' | 'horizontal') => {
     const computedWidth = ref.current?.offsetWidth;
 
     computedWidth && setWidth(computedWidth);
-  }, [_formLayout]);
+  }, [formLayout]);
 
   return { ref, width };
 };
