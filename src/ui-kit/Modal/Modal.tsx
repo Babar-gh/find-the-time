@@ -47,12 +47,12 @@ const Modal: React.FC<IProps> = ({
   populateButtonProps(cancelProps, onCancelClick, cancelText, 'secondary');
 
   useEffect(() => {
-    document.body.style.overflow = isOpen ? 'hidden' : 'visible';
+    document.body.style.overflow = 'hidden';
 
     return () => {
       document.body.style.overflow = 'visible';
     };
-  }, [isOpen]);
+  }, []);
 
   return (
     <Backdrop {...{ isOpen, onBackdropClick }}>
