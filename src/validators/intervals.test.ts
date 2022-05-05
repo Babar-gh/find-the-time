@@ -1,43 +1,49 @@
 import dayjs from 'dayjs';
 import { longerThan, startIsBeforeEnd } from './intervals';
 
+const now = dayjs();
+
 describe(longerThan, () => {
-  it('returns “^Shorter than duration” if an interval argument is shorter than a options.duration argument', () => {
+  const errorMessage = '^Shorter than duration';
+
+  it(`returns “${errorMessage}” if an interval argument is shorter than an options.duration argument`, () => {
     expect(
       longerThan(
         {
-          start: dayjs(),
-          end: dayjs(),
+          start: dayjs(now),
+          end: dayjs(now),
         },
         { duration: 10 }
       )
-    ).toEqual('^Shorter than duration');
+    ).toEqual(errorMessage);
+
     expect(
       longerThan(
         {
-          start: dayjs(),
-          end: dayjs().add(9, 'minute'),
+          start: dayjs(now),
+          end: dayjs(now).add(9, 'minute').add(59, 'second'),
         },
         { duration: 10 }
       )
-    ).toEqual('^Shorter than duration');
+    ).toEqual(errorMessage);
   });
 
   it('returns null if an interval argument is equals or longer than a options.duration argument', () => {
     expect(
       longerThan(
         {
-          start: dayjs(),
-          end: dayjs().add(60, 'minute'),
+          start: dayjs(now),
+          end: dayjs(now).add(60, 'minute'),
         },
         { duration: 10 }
       )
     ).toEqual(null);
+
     expect(
       longerThan(
         {
-          start: dayjs(),
-          end: dayjs().add(10, 'minute'),
+          start: dayjs(now),
+          end: dayjs(now).add(10, 'minute'),
         },
         { duration: 10 }
       )
@@ -46,33 +52,36 @@ describe(longerThan, () => {
 });
 
 describe(startIsBeforeEnd, () => {
-  it('returns “^Later than end” if interval.start argument is a later datetime than interval.end argument', () => {
+  const errorMessage = '^Later than end';
+
+  it(`returns “${errorMessage}” if an interval.start argument is a later datetime than an interval.end argument`, () => {
     expect(
       startIsBeforeEnd(
         {
-          start: dayjs(),
-          end: dayjs().subtract(1, 'second'),
+          start: dayjs(now),
+          end: dayjs(now).subtract(1, 'second'),
         },
         true
       )
-    ).toEqual('^Later than end');
+    ).toEqual(errorMessage);
   });
 
-  it('returns null if interval.start argument is an earlier or the same datetime as interval.end argument', () => {
+  it('returns null if an interval.start argument is an earlier or the same datetime as an interval.end argument', () => {
     expect(
       startIsBeforeEnd(
         {
-          start: dayjs(),
-          end: dayjs().add(1, 'second'),
+          start: dayjs(now),
+          end: dayjs(now).add(1, 'second'),
         },
         true
       )
     ).toEqual(null);
+
     expect(
       startIsBeforeEnd(
         {
-          start: dayjs(),
-          end: dayjs(),
+          start: dayjs(now),
+          end: dayjs(now),
         },
         true
       )
