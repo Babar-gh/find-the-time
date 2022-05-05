@@ -1,5 +1,7 @@
 import classNames from 'classnames/bind';
 import { Outlet } from 'react-router-dom';
+import { Suspense } from 'react';
+import Backdrop from 'ui-kit/Backdrop';
 import Button from 'ui-kit/Button';
 import Link from 'ui-kit/Link';
 import Loader from 'ui-kit/Loader';
@@ -28,7 +30,9 @@ const Events: React.VFC = () => {
 
   return (
     <>
-      <Outlet />
+      <Suspense fallback={<Backdrop isOpen />}>
+        <Outlet />
+      </Suspense>
       <Page
         title="Events"
         headerAddon={
