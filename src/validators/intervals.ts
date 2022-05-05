@@ -4,12 +4,12 @@ export const longerThan = (
   interval: TimeInterval,
   options: { duration: number }
 ) =>
-  interval.end.diff(interval.start, 'minute') < options.duration
+  interval.end.diff(interval.start, 'millisecond') < options.duration * 60000
     ? '^Shorter than duration'
     : null;
 
 export const startIsBeforeEnd = (interval: TimeInterval, options: boolean) =>
-  options && interval.end.diff(interval.start, 'minute') < 0
+  options && interval.end.diff(interval.start, 'millisecond') < 0
     ? '^Later than end'
     : null;
 

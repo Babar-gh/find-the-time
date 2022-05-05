@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { longerThan } from './intervals';
+import { longerThan, startIsBeforeEnd } from './intervals';
 
 describe(longerThan, () => {
   it('returns “^Shorter than duration” if an interval argument is shorter than a options.duration argument', () => {
@@ -40,6 +40,41 @@ describe(longerThan, () => {
           end: dayjs().add(10, 'minute'),
         },
         { duration: 10 }
+      )
+    ).toEqual(null);
+  });
+});
+
+describe(startIsBeforeEnd, () => {
+  it('returns “^Later than end” if interval.start argument is a later datetime than interval.end argument', () => {
+    expect(
+      startIsBeforeEnd(
+        {
+          start: dayjs(),
+          end: dayjs().subtract(1, 'second'),
+        },
+        true
+      )
+    ).toEqual('^Later than end');
+  });
+
+  it('returns null if interval.start argument is an earlier or the same datetime as interval.end argument', () => {
+    expect(
+      startIsBeforeEnd(
+        {
+          start: dayjs(),
+          end: dayjs().add(1, 'second'),
+        },
+        true
+      )
+    ).toEqual(null);
+    expect(
+      startIsBeforeEnd(
+        {
+          start: dayjs(),
+          end: dayjs(),
+        },
+        true
       )
     ).toEqual(null);
   });
