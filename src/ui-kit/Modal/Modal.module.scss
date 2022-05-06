@@ -2,6 +2,7 @@
 @use 'sass:math';
 
 $padding: 40px;
+$padding-half: math.div($padding, 2);
 $padding-scrollbar-side: 40px - 12px;
 
 .Root {
@@ -20,7 +21,7 @@ $padding-scrollbar-side: 40px - 12px;
 
   @include apply-to(Tablet, Laptop, Desktop) {
     max-width: 100vw;
-    max-height: 80vh;
+    max-height: 90vh;
   }
 
   @include apply-to(Mobile) {
@@ -35,17 +36,19 @@ $padding-scrollbar-side: 40px - 12px;
 }
 
 .Header {
+  padding-bottom: $padding-half;
+  border-bottom: 1px solid var(--canvas-secondary-deeper);
   display: flex;
   justify-content: space-between;
-  margin-bottom: 40px;
 }
 
 .Content {
-  padding: 0 $padding-scrollbar-side 0 $padding;
-  margin-bottom: 20px;
+  padding: $padding-half $padding-scrollbar-side 0 $padding;
 }
 
 .Buttons {
+  padding-top: $padding-half;
+  border-top: 1px solid var(--canvas-secondary-deeper);
   display: flex;
   gap: 16px;
 }
