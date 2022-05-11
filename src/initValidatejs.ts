@@ -1,13 +1,13 @@
 import validate from 'validate.js';
 import {
-  longerThan,
+  notShorterThan,
   noIntersections,
   startIsBeforeEnd,
 } from 'validators/intervals';
 
 validate.validators = {
   ...validate.validators,
-  longerThan,
+  notShorterThan,
   startIsBeforeEnd,
   noIntersections,
 };

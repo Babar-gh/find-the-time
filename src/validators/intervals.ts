@@ -1,17 +1,18 @@
+import dayjs from 'dayjs';
 import { TimeInterval } from 'types/common';
+import '../initDayjs';
 
-export const longerThan = (
+export const notShorterThan = (
   interval: TimeInterval,
   options: { duration: number }
 ) =>
-  interval.end.diff(interval.start, 'millisecond') < options.duration * 60000
-    ? '^Shorter than duration'
-    : null;
+  interval.end.diff(interval.start, 'millisecond') >=
+  dayjs.duration(options.duration, 'minute').asMilliseconds()
+    ? null
+    : '^Shorter than duration';
 
 export const startIsBeforeEnd = (interval: TimeInterval, options: boolean) =>
-  options && interval.end.diff(interval.start, 'millisecond') < 0
-    ? '^Later than end'
-    : null;
+  options && interval.start.isBefore(interval.end) ? null : '^Later than end';
 
 export const noIntersections = (intervals: TimeInterval[], options: boolean) =>
   options &&

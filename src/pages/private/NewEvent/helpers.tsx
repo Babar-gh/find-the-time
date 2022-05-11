@@ -19,7 +19,7 @@ export const getRangePickers = (
   });
 
   const endError: string | undefined = validate.single(intervals[index], {
-    longerThan: { duration },
+    notShorterThan: { duration },
   });
 
   someIntervalsAreInvalid.current = Boolean(startError || endError);
