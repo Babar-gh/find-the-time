@@ -1,0 +1,66 @@
+$row-height: 50px;
+$row-gap: 8px;
+
+.Root {
+  display: flex;
+  gap: 16px;
+}
+
+.Users,
+.Intervals,
+.Min,
+.Max {
+  display: flex;
+  flex-direction: column;
+}
+
+.Users {
+  padding-top: $row-height + $row-gap;
+  align-items: flex-end;
+  text-align: right;
+  gap: $row-gap;
+}
+
+.User {
+  height: $row-height;
+  display: flex;
+  align-items: center;
+}
+
+.Intervals {
+  gap: $row-gap;
+
+  $border: 1px solid var(--canvas-primary);
+
+  border-left: $border;
+  border-right: $border;
+}
+
+.Header {
+  padding: 0 $row-gap;
+  height: $row-height;
+  display: flex;
+  justify-content: space-between;
+}
+
+.Min,
+.Max {
+  justify-content: center;
+}
+
+.Max {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.Intersection {
+  position: relative;
+  height: $row-height;
+}
+
+.Interval {
+  position: absolute;
+  height: $row-height;
+  background-color: var(--ui-button);
+  border-radius: 4px;
+}
