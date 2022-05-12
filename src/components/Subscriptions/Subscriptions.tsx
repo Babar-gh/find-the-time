@@ -3,21 +3,23 @@ import Text from 'components/Text';
 import { getDisplayName } from 'helpers/users/getDisplayName';
 import { IEvent } from 'api/types/events';
 import styles from './Subscriptions.module.scss';
-import { getConstraintText } from './helpers';
+import { getConstraintText, addIntersections } from './helpers';
 
 interface IProps extends Pick<IEvent, 'subscriptions'> {}
 
 const Subscriptions: React.VFC<IProps> = ({ subscriptions }) => {
+  const list = addIntersections(subscriptions);
+
   return (
     <div className={styles['Root']}>
       <div className={styles['UserList']}>
-        {subscriptions.map(({ user }) => (
+        {list.map(({ user }) => (
           <div className={styles['UserName']}>
             <Text font="primaryBold">{getDisplayName(user)}</Text>
           </div>
         ))}
       </div>
-      {subscriptions[0].availability.map(({ start: min, end: max }) => {
+      {list[0].availability.map(({ start: min, end: max }) => {
         const minToMaxDuration = dayjs(max).diff(min);
 
         return (
@@ -29,7 +31,7 @@ const Subscriptions: React.VFC<IProps> = ({ subscriptions }) => {
               <div className={styles['Min']}>{getConstraintText(min)}</div>
               <div className={styles['Max']}>{getConstraintText(max)}</div>
             </div>
-            {subscriptions.map(({ availability }) => (
+            {list.map(({ availability }) => (
               <div className={styles['UserIntervals']}>
                 {availability
                   .filter(
@@ -38,18 +40,18 @@ const Subscriptions: React.VFC<IProps> = ({ subscriptions }) => {
                       dayjs(end).isSameOrBefore(max)
                   )
                   .map(({ start, end }) => {
-                    const beforeIntersection =
-                      dayjs(start).diff(min) / minToMaxDuration;
+                    const beforePercent =
+                      (dayjs(start).diff(min) / minToMaxDuration) * 100;
 
-                    const intersection =
-                      dayjs(end).diff(start) / minToMaxDuration;
+                    const intervalPercent =
+                      (dayjs(end).diff(start) / minToMaxDuration) * 100;
 
                     return (
                       <div
                         className={styles['Interval']}
                         style={{
-                          left: `${beforeIntersection * 100}%`,
-                          width: `${intersection * 100}%`,
+                          left: `${beforePercent}%`,
+                          width: `${intervalPercent}%`,
                         }}
                       />
                     );
