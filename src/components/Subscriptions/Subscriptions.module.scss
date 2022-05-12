@@ -6,28 +6,28 @@ $row-gap: 8px;
   gap: 16px;
 }
 
-.Users,
-.Intervals,
+.UserList,
+.IntervalList,
 .Min,
 .Max {
   display: flex;
   flex-direction: column;
 }
 
-.Users {
+.UserList {
   padding-top: $row-height + $row-gap;
   align-items: flex-end;
   text-align: right;
   gap: $row-gap;
 }
 
-.User {
+.UserName {
   height: $row-height;
   display: flex;
   align-items: center;
 }
 
-.Intervals {
+.IntervalList {
   gap: $row-gap;
 
   $border: 1px solid var(--canvas-primary);
@@ -36,7 +36,7 @@ $row-gap: 8px;
   border-right: $border;
 }
 
-.Header {
+.IntervalHeader {
   padding: 0 $row-gap;
   height: $row-height;
   display: flex;
@@ -53,7 +53,7 @@ $row-gap: 8px;
   text-align: right;
 }
 
-.Intersection {
+.UserIntervals {
   position: relative;
   height: $row-height;
 }

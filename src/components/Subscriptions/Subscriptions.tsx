@@ -10,9 +10,9 @@ interface IProps extends Pick<IEvent, 'subscriptions'> {}
 const Subscriptions: React.VFC<IProps> = ({ subscriptions }) => {
   return (
     <div className={styles['Root']}>
-      <div className={styles['Users']}>
+      <div className={styles['UserList']}>
         {subscriptions.map(({ user }) => (
-          <div className={styles['User']}>
+          <div className={styles['UserName']}>
             <Text font="primaryBold">{getDisplayName(user)}</Text>
           </div>
         ))}
@@ -22,15 +22,15 @@ const Subscriptions: React.VFC<IProps> = ({ subscriptions }) => {
 
         return (
           <div
-            className={styles['Intervals']}
+            className={styles['IntervalList']}
             style={{ flexGrow: dayjs(max).diff(min, 'minutes') }}
           >
-            <div className={styles['Header']}>
+            <div className={styles['IntervalHeader']}>
               <div className={styles['Min']}>{getConstraintText(min)}</div>
               <div className={styles['Max']}>{getConstraintText(max)}</div>
             </div>
             {subscriptions.map(({ availability }) => (
-              <div className={styles['Intersection']}>
+              <div className={styles['UserIntervals']}>
                 {availability
                   .filter(
                     ({ start, end }) =>
