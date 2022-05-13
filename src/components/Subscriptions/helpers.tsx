@@ -1,8 +1,9 @@
 import dayjs from 'dayjs';
 import Text from 'components/Text';
-import { DATETIME_DEFAULT, DATE_SHORT, TIME_DEFAULT } from 'constants/formats';
-import { IEvent } from 'api/types/events';
+import { DATE_SHORT, DATETIME_DEFAULT, TIME_DEFAULT } from 'constants/formats';
+import { getIntersection } from 'utilities/intervals';
 import { Guid } from 'types/common';
+import { IEvent } from 'api/types/events';
 
 export const getConstraintText = (datetime: string) => {
   const constraint = dayjs(datetime);
@@ -21,29 +22,23 @@ export const addIntersections = (subscriptions: IEvent['subscriptions']) => {
   );
 
   const intersections = availabilities.reduce(
-    (intersections, intervalsToCheck) => {
+    (foundIntersections, intervalsToCheck) => {
       return intervalsToCheck.flatMap(({ start, end }) => {
-        const interval = { start: dayjs(start), end: dayjs(end) };
+        const current = { start: dayjs(start), end: dayjs(end) };
 
-        return intersections.flatMap(({ start, end }) => {
-          const intersection = { start: dayjs(start), end: dayjs(end) };
+        return foundIntersections.flatMap(({ start, end }) => {
+          const previous = { start: dayjs(start), end: dayjs(end) };
 
-          const isIntersecting =
-            interval.start.isBetween(intersection.start, intersection.end) ||
-            interval.end.isBetween(intersection.start, intersection.end);
+          const newIntersection = getIntersection(previous, current);
 
-          const newIntersection = {
-            start: (interval.start.isAfter(intersection.start)
-              ? interval.start
-              : intersection.start
-            ).format(DATETIME_DEFAULT),
-            end: (interval.end.isBefore(intersection.end)
-              ? interval.end
-              : intersection.end
-            ).format(DATETIME_DEFAULT),
-          };
+          if (newIntersection !== null) {
+            const start = newIntersection.start.format(DATETIME_DEFAULT);
+            const end = newIntersection.end.format(DATETIME_DEFAULT);
 
-          return isIntersecting ? newIntersection : [];
+            return [{ start, end }];
+          } else {
+            return [];
+          }
         });
       });
     }
