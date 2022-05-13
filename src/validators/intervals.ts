@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { checkIntersection } from 'utilities/intervals';
 import { TimeInterval } from 'types/common';
 import '../initDayjs';
 
@@ -17,10 +18,8 @@ export const startIsBeforeEnd = (interval: TimeInterval, options: boolean) =>
 export const noIntersections = (intervals: TimeInterval[], options: boolean) =>
   options &&
   intervals.some((outerInterval) =>
-    intervals.some(
-      (innerInterval) =>
-        innerInterval.start.isBetween(outerInterval.start, outerInterval.end) ||
-        innerInterval.end.isBetween(outerInterval.start, outerInterval.end)
+    intervals.some((innerInterval) =>
+      checkIntersection(innerInterval, outerInterval)
     )
   )
     ? 'must not intersect'
