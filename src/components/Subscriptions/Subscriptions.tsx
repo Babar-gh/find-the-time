@@ -1,11 +1,14 @@
+import classNames from 'classnames/bind';
 import dayjs from 'dayjs';
 import Text from 'components/Text';
 import { getDisplayName } from 'helpers/users/getDisplayName';
 import { IEvent } from 'api/types/events';
+import { addIntersections, getConstraintText } from './helpers';
 import styles from './Subscriptions.module.scss';
-import { getConstraintText, addIntersections } from './helpers';
 
 interface IProps extends Pick<IEvent, 'subscriptions'> {}
+
+const cn = classNames.bind(styles);
 
 const Subscriptions: React.VFC<IProps> = ({ subscriptions }) => {
   const list = addIntersections(subscriptions);
@@ -31,33 +34,40 @@ const Subscriptions: React.VFC<IProps> = ({ subscriptions }) => {
               <div className={styles['Min']}>{getConstraintText(min)}</div>
               <div className={styles['Max']}>{getConstraintText(max)}</div>
             </div>
-            {list.map(({ availability }) => (
-              <div className={styles['UserIntervals']}>
-                {availability
-                  .filter(
-                    ({ start, end }) =>
-                      dayjs(start).isSameOrAfter(min) &&
-                      dayjs(end).isSameOrBefore(max)
-                  )
-                  .map(({ start, end }) => {
-                    const beforePercent =
-                      (dayjs(start).diff(min) / minToMaxDuration) * 100;
+            {list.map(({ availability }, rowIndex) => {
+              const isLastRow = rowIndex === list.length - 1;
 
-                    const intervalPercent =
-                      (dayjs(end).diff(start) / minToMaxDuration) * 100;
+              return (
+                <div className={styles['UserIntervals']}>
+                  {availability
+                    .filter(
+                      ({ start, end }) =>
+                        dayjs(start).isSameOrAfter(min) &&
+                        dayjs(end).isSameOrBefore(max)
+                    )
+                    .map(({ start, end }) => {
+                      const beforePercent =
+                        (dayjs(start).diff(min) / minToMaxDuration) * 100;
 
-                    return (
-                      <div
-                        className={styles['Interval']}
-                        style={{
-                          left: `${beforePercent}%`,
-                          width: `${intervalPercent}%`,
-                        }}
-                      />
-                    );
-                  })}
-              </div>
-            ))}
+                      const durationPercent =
+                        (dayjs(end).diff(start) / minToMaxDuration) * 100;
+
+                      return (
+                        <div
+                          className={cn(
+                            'Interval',
+                            `Interval_color_${isLastRow ? 'all' : 'user'}`
+                          )}
+                          style={{
+                            left: `${beforePercent}%`,
+                            width: `${durationPercent}%`,
+                          }}
+                        />
+                      );
+                    })}
+                </div>
+              );
+            })}
           </div>
         );
       })}

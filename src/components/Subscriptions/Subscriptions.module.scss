@@ -61,6 +61,15 @@ $row-gap: 8px;
 .Interval {
   position: absolute;
   height: $row-height;
-  background-color: var(--ui-button);
   border-radius: 4px;
+
+  &_color {
+    &_user {
+      background-color: var(--ui-button);
+    }
+
+    &_all {
+      background-color: var(--ui-switch-track-on);
+    }
+  }
 }
