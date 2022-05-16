@@ -30,7 +30,7 @@ $row-gap: 8px;
 .IntervalList {
   gap: $row-gap;
 
-  $border: 1px solid var(--canvas-primary);
+  $border: 1px solid var(--canvas-modifier-selected);
 
   border-left: $border;
   border-right: $border;
@@ -56,20 +56,4 @@ $row-gap: 8px;
 .UserIntervals {
   position: relative;
   height: $row-height;
-}
-
-.Interval {
-  position: absolute;
-  height: $row-height;
-  border-radius: 4px;
-
-  &_color {
-    &_user {
-      background-color: var(--ui-button);
-    }
-
-    &_all {
-      background-color: var(--ui-switch-track-on);
-    }
-  }
 }
