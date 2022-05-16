@@ -5,12 +5,16 @@ import { getIntersection } from 'utilities/intervals';
 import { Guid } from 'types/common';
 import { IEvent } from 'types/events';
 
-export const getConstraintText = (constraint: Dayjs) => (
-  <>
-    <Text>{constraint.format(DATE_SHORT)}</Text>
-    <Text>{constraint.format(TIME_DEFAULT)}</Text>
-  </>
-);
+export const getConstraintText = (constraint: Dayjs, isSmall?: boolean) => {
+  const size = isSmall ? 'small' : 'regular';
+
+  return (
+    <>
+      <Text size={size}>{constraint.format(DATE_SHORT)}</Text>
+      <Text size={size}>{constraint.format(TIME_DEFAULT)}</Text>
+    </>
+  );
+};
 
 export const addIntersections = (subscriptions: IEvent['subscriptions']) => {
   const availabilities = subscriptions.map(

@@ -1,0 +1,63 @@
+@use 'sass:map';
+@use '/src/styles/constants' as *;
+
+$row-height: 50px;
+$row-gap: 8px;
+
+.Root {
+  position: absolute;
+  z-index: map.get($z-indexes, 'interval');
+  height: $row-height;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &_color {
+    &_user {
+      background-color: var(--ui-button);
+    }
+
+    &_all {
+      background-color: var(--ui-switch-track-on);
+    }
+  }
+
+  &_picked {
+    z-index: map.get($z-indexes, 'interval-picked');
+  }
+
+  &:hover {
+    filter: saturate(2);
+  }
+}
+
+.Details {
+  height: $row-height;
+  width: calc(100% + 128px);
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+  transition: all 0.3s ease-out;
+  opacity: 0;
+  transform: translate(-64px, -25px);
+
+  &_shown {
+    opacity: 1;
+    transform: translate(-64px, 0);
+  }
+}
+
+.Start,
+.End {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: var(--canvas-secondary-deeper);
+  padding: 0 $row-gap;
+  border-radius: 4px;
+  box-shadow: $shadow-default;
+}
+
+.Start {
+  align-items: flex-end;
+  text-align: right;
+}
