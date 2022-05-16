@@ -17,10 +17,8 @@ export const startIsBeforeEnd = (interval: TimeInterval, options: boolean) =>
 
 export const noIntersections = (intervals: TimeInterval[], options: boolean) =>
   options &&
-  intervals.some((outerInterval) =>
-    intervals.some((innerInterval) =>
-      checkIntersection(innerInterval, outerInterval)
-    )
+  intervals.some((outer, index) =>
+    intervals.slice(index + 1).some((inner) => checkIntersection(inner, outer))
   )
     ? 'must not intersect'
     : null;
