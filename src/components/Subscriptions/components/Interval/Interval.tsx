@@ -7,12 +7,15 @@ import styles from './Interval.module.scss';
 interface IProps {
   interval: TimeInterval;
   column: TimeInterval;
+  rows: { current: number; total: number };
   color: 'user' | 'all';
 }
 
+const ROW_HEIGHT = 58;
+
 const cn = classNames.bind(styles);
 
-const Interval: React.VFC<IProps> = ({ interval, column, color }) => {
+const Interval: React.VFC<IProps> = ({ interval, column, rows, color }) => {
   const [isPicked, setIsPicked] = useState(false);
 
   const { start, end } = interval;
@@ -37,6 +40,13 @@ const Interval: React.VFC<IProps> = ({ interval, column, color }) => {
         <div className={styles['Start']}>{getConstraintText(start, true)}</div>
         <div className={styles['End']}>{getConstraintText(end, true)}</div>
       </div>
+      <div
+        className={cn('RangeHighlight', { RangeHighlight_shown: isPicked })}
+        style={{
+          top: `-${ROW_HEIGHT * (rows.current + 1)}px`,
+          height: `${ROW_HEIGHT * (rows.total + 1)}px`,
+        }}
+      />
     </div>
   );
 };

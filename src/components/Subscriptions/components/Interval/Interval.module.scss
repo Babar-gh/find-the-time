@@ -61,3 +61,25 @@ $row-gap: 8px;
   align-items: flex-end;
   text-align: right;
 }
+
+.RangeHighlight {
+  position: absolute;
+  z-index: -1;
+  box-sizing: border-box;
+  width: 100%;
+  background-color: var(--canvas-modifier-hover);
+  pointer-events: none;
+  transition: all 0.3s ease-out;
+  opacity: 0;
+  transform: scaleY(0);
+
+  $border: 1px solid var(--text-primary);
+
+  border-left: 1px solid var(--text-primary);
+  border-right: 1px solid var(--text-primary);
+
+  &_shown {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
