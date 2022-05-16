@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { notShorterThan, startIsBeforeEnd } from './intervals';
+import { noIntersections, notShorterThan, startIsBeforeEnd } from './intervals';
 
 const now = dayjs();
 
@@ -83,6 +83,79 @@ describe(startIsBeforeEnd, () => {
           start: dayjs(now),
           end: dayjs(now).add(1, 'second'),
         },
+        true
+      )
+    ).toEqual(null);
+  });
+});
+
+describe(noIntersections, () => {
+  const ordered = [
+    dayjs(now),
+    dayjs(now).add(1, 'hour'),
+    dayjs(now).add(2, 'hour'),
+    dayjs(now).add(3, 'hour'),
+  ];
+
+  it('returns “must not intersect” if any two TimeInterval items of the intervals argument array overlap', () => {
+    expect(
+      noIntersections(
+        [
+          { start: ordered[0], end: ordered[2] },
+          { start: ordered[1], end: ordered[3] },
+        ],
+        true
+      )
+    ).toEqual('must not intersect');
+
+    expect(
+      noIntersections(
+        [
+          { start: ordered[1], end: ordered[3] },
+          { start: ordered[0], end: ordered[2] },
+        ],
+        true
+      )
+    ).toEqual('must not intersect');
+
+    expect(
+      noIntersections(
+        [
+          { start: ordered[0], end: ordered[3] },
+          { start: ordered[1], end: ordered[2] },
+        ],
+        true
+      )
+    ).toEqual('must not intersect');
+
+    expect(
+      noIntersections(
+        [
+          { start: ordered[1], end: ordered[2] },
+          { start: ordered[0], end: ordered[3] },
+        ],
+        true
+      )
+    ).toEqual('must not intersect');
+  });
+
+  it('returns null if no TimeInterval items of the intervals argument array overlap', () => {
+    expect(
+      noIntersections(
+        [
+          { start: ordered[0], end: ordered[1] },
+          { start: ordered[2], end: ordered[3] },
+        ],
+        true
+      )
+    ).toEqual(null);
+
+    expect(
+      noIntersections(
+        [
+          { start: ordered[2], end: ordered[3] },
+          { start: ordered[0], end: ordered[1] },
+        ],
         true
       )
     ).toEqual(null);
