@@ -13,37 +13,42 @@ const Subscriptions: React.VFC<IProps> = ({ subscriptions }) => {
   return (
     <div className={styles['Root']}>
       <div className={styles['UserList']}>
-        {list.map(({ user }) => (
-          <div className={styles['UserName']}>
+        {list.map(({ user }, userIndex) => (
+          <div className={styles['UserName']} key={userIndex}>
             <Text font="primaryBold">{getDisplayName(user)}</Text>
           </div>
         ))}
       </div>
-      {list[0].availability.map(({ start: min, end: max }) => (
+      {list[0].availability.map(({ start: min, end: max }, columnIndex) => (
         <div
           className={styles['IntervalList']}
           style={{ flexGrow: max.diff(min, 'minutes') }}
+          key={columnIndex}
         >
           <div className={styles['IntervalHeader']}>
             <div className={styles['Min']}>{getConstraintText(min)}</div>
             <div className={styles['Max']}>{getConstraintText(max)}</div>
           </div>
           {list.map(({ availability }, rowIndex) => {
-            const isLastRow = rowIndex === list.length - 1;
+            const rowsTotal = list.length;
+            const isLastRow = rowIndex + 1 === rowsTotal;
 
             return (
-              <div className={styles['UserIntervals']}>
+              <div className={styles['UserIntervals']} key={rowIndex}>
                 {availability
                   .filter(
                     ({ start, end }) =>
                       start.isSameOrAfter(min) && end.isSameOrBefore(max)
                   )
-                  .map((interval) => (
-                    <Interval
-                      interval={interval}
-                      column={{ start: min, end: max }}
-                      color={isLastRow ? 'all' : 'user'}
-                    />
+                  .map((interval, intervalIndex) => (
+                    <div key={intervalIndex}>
+                      <Interval
+                        interval={interval}
+                        column={{ start: min, end: max }}
+                        rows={{ current: rowIndex, total: rowsTotal }}
+                        color={isLastRow ? 'all' : 'user'}
+                      />
+                    </div>
                   ))}
               </div>
             );
