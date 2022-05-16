@@ -3,7 +3,7 @@ import { ComponentProps } from 'react';
 import Text from 'components/Text';
 import Icon from 'components/Icon';
 import { getDisplayName } from 'helpers/users/getDisplayName';
-import { IEvent } from 'api/types/events';
+import { IEvent } from 'types/events';
 import styles from './EventTile.module.scss';
 
 interface IListItemProps {

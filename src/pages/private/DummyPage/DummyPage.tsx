@@ -1,7 +1,8 @@
-import Subscriptions from 'components/Subscriptions';
-import { Guid } from 'types/common';
+import dayjs from 'dayjs';
 import DummyContent from 'ui-kit/DummyContent';
 import Page from 'ui-kit/Page';
+import Subscriptions from 'components/Subscriptions';
+import { Guid } from 'types/common';
 
 const DummyPage: React.FC = () => (
   <Page title="I’m an Example Page">
@@ -15,12 +16,12 @@ const DummyPage: React.FC = () => (
           },
           availability: [
             {
-              start: '2021-12-23 01:00:00',
-              end: '2021-12-24 23:00:00',
+              start: dayjs('2021-12-23 01:00:00'),
+              end: dayjs('2021-12-24 23:00:00'),
             },
             {
-              start: '2021-12-22 14:00:00',
-              end: '2021-12-22 23:00:00',
+              start: dayjs('2021-12-22 14:00:00'),
+              end: dayjs('2021-12-22 23:00:00'),
             },
           ],
         },
@@ -32,12 +33,12 @@ const DummyPage: React.FC = () => (
           },
           availability: [
             {
-              start: '2021-12-23 05:00:00',
-              end: '2021-12-24 04:00:00',
+              start: dayjs('2021-12-23 05:00:00'),
+              end: dayjs('2021-12-24 04:00:00'),
             },
             {
-              start: '2021-12-24 12:00:00',
-              end: '2021-12-24 20:00:00',
+              start: dayjs('2021-12-24 12:00:00'),
+              end: dayjs('2021-12-24 20:00:00'),
             },
           ],
         },
@@ -49,16 +50,16 @@ const DummyPage: React.FC = () => (
           },
           availability: [
             {
-              start: '2021-12-23 10:00:00',
-              end: '2021-12-23 18:00:00',
+              start: dayjs('2021-12-23 10:00:00'),
+              end: dayjs('2021-12-23 18:00:00'),
             },
             {
-              start: '2021-12-24 01:00:00',
-              end: '2021-12-24 15:00:00',
+              start: dayjs('2021-12-24 01:00:00'),
+              end: dayjs('2021-12-24 15:00:00'),
             },
             {
-              start: '2021-12-22 18:00:00',
-              end: '2021-12-22 23:00:00',
+              start: dayjs('2021-12-22 18:00:00'),
+              end: dayjs('2021-12-22 23:00:00'),
             },
           ],
         },
@@ -70,24 +71,24 @@ const DummyPage: React.FC = () => (
           },
           availability: [
             {
-              start: '2021-12-23 01:00:00',
-              end: '2021-12-23 15:00:00',
+              start: dayjs('2021-12-23 01:00:00'),
+              end: dayjs('2021-12-23 15:00:00'),
             },
             {
-              start: '2021-12-23 22:00:00',
-              end: '2021-12-24 03:00:00',
+              start: dayjs('2021-12-23 22:00:00'),
+              end: dayjs('2021-12-24 03:00:00'),
             },
             {
-              start: '2021-12-24 10:00:00',
-              end: '2021-12-24 23:00:00',
+              start: dayjs('2021-12-24 10:00:00'),
+              end: dayjs('2021-12-24 23:00:00'),
             },
             {
-              start: '2021-12-22 15:00:00',
-              end: '2021-12-22 19:00:00',
+              start: dayjs('2021-12-22 15:00:00'),
+              end: dayjs('2021-12-22 19:00:00'),
             },
             {
-              start: '2021-12-22 20:00:00',
-              end: '2021-12-22 22:00:00',
+              start: dayjs('2021-12-22 20:00:00'),
+              end: dayjs('2021-12-22 22:00:00'),
             },
           ],
         },

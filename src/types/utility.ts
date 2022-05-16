@@ -1,1 +1,1 @@
-export type WithoutChildren<T> = Omit<T, 'children'>;
+export type OmitChildren<T> = Omit<T, 'children'>;

@@ -4,7 +4,7 @@ import Icon from 'components/Icon';
 import Link from 'ui-kit/Link';
 import Text from 'components/Text';
 import { LinkTypeSpecificProps } from 'ui-kit/Link/Link';
-import { WithoutChildren } from 'types/utility';
+import { OmitChildren } from 'types/utility';
 import styles from './Item.module.scss';
 
 interface ISharedProps {
@@ -16,7 +16,7 @@ interface ISharedProps {
 }
 
 type LinkProps = LinkTypeSpecificProps;
-type ButtonProps = WithoutChildren<ButtonHTMLAttributes<HTMLButtonElement>>;
+type ButtonProps = OmitChildren<ButtonHTMLAttributes<HTMLButtonElement>>;
 
 type ElementSpecificProps =
   | { element?: 'Link'; elementProps: LinkProps }

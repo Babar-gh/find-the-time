@@ -1,5 +1,4 @@
 import { Guid } from 'types/common';
-import { IUser } from 'types/user';
 import { ISearchConstraints, ISearchResult } from './common';
 
 interface ITimeInterval {
@@ -7,16 +6,22 @@ interface ITimeInterval {
   end: string;
 }
 
-export interface IEvent {
+export interface IApiUser {
+  id: Guid;
+  email: string;
+  name: string;
+}
+
+export interface IApiEvent {
   id: Guid;
   title: string;
   duration: number;
   location: string;
   comment: string;
   created: string;
-  organizedBy: IUser;
+  organizedBy: IApiUser;
   subscriptions: {
-    user: IUser;
+    user: IApiUser;
     availability: ITimeInterval[];
   }[];
   chosenInterval: ITimeInterval | null;
@@ -37,12 +42,12 @@ export interface IEventSearchRequest
   extends ISearchConstraints<IEventFilter, EventSortableBy> {}
 
 export interface IEventSearchResponse
-  extends ISearchResult<Omit<IEvent, 'subscriptions'>> {}
+  extends ISearchResult<Omit<IApiEvent, 'subscriptions'>> {}
 
-export interface IEventDetailsResponse extends IEvent {}
+export interface IEventDetailsResponse extends IApiEvent {}
 
 export interface IEventCreationRequest
-  extends Pick<IEvent, 'title' | 'duration' | 'location' | 'comment'> {
+  extends Pick<IApiEvent, 'title' | 'duration' | 'location' | 'comment'> {
   initialIntervals: ITimeInterval[];
 }
 
@@ -55,4 +60,4 @@ export interface IEventSubscriptionRequest {
 }
 
 export interface IEventIntervalsChoiceRequest
-  extends Pick<IEvent, 'chosenInterval'> {}
+  extends Pick<IApiEvent, 'chosenInterval'> {}

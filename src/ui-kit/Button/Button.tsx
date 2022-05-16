@@ -4,7 +4,7 @@ import Icon from 'components/Icon';
 import Link from 'ui-kit/Link';
 import Text from 'components/Text';
 import { LinkTypeSpecificProps } from 'ui-kit/Link/Link';
-import { WithoutChildren } from 'types/utility';
+import { OmitChildren } from 'types/utility';
 import styles from './Button.module.scss';
 
 type IconType = React.ComponentProps<typeof Icon>['type'];
@@ -20,7 +20,7 @@ interface ISharedProps {
 }
 
 type LinkProps = LinkTypeSpecificProps;
-type ButtonProps = WithoutChildren<ButtonHTMLAttributes<HTMLButtonElement>>;
+type ButtonProps = OmitChildren<ButtonHTMLAttributes<HTMLButtonElement>>;
 
 export type ButtonElementSpecificProps =
   | { element?: 'HTMLButton'; elementProps?: ButtonProps }

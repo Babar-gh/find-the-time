@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import dayjs from 'dayjs';
 import Text from 'components/Text';
 import { getDisplayName } from 'helpers/users/getDisplayName';
-import { IEvent } from 'api/types/events';
+import { IEvent } from 'types/events';
 import { addIntersections, getConstraintText } from './helpers';
 import styles from './Subscriptions.module.scss';
 

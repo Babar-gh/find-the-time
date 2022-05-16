@@ -1,7 +1,7 @@
 import { createSlice, isAnyOf, PayloadAction } from '@reduxjs/toolkit';
 import * as jwt from 'jwt';
 import { Guid } from 'types/common';
-import { IUser } from 'types/user';
+import { IUser } from 'types/users';
 import { parseUserToken } from './helpers';
 import { signIn, signUp } from './asyncThunks';
 
