@@ -1,6 +1,8 @@
 import { ReactComponent as AccountCircle } from './AccountCircle.svg';
 import { ReactComponent as Add } from './Add.svg';
+import { ReactComponent as ArrowBack } from './ArrowBack.svg';
 import { ReactComponent as ArrowDownward } from './ArrowDownward.svg';
+import { ReactComponent as ArrowForward } from './ArrowForward.svg';
 import { ReactComponent as ArrowUpward } from './ArrowUpward.svg';
 import { ReactComponent as Check } from './Check.svg';
 import { ReactComponent as Close } from './Close.svg';
@@ -27,7 +29,9 @@ import { ReactComponent as Timelapse } from './Timelapse.svg';
 export default {
   AccountCircle,
   Add,
+  ArrowBack,
   ArrowDownward,
+  ArrowForward,
   ArrowUpward,
   Check,
   Close,
