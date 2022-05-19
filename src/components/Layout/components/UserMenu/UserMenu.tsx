@@ -2,7 +2,7 @@ import Dropdown from 'ui-kit/Dropdown';
 import Menu from 'ui-kit/Menu';
 import Separator from 'ui-kit/Separator';
 import Text from 'components/Text';
-import { getDisplayName } from 'helpers/users/getDisplayName';
+import { getDisplayName } from 'helpers/users';
 import { PRIVATE } from 'constants/routes';
 import { signOut } from 'store/slices/account';
 import { useAppDispatch, useAppSelector } from 'store/hooks';

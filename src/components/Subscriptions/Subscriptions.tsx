@@ -1,5 +1,5 @@
 import Text from 'components/Text';
-import { getDisplayName } from 'helpers/users/getDisplayName';
+import { getDisplayName } from 'helpers/users';
 import { IEvent } from 'types/events';
 import Interval from './components/Interval';
 import { addIntersections, getConstraintText } from './helpers';
