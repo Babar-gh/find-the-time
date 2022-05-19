@@ -20,10 +20,14 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
 
   useEffect(() => {
     const fetchDetails = async () => {
-      const response = await getEventDetails(eventId as Guid);
-      const parsed = convertToIEvent(response.data);
+      try {
+        const response = await getEventDetails(eventId as Guid);
+        const parsed = convertToIEvent(response.data);
 
-      setDetails(parsed);
+        setDetails(parsed);
+      } catch {
+        // TODO: Replace with a proper error handling
+      }
     };
 
     fetchDetails();

@@ -48,9 +48,12 @@ const useEventList = (pageSize: number) => {
         sorter: state.sorter,
       };
 
-      const response = await searchEvents(request);
-
-      parseResponse(response.data);
+      try {
+        const response = await searchEvents(request);
+        parseResponse(response.data);
+      } catch {
+        // TODO: Replace with a proper error handling
+      }
 
       setIsLoading(false);
     };
