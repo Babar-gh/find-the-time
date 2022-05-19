@@ -9,7 +9,7 @@ import Login from 'pages/auth/Login';
 import Page from 'ui-kit/Page';
 import Registration from 'pages/auth/Registration';
 import Text from 'components/Text';
-import { AUTH, PRIVATE } from 'constants/routes';
+import { AUTH, PARAM, PRIVATE } from 'constants/routes';
 import PrivateRoute from './components/PrivateRoute';
 import useBreakpointUpdate from './hooks/useBreakpointUpdate';
 import useTheme from './hooks/useTheme';
@@ -65,7 +65,7 @@ const App: React.VFC = () => {
           <Route path={PRIVATE.CreateEvent} element={<NewEvent />} />
         </Route>
         <Route
-          path={PRIVATE.EventDetails}
+          path={`${PRIVATE.Events}/:${PARAM.EventId}`}
           element={<EventDetails navigateBackTo={PRIVATE.Events} />}
         />
         <Route path={PRIVATE.Settings} element={<DummyPage />} />

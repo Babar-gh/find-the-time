@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
 import { To, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import Page from 'ui-kit/Page';
 import Subscriptions from 'components/Subscriptions';
 import { getEventDetails } from 'api/events';
 import { Guid } from 'types/common';
 import { IEvent } from 'types/events';
+import { PARAM } from 'constants/routes';
 import styles from './EventDetails.module.scss';
 import { parseDatetimes } from './helpers';
 
@@ -13,7 +14,7 @@ interface IProps {
 }
 
 const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
-  const { eventId } = useParams();
+  const { eventId } = useParams<PARAM.EventId>();
 
   const [details, setDetails] = useState<IEvent>();
 
