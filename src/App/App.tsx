@@ -5,8 +5,8 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import AuthLayout from 'components/AuthLayout';
 import Layout from 'components/Layout';
-import Loading from 'pages/private/Loading';
 import Login from 'pages/auth/Login';
+import Page from 'ui-kit/Page';
 import Registration from 'pages/auth/Registration';
 import Text from 'components/Text';
 import { AUTH, PRIVATE } from 'constants/routes';
@@ -37,7 +37,7 @@ const App: React.VFC = () => {
     <ThemeProvider theme={theme.muiCurrent}>
       <LocalizationProvider dateAdapter={AdapterDayjs} locale="en-gb">
         <Layout theme={theme}>
-          <Suspense fallback={<Loading />}>
+          <Suspense fallback={<Page title="" isLoading />}>
             <PrivateRoute />
           </Suspense>
         </Layout>
