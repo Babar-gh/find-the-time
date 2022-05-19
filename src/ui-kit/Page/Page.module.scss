@@ -9,12 +9,15 @@
 
 .Header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   margin-bottom: 32px;
+  gap: 16px;
 
   @include apply-to(Mobile) {
     flex-wrap: wrap;
-    gap: 16px;
   }
+}
+
+.HeaderAddon {
+  margin-left: auto;
 }

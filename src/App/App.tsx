@@ -64,7 +64,10 @@ const App: React.VFC = () => {
         <Route path={PRIVATE.Events} element={<Events />}>
           <Route path={PRIVATE.CreateEvent} element={<NewEvent />} />
         </Route>
-        <Route path={PRIVATE.EventDetails} element={<EventDetails />} />
+        <Route
+          path={PRIVATE.EventDetails}
+          element={<EventDetails navigateBackTo={PRIVATE.Events} />}
+        />
         <Route path={PRIVATE.Settings} element={<DummyPage />} />
       </Route>
       <Route path="*" element={<Navigate to={PRIVATE.Events} />} />

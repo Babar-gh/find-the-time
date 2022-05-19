@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { To, useParams } from 'react-router-dom';
 import Page from 'ui-kit/Page';
 import Subscriptions from 'components/Subscriptions';
 import { getEventDetails } from 'api/events';
@@ -8,7 +8,11 @@ import { IEvent } from 'types/events';
 import styles from './EventDetails.module.scss';
 import { parseDatetimes } from './helpers';
 
-const EventDetails: React.VFC = () => {
+interface IProps {
+  navigateBackTo: To;
+}
+
+const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
   const { eventId } = useParams();
 
   const [details, setDetails] = useState<IEvent>();
@@ -25,7 +29,7 @@ const EventDetails: React.VFC = () => {
   }, [eventId]);
 
   return (
-    <Page title={details?.title || ''}>
+    <Page title={details?.title || ''} navigateBackTo={navigateBackTo}>
       {details?.subscriptions && (
         <div className={styles['Subscriptions']}>
           <Subscriptions subscriptions={details.subscriptions} />
