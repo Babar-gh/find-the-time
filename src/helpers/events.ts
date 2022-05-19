@@ -5,12 +5,13 @@ import { IEvent } from 'types/events';
 
 type Status = 'notYetScheduled' | 'pending' | 'past';
 
-export const getStatus = (chosenInterval: IEvent['chosenInterval']): Status =>
-  chosenInterval === null
-    ? 'notYetScheduled'
-    : dayjs(chosenInterval.end).isAfter(dayjs())
-      ? 'pending'
-      : 'past';
+export const getStatus = (chosenInterval: IEvent['chosenInterval']): Status => {
+  if (chosenInterval === null) {
+    return 'notYetScheduled';
+  }
+
+  return dayjs(chosenInterval.end).isAfter(dayjs()) ? 'pending' : 'past';
+};
 
 type MappedIcons = { [Key in Status]: ComponentProps<typeof Icon>['type'] };
 const iconsMappedToStatus: MappedIcons = {
