@@ -1,8 +1,9 @@
 import dayjs from 'dayjs';
+import { IEvent } from 'types/events';
 import { IEventDetailsResponse } from 'api/types/events';
 
-export const parseDatetimes = (detailsRaw: IEventDetailsResponse) => {
-  const { subscriptions: subscriptionsRaw, ...rest } = detailsRaw;
+export const convertToIEvent = (toConvert: IEventDetailsResponse): IEvent => {
+  const { subscriptions: subscriptionsRaw, ...rest } = toConvert;
 
   const subscriptions = subscriptionsRaw.map(
     ({ user, availability: availabilityRaw }) => {

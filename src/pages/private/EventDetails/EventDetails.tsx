@@ -6,8 +6,8 @@ import { getEventDetails } from 'api/events';
 import { Guid } from 'types/common';
 import { IEvent } from 'types/events';
 import { PARAM } from 'constants/routes';
+import { convertToIEvent } from './helpers';
 import styles from './EventDetails.module.scss';
-import { parseDatetimes } from './helpers';
 
 interface IProps {
   navigateBackTo: To;
@@ -21,7 +21,7 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
   useEffect(() => {
     const fetchDetails = async () => {
       const response = await getEventDetails(eventId as Guid);
-      const parsed = parseDatetimes(response.data);
+      const parsed = convertToIEvent(response.data);
 
       setDetails(parsed);
     };
@@ -29,14 +29,14 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
     fetchDetails();
   }, [eventId]);
 
-  return (
-    <Page title={details?.title || ''} navigateBackTo={navigateBackTo}>
-      {details?.subscriptions && (
-        <div className={styles['Subscriptions']}>
-          <Subscriptions subscriptions={details.subscriptions} />
-        </div>
-      )}
+  return details ? (
+    <Page title={details.title} navigateBackTo={navigateBackTo}>
+      <div className={styles['Subscriptions']}>
+        <Subscriptions subscriptions={details.subscriptions} />
+      </div>
     </Page>
+  ) : (
+    <Page title="" isLoading />
   );
 };
 
