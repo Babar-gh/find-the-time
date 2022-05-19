@@ -5,7 +5,6 @@ import Page from 'ui-kit/Page';
 import Separator from 'ui-kit/Separator';
 import Subscriptions from 'components/Subscriptions';
 import Text from 'components/Text';
-import { getDisplayName } from 'helpers/users';
 import { getEventDetails } from 'api/events';
 import { getStatus, getStatusIcon } from 'helpers/events';
 import { Guid } from 'types/common';
@@ -14,6 +13,7 @@ import { PARAM } from 'constants/routes';
 import { useAppSelector } from 'store/hooks';
 import { convertToIEvent } from './helpers';
 import styles from './EventDetails.module.scss';
+import OrganizedBy from './components/OrganizedBy';
 import InfoTile from './components/InfoTile';
 
 interface IProps {
@@ -49,17 +49,10 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
     return (
       <Page title={details.title} navigateBackTo={navigateBackTo}>
         <div className={styles['Tiles']}>
-          <InfoTile heading="Organized By" icon="Person">
-            <Text>{getDisplayName(details.organizedBy)}</Text>
-            {isOrganizer && (
-              <>
-                <Separator context="menu" />
-                <Text font="primaryItalic" size="small">
-                  That's you!
-                </Text>
-              </>
-            )}
-          </InfoTile>
+          <OrganizedBy
+            organizedBy={details.organizedBy}
+            isOrganizer={isOrganizer}
+          />
           <InfoTile heading="Location" icon="LocationOn">
             <Text>{details.location}</Text>
           </InfoTile>
