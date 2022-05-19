@@ -10,6 +10,17 @@
   background-color: transparent;
 }
 
+@mixin tile {
+  background-color: var(--canvas-primary);
+  border: 1px solid transparent;
+  border-radius: 4px;
+
+  &:hover {
+    background-color: var(--canvas-primary-highlighted);
+    border-color: var(--ui-button-hover);
+  }
+}
+
 @mixin theme-colors($theme, $colors) {
   @each $name, $color in $colors {
     /* stylelint-disable-next-line custom-property-pattern */
