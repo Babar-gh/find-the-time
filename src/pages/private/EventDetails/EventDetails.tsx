@@ -2,14 +2,13 @@ import { To, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Page from 'ui-kit/Page';
 import Subscriptions from 'components/Subscriptions';
-import Text from 'components/Text';
 import { getEventDetails } from 'api/events';
 import { Guid } from 'types/common';
 import { IEvent } from 'types/events';
 import { PARAM } from 'constants/routes';
 import { useAppSelector } from 'store/hooks';
+import Comment from './components/Comment';
 import Duration from './components/Duration';
-import InfoTile from './components/InfoTile';
 import Location from './components/Location';
 import OrganizedBy from './components/OrganizedBy';
 import Status from './components/Status';
@@ -57,9 +56,7 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
             chosenInterval={details.chosenInterval}
             isOrganizer={isOrganizer}
           />
-          <InfoTile heading="Comment" icon="Description">
-            <Text>{details.comment}</Text>
-          </InfoTile>
+          <Comment comment={details.comment} />
         </div>
         <div className={styles['Subscriptions']}>
           <Subscriptions subscriptions={details.subscriptions} />
