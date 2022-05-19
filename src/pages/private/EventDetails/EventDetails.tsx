@@ -16,6 +16,7 @@ import styles from './EventDetails.module.scss';
 import OrganizedBy from './components/OrganizedBy';
 import Location from './components/Location';
 import InfoTile from './components/InfoTile';
+import Duration from './components/Duration';
 
 interface IProps {
   navigateBackTo: To;
@@ -55,11 +56,7 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
             isOrganizer={isOrganizer}
           />
           <Location location={details.location} />
-          <InfoTile heading="Duration" icon="Timelapse">
-            <Text>
-              {dayjs.duration(details.duration, 'minutes').humanize()}
-            </Text>
-          </InfoTile>
+          <Duration duration={details.duration} />
           <InfoTile heading="Status" icon={getStatusIcon(status)}>
             {status === 'notYetScheduled' && (
               <>
