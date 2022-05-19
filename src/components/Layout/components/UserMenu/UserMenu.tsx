@@ -32,7 +32,7 @@ const UserMenu: React.FC = () => {
           {displayName}
         </Text>
       </div>
-      <Separator context="dropdown" />
+      <Separator theme="dropdown" />
       <Menu>
         <Menu.Item
           id="account"

@@ -13,7 +13,7 @@ const OrganizedBy: React.VFC<IProps> = ({ organizedBy, isOrganizer }) => (
     <Text>{getDisplayName(organizedBy)}</Text>
     {isOrganizer && (
       <>
-        <Separator context="menu" />
+        <Separator />
         <Text font="primaryItalic" size="small">
           That's you!
         </Text>

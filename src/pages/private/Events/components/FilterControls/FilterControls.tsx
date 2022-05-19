@@ -51,7 +51,7 @@ const FilterControls: React.VFC<IProps> = ({ filter, onFilterChange }) => {
         {getSelectStatusMenuItem('pending', 'Pending')}
         {getSelectStatusMenuItem('past', 'Past')}
       </Menu>
-      <Separator context="dropdown" />
+      <Separator theme="dropdown" />
       <Switch
         label="Hide created by others"
         checked={filter.isOrganizer !== null}
