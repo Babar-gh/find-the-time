@@ -14,6 +14,7 @@ import { useAppSelector } from 'store/hooks';
 import { convertToIEvent } from './helpers';
 import styles from './EventDetails.module.scss';
 import OrganizedBy from './components/OrganizedBy';
+import Location from './components/Location';
 import InfoTile from './components/InfoTile';
 
 interface IProps {
@@ -53,9 +54,7 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
             organizedBy={details.organizedBy}
             isOrganizer={isOrganizer}
           />
-          <InfoTile heading="Location" icon="LocationOn">
-            <Text>{details.location}</Text>
-          </InfoTile>
+          <Location location={details.location} />
           <InfoTile heading="Duration" icon="Timelapse">
             <Text>
               {dayjs.duration(details.duration, 'minutes').humanize()}
