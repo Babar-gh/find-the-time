@@ -2,7 +2,8 @@ import dayjs from 'dayjs';
 import { ComponentProps } from 'react';
 import Text from 'components/Text';
 import Icon from 'components/Icon';
-import { getDisplayName } from 'helpers/users/getDisplayName';
+import { getDisplayName } from 'helpers/users';
+import { getStatus, getStatusIcon } from 'helpers/events';
 import { IEvent } from 'types/events';
 import styles from './EventTile.module.scss';
 
@@ -21,8 +22,6 @@ const ListItem: React.FC<IListItemProps> = ({ icon, children }) => {
   );
 };
 
-type Status = 'notYetScheduled' | 'pending' | 'past';
-
 interface IProps extends Omit<IEvent, 'subscriptions'> {}
 
 const EventTile: React.VFC<IProps> = ({
@@ -34,12 +33,7 @@ const EventTile: React.VFC<IProps> = ({
   duration,
   chosenInterval,
 }) => {
-  const status: Status =
-    chosenInterval === null
-      ? 'notYetScheduled'
-      : dayjs(chosenInterval.end).isAfter(dayjs())
-        ? 'pending'
-        : 'past';
+  const status = getStatus(chosenInterval);
 
   return (
     <article className={styles['Root']}>
@@ -67,23 +61,17 @@ const EventTile: React.VFC<IProps> = ({
             .duration(duration, 'minutes')
             .humanize()}`}</Text>
         </ListItem>
-        {status === 'notYetScheduled' && (
-          <ListItem icon="EditCalendar">
-            <Text>Not scheduled yet</Text>
-          </ListItem>
-        )}
-        {status === 'pending' && (
-          <ListItem icon="Event">
-            <Text>{`Scheduled for ${dayjs(chosenInterval?.start).format(
-              'MMM D, YYYY'
-            )}`}</Text>
-          </ListItem>
-        )}
-        {status === 'past' && (
-          <ListItem icon="EventAvailable">
-            <Text>{`Ended for ${dayjs(chosenInterval?.end).fromNow()}`}</Text>
-          </ListItem>
-        )}
+        <ListItem icon={getStatusIcon(status)}>
+          {status === 'notYetScheduled' && <Text>Not scheduled yet</Text>}
+          {status === 'pending' && (
+            <Text>
+              Scheduled for {dayjs(chosenInterval?.start).format('MMM D, YYYY')}
+            </Text>
+          )}
+          {status === 'past' && (
+            <Text>Ended {dayjs(chosenInterval?.end).fromNow()} ago</Text>
+          )}
+        </ListItem>
       </ul>
     </article>
   );
