@@ -4,12 +4,12 @@
   border: none;
 
   &_theme {
-    &_dropdown {
-      background-color: var(--ui-button);
+    &_default {
+      background-color: var(--canvas-modifier-selected);
     }
 
-    &_menu {
-      background-color: var(--canvas-modifier-selected);
+    &_dropdown {
+      background-color: var(--ui-button);
     }
   }
 }
