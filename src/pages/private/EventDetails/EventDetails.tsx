@@ -1,11 +1,12 @@
-import { To, useParams } from 'react-router-dom';
+import { To, useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Page from 'ui-kit/Page';
 import Subscriptions from 'components/Subscriptions';
 import { getEventDetails } from 'api/events';
 import { Guid } from 'types/common';
 import { IEvent } from 'types/events';
-import { PARAM } from 'constants/routes';
+import { LocationState } from 'types/location';
+import { PARAM, PRIVATE } from 'constants/routes';
 import { useAppSelector } from 'store/hooks';
 import Comment from './components/Comment';
 import Duration from './components/Duration';
@@ -19,7 +20,16 @@ interface IProps {
   navigateBackTo: To;
 }
 
+const notFoundPageConfig: LocationState = {
+  title: 'Event Not Found',
+  message: 'We couldn’t find this event. Sorry about that.',
+  returnUrl: PRIVATE.Events,
+  returnButtonText: 'Go to events',
+};
+
 const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
+  const navigate = useNavigate();
+
   const { eventId } = useParams<PARAM.EventId>();
 
   const [details, setDetails] = useState<IEvent>();
@@ -37,15 +47,17 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
         const parsed = convertToIEvent(response.data);
 
         setDetails(parsed);
-      } catch {
-        // TODO: Replace with a proper error handling
-      }
 
-      setIsLoading(false);
+        setIsLoading(false);
+      } catch {
+        setIsLoading(false);
+
+        navigate(PRIVATE.NotFound, { state: notFoundPageConfig });
+      }
     };
 
     fetchDetails();
-  }, [eventId]);
+  }, [eventId, navigate]);
 
   return (
     <Page title={details?.title || ''} {...{ isLoading, navigateBackTo }}>

@@ -4,6 +4,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import AuthLayout from 'components/AuthLayout';
+import ErrorBoundary from 'components/ErrorBoundary';
 import GeneralError from 'pages/private/GeneralError';
 import Layout from 'components/Layout';
 import Login from 'pages/auth/Login';
@@ -54,29 +55,31 @@ const App: React.VFC = () => {
     - settings page */
 
   return (
-    <Routes>
-      <Route element={authOutlet}>
-        <Route path={AUTH.Login} element={<Login />} />
-        <Route path={AUTH.Registration} element={<Registration />} />
-        <Route path={AUTH.ResetPassword} element={dummyAuthPage} />
-      </Route>
-      <Route element={privateOutlet}>
-        <Route path={PRIVATE.About} element={<DummyPage />} />
-        <Route path={PRIVATE.Account} element={<DummyPage />} />
-        <Route path={PRIVATE.Events} element={<Events />}>
-          <Route path={PRIVATE.CreateEvent} element={<NewEvent />} />
+    <ErrorBoundary>
+      <Routes>
+        <Route element={authOutlet}>
+          <Route path={AUTH.Login} element={<Login />} />
+          <Route path={AUTH.Registration} element={<Registration />} />
+          <Route path={AUTH.ResetPassword} element={dummyAuthPage} />
         </Route>
-        <Route
-          path={`${PRIVATE.Events}/:${PARAM.EventId}`}
-          element={<EventDetails navigateBackTo={PRIVATE.Events} />}
-        />
-        <Route path={PRIVATE.Settings} element={<DummyPage />} />
-        <Route path={PRIVATE.Error} element={<GeneralError />} />
-        <Route path={PRIVATE.NotFound} element={<NotFound />} />
-      </Route>
-      <Route path="/" element={<Navigate to={PRIVATE.Events} />} />
-      <Route path="*" element={<Navigate to={PRIVATE.NotFound} />} />
-    </Routes>
+        <Route element={privateOutlet}>
+          <Route path={PRIVATE.About} element={<DummyPage />} />
+          <Route path={PRIVATE.Account} element={<DummyPage />} />
+          <Route path={PRIVATE.Events} element={<Events />}>
+            <Route path={PRIVATE.CreateEvent} element={<NewEvent />} />
+          </Route>
+          <Route
+            path={`${PRIVATE.Events}/:${PARAM.EventId}`}
+            element={<EventDetails navigateBackTo={PRIVATE.Events} />}
+          />
+          <Route path={PRIVATE.Settings} element={<DummyPage />} />
+          <Route path={PRIVATE.Error} element={<GeneralError />} />
+          <Route path={PRIVATE.NotFound} element={<NotFound />} />
+        </Route>
+        <Route path="/" element={<Navigate to={PRIVATE.Events} />} />
+        <Route path="*" element={<Navigate to={PRIVATE.NotFound} />} />
+      </Routes>
+    </ErrorBoundary>
   );
 };
 
