@@ -8,7 +8,9 @@ export enum PRIVATE {
   About = '/about',
   Account = '/account',
   CreateEvent = '/events/create',
+  Error = '/error',
   Events = '/events',
+  NotFound = '/not-found',
   Settings = '/settings',
 }
 

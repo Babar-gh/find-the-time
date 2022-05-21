@@ -4,8 +4,10 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import AuthLayout from 'components/AuthLayout';
+import GeneralError from 'pages/private/GeneralError';
 import Layout from 'components/Layout';
 import Login from 'pages/auth/Login';
+import NotFound from 'pages/private/NotFound';
 import Page from 'ui-kit/Page';
 import Registration from 'pages/auth/Registration';
 import Text from 'components/Text';
@@ -69,8 +71,11 @@ const App: React.VFC = () => {
           element={<EventDetails navigateBackTo={PRIVATE.Events} />}
         />
         <Route path={PRIVATE.Settings} element={<DummyPage />} />
+        <Route path={PRIVATE.Error} element={<GeneralError />} />
+        <Route path={PRIVATE.NotFound} element={<NotFound />} />
       </Route>
-      <Route path="*" element={<Navigate to={PRIVATE.Events} />} />
+      <Route path="/" element={<Navigate to={PRIVATE.Events} />} />
+      <Route path="*" element={<Navigate to={PRIVATE.NotFound} />} />
     </Routes>
   );
 };
