@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom';
-import { LocationState } from 'types/location';
 import ErrorPage from 'ui-kit/ErrorPage';
+import { LocationState } from './types';
 
 const NotFound: React.VFC = () => {
   const {

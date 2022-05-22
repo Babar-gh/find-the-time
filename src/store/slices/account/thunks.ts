@@ -2,7 +2,7 @@ import * as jwt from 'jwt';
 import history from 'browserHistory';
 import { AppThunk } from 'store';
 import { AUTH } from 'constants/routes';
-import { LocationState } from 'types/location';
+import { LocationState } from 'components/CredentialsForm';
 import { Token } from 'types/common';
 import { parseUserToken } from './helpers';
 import { actions } from './account';

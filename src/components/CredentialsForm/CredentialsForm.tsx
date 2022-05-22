@@ -8,10 +8,10 @@ import Form from 'ui-kit/Form';
 import Input from 'ui-kit/Input';
 import Loader from 'ui-kit/Loader';
 import Text from 'components/Text';
-import { LocationState } from 'types/location';
 import { signIn, signUp } from 'store/slices/account';
 import { useAppDispatch } from 'store/hooks';
 import { constraints, CredentialsValidation } from './constraints';
+import { LocationState } from './types';
 import styles from './CredentialsForm.module.scss';
 
 interface IProps {
