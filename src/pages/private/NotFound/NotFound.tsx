@@ -3,16 +3,14 @@ import { LocationState } from 'types/location';
 import ErrorPage from 'ui-kit/ErrorPage';
 
 const NotFound: React.VFC = () => {
-  const config = useLocation().state as LocationState;
+  const {
+    title = 'Page Not Found',
+    message = 'This page isn’t available. Sorry about that.',
+    returnUrl,
+    returnButtonText,
+  } = (useLocation().state as LocationState) || {};
 
-  const errorPageProps = {
-    title: config?.title || 'Page Not Found',
-    message: config?.message || 'This page isn’t available. Sorry about that.',
-    returnUrl: config?.returnUrl || '/',
-    returnButtonText: config?.returnButtonText || 'Go home',
-  };
-
-  return <ErrorPage {...errorPageProps} />;
+  return <ErrorPage {...{ title, message, returnUrl, returnButtonText }} />;
 };
 
 export default NotFound;

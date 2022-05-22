@@ -5,17 +5,17 @@ import Page from 'ui-kit/Page';
 import styles from './ErrorPage.module.scss';
 
 interface IProps {
-  title: string;
-  message: string;
-  returnUrl: To;
-  returnButtonText: string;
+  title?: string;
+  message?: string;
+  returnUrl?: To;
+  returnButtonText?: string;
 }
 
 const ErrorPage: React.VFC<IProps> = ({
-  title,
-  message,
-  returnUrl,
-  returnButtonText,
+  title = 'Something Went Wrong',
+  message = 'An unexpected error occurred! Sorry about that.',
+  returnUrl = '/',
+  returnButtonText = 'Go home',
 }) => (
   <Page title={title} navigateBackTo={returnUrl}>
     <div className={styles['Container']}>
