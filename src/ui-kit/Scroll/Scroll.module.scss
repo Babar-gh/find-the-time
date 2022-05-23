@@ -45,8 +45,7 @@
 
 .SentinelWrapper {
   position: relative;
-  width: fit-content;
-  height: fit-content;
+  min-width: fit-content;
 }
 
 .LeftShading,

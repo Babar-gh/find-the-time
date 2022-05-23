@@ -9,7 +9,7 @@ const DummyPage: React.FC = () => (
   <Page title="I’m an Example Page">
     <div style={{ width: '100%' }}>
       <Scroll axis="horizontal">
-        <div style={{ width: '80vw', minWidth: '1000px' }}>
+        <div style={{ width: '100%', minWidth: '1000px' }}>
           <Subscriptions
             subscriptions={[
               {
