@@ -1,17 +1,11 @@
 .Root {
-  height: 100%;
-  max-height: 100%;
-  overflow-y: scroll;
-
   // Chrome, Safari, Edge, Opera
+
+  position: relative;
 
   &::-webkit-scrollbar,
   &::-webkit-scrollbar-track {
     background-color: transparent;
-  }
-
-  &::-webkit-scrollbar {
-    width: 12px;
   }
 
   &::-webkit-scrollbar-thumb {
@@ -24,4 +18,68 @@
 
   scrollbar-color: var(--ui-scrollbar-thumb) var(--canvas-secondary);
   scrollbar-width: thin;
+
+  &_axis {
+    &_vertical {
+      overflow-y: scroll;
+
+      &::-webkit-scrollbar {
+        width: 12px;
+      }
+    }
+
+    &_horizontal {
+      overflow-x: scroll;
+
+      &::-webkit-scrollbar {
+        height: 12px;
+      }
+    }
+  }
+}
+
+.ShadingWrapper,
+.SentinelWrapper {
+  position: relative;
+}
+
+.SentinelWrapper {
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+}
+
+.LeftShading,
+.RightShading,
+.LeftSentinel,
+.RightSentinel {
+  height: calc(100% - 12px);
+  position: absolute;
+  top: 0;
+}
+
+.LeftShading,
+.RightShading {
+  border-radius: 4px;
+  width: 60px;
+}
+
+$gradient: var(--canvas-modifier-selected), transparent;
+
+.LeftShading {
+  background: linear-gradient(to right, $gradient);
+}
+
+.RightShading {
+  background: linear-gradient(to left, $gradient);
+}
+
+.LeftShading,
+.LeftSentinel {
+  left: 0;
+}
+
+.RightShading,
+.RightSentinel {
+  right: 0;
 }
