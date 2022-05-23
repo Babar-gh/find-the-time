@@ -1,15 +1,18 @@
 import { useEffect, useRef, useState } from 'react';
 
-const useIntersection = <T extends HTMLElement>(onIntersection: () => void) => {
+const useIntersection = <S extends HTMLElement>(
+  onIntersection?: () => void,
+  onNoIntersection?: () => void
+) => {
   const observer = useRef(
     new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        onIntersection();
-      }
+      entry.isIntersecting
+        ? onIntersection && onIntersection()
+        : onNoIntersection && onNoIntersection();
     })
   );
 
-  const [sentinelRef, setSentinelRef] = useState<T | null>(null);
+  const [sentinelRef, setSentinelRef] = useState<S | null>(null);
 
   useEffect(() => {
     const observerInstance = observer.current;
