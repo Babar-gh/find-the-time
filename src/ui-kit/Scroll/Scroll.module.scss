@@ -1,4 +1,7 @@
-$gradient: var(--canvas-modifier-selected), transparent;
+@use 'sass:map';
+@use '/src/styles/constants' as *;
+
+$gradient: var(--ui-scroll-shading), transparent;
 
 .Root {
   // Chrome, Safari, Edge, Opera
@@ -57,12 +60,19 @@ $gradient: var(--canvas-modifier-selected), transparent;
   height: calc(100% - 12px);
   position: absolute;
   top: 0;
+  pointer-events: none;
 }
 
 .LeftShading,
 .RightShading {
   border-radius: 4px;
   width: 60px;
+  z-index: map.get($z-indexes, 'scroll-shading');
+}
+
+.LeftSentinel,
+.RightSentinel {
+  width: 1px;
 }
 
 .LeftShading {

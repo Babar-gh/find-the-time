@@ -98,6 +98,10 @@ $colors: (
     'dark': #202225,
     'light': #ccc,
   ),
+  'ui-scroll-shading': (
+    'dark': rgba(#fff, 0.2),
+    'light': rgba(#000, 0.33),
+  ),
 );
 $breakpoints: (
   'Mobile': (
@@ -121,9 +125,10 @@ $layout-min-width: map.get(
 );
 $top-bar-height: 60px;
 $z-indexes: (
-  'modal': 310,
-  'modal-backdrop': 300,
-  'header': 200,
+  'modal': 410,
+  'modal-backdrop': 400,
+  'header': 300,
+  'scroll-shading': 200,
   'interval-picked': 110,
   'interval': 100,
 );
