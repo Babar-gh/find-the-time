@@ -1,13 +1,17 @@
 import Text from 'components/Text';
 import { getDisplayName } from 'helpers/users';
 import { IEvent } from 'types/events';
+import { IUser } from 'types/users';
+import IconButton from 'ui-kit/IconButton';
 import Interval from './components/Interval';
 import { addIntersections, getConstraintText } from './helpers';
 import styles from './Subscriptions.module.scss';
 
-interface IProps extends Pick<IEvent, 'subscriptions'> {}
+interface IProps extends Pick<IEvent, 'subscriptions'> {
+  onUserRemoval?: (user: IUser) => void;
+}
 
-const Subscriptions: React.VFC<IProps> = ({ subscriptions }) => {
+const Subscriptions: React.VFC<IProps> = ({ subscriptions, onUserRemoval }) => {
   const list = addIntersections(subscriptions);
 
   return (
@@ -16,6 +20,12 @@ const Subscriptions: React.VFC<IProps> = ({ subscriptions }) => {
         {list.map(({ user }, userIndex) => (
           <div className={styles['UserName']} key={userIndex}>
             <Text font="primaryBold">{getDisplayName(user)}</Text>
+            {user.id && user.id !== list[0].user.id && onUserRemoval && (
+              <IconButton
+                icon="Close"
+                elementProps={{ onClick: () => onUserRemoval(user) }}
+              />
+            )}
           </div>
         ))}
       </div>

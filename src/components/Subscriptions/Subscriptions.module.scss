@@ -4,7 +4,7 @@ $row-gap: 8px;
 .Root {
   display: flex;
   gap: 16px;
-  padding: 0 80px 8px 0;
+  padding: 0 80px 20px 0;
 }
 
 .UserList,
@@ -26,9 +26,11 @@ $row-gap: 8px;
   height: $row-height;
   display: flex;
   align-items: center;
+  gap: 8px;
 }
 
 .IntervalList {
+  min-width: 120px;
   gap: $row-gap;
 
   $border: 1px solid var(--canvas-modifier-selected);
