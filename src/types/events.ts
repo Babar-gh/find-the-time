@@ -7,3 +7,7 @@ export interface IEvent extends Omit<IApiEvent, 'subscriptions'> {
     availability: TimeInterval[];
   }[];
 }
+
+export type Status = 'notYetScheduled' | 'pending' | 'past';
+
+export type Role = 'organizer' | 'subscriber' | 'visitor';
