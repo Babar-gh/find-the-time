@@ -85,7 +85,7 @@
 .Content {
   background-color: var(--canvas-secondary-deep);
   flex: 1;
-  overflow: hidden;
+  min-width: 0;
 }
 
 @include apply-to(Tablet, Laptop, Desktop) {

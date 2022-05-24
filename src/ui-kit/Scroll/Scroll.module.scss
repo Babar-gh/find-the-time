@@ -1,3 +1,5 @@
+$gradient: var(--canvas-modifier-selected), transparent;
+
 .Root {
   // Chrome, Safari, Edge, Opera
 
@@ -62,8 +64,6 @@
   border-radius: 4px;
   width: 60px;
 }
-
-$gradient: var(--canvas-modifier-selected), transparent;
 
 .LeftShading {
   background: linear-gradient(to right, $gradient);
