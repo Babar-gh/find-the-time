@@ -19,6 +19,7 @@ import { ReactComponent as LocationOn } from './LocationOn.svg';
 import { ReactComponent as Logout } from './Logout.svg';
 import { ReactComponent as Menu } from './Menu.svg';
 import { ReactComponent as Password } from './Password.svg';
+import { ReactComponent as People } from './People.svg';
 import { ReactComponent as Person } from './Person.svg';
 import { ReactComponent as Remove } from './Remove.svg';
 import { ReactComponent as Search } from './Search.svg';
@@ -48,6 +49,7 @@ export default {
   Logout,
   Menu,
   Password,
+  People,
   Person,
   Remove,
   Search,
