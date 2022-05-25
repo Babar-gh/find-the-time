@@ -17,18 +17,21 @@ import {
   getEventDetails,
   removeEvent,
   removeUserFromEvent,
+  subscribeToEvent,
   unsubscribeFromEvent,
 } from 'api/events';
 import { LocationState } from '../NotFound';
-import { convertToIEvent } from './helpers';
-import styles from './EventDetails.module.scss';
-import Status from './components/Status';
-import OrganizedBy from './components/OrganizedBy';
-import Location from './components/Location';
-import IntervalChoiceModal from './components/IntervalChoiceModal';
-import InfoTile from './components/InfoTile';
-import Duration from './components/Duration';
 import Comment from './components/Comment';
+import Duration from './components/Duration';
+import InfoTile from './components/InfoTile';
+import IntervalChoiceModal from './components/IntervalChoiceModal';
+import Location from './components/Location';
+import OrganizedBy from './components/OrganizedBy';
+import Status from './components/Status';
+import styles from './EventDetails.module.scss';
+import VisitorAvailabilityModal from './components/VisitorAvailabilityModal/VisitorAvailabilityModal';
+import { convertToIApiTimeIntervalArray } from './helpers';
+import { convertToIEvent } from './helpers';
 
 interface IProps {
   navigateBackTo: To;
@@ -53,10 +56,17 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
     useState(false);
   const [intervalChoiceConstraints, setIntervalChoiceConstraints] =
     useState<TimeInterval>();
-
   const [eventStart, setEventStart] = useState<Dayjs | null>(null);
   const eventEnd =
     details && eventStart ? eventStart.add(details.duration, 'minutes') : null;
+
+  const [visitorAvailabilityModalIsOpen, setVisitorAvailabilityModalIsOpen] =
+    useState(false);
+  const [visitorAvailabilityConstraints, setVisitorAvailabilityConstraints] =
+    useState<TimeInterval>();
+  const [visitorAvailabilities, setVisitorAvailabilities] = useState<
+  TimeInterval[]
+  >([]);
 
   const account = useAppSelector((store) => store.account);
 
@@ -170,6 +180,43 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
     }
   };
 
+  const handleVisitorAvailabilityModalConfirm = (availabile: TimeInterval) => {
+    setVisitorAvailabilityModalIsOpen(false);
+    setVisitorAvailabilities((current) => [...current, availabile]);
+  };
+
+  const handleSubscribeButtonClick = async () => {
+    const availableAt = convertToIApiTimeIntervalArray(visitorAvailabilities);
+
+    setIsLoading(true);
+
+    try {
+      await subscribeToEvent(eventId as Guid, { availableAt });
+
+      setIsLoading(false);
+
+      fetchDetails();
+    } catch {
+      setIsLoading(false);
+      // TODO: Add a proper error handling
+    }
+  };
+
+  const handleAvailabilityPick = (constrains: TimeInterval) => {
+    setVisitorAvailabilityConstraints(constrains);
+    setVisitorAvailabilityModalIsOpen(true);
+  };
+
+  const subscribeButtonIsShown =
+    role === 'visitor' &&
+    status === 'notYetScheduled' &&
+    visitorAvailabilities.length;
+
+  const unsubscribeButtonIsShown =
+    role === 'subscriber' && status === 'notYetScheduled';
+
+  const deleteButtonIsShown = role === 'organizer' && status !== 'past';
+
   return (
     <Page title={details?.title || ''} {...{ isLoading, navigateBackTo }}>
       {details && role && status && (
@@ -192,7 +239,11 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
             <InfoTile icon="People" heading="Participants">
               <Scroll axis="horizontal">
                 <Subscriptions
-                  subscriptions={details.subscriptions}
+                  participants={details.subscriptions}
+                  visitor={{
+                    user: account,
+                    availability: visitorAvailabilities,
+                  }}
                   onUserRemoval={
                     role === 'organizer' && status !== 'past'
                       ? handleUserRemoval
@@ -203,12 +254,22 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
                       ? handleIntervalChoice
                       : undefined
                   }
+                  onAvailabilityPick={
+                    role === 'visitor' && status === 'notYetScheduled'
+                      ? handleAvailabilityPick
+                      : undefined
+                  }
                 />
               </Scroll>
             </InfoTile>
           </div>
           <div>
-            {role === 'subscriber' && status === 'notYetScheduled' && (
+            {subscribeButtonIsShown && (
+              <Button elementProps={{ onClick: handleSubscribeButtonClick }}>
+                Subscribe
+              </Button>
+            )}
+            {unsubscribeButtonIsShown && (
               <Button
                 theme="danger"
                 elementProps={{ onClick: handleUnsubscribeButtonClick }}
@@ -216,7 +277,7 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
                 Unsubscribe
               </Button>
             )}
-            {role === 'organizer' && status !== 'past' && (
+            {deleteButtonIsShown && (
               <Button
                 theme="danger"
                 elementProps={{ onClick: handleDeleteButtonClick }}
@@ -236,6 +297,16 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
             }}
             eventEnd={eventEnd}
           />
+          {visitorAvailabilityConstraints && (
+            <VisitorAvailabilityModal
+              isOpen={visitorAvailabilityModalIsOpen}
+              onConfirm={handleVisitorAvailabilityModalConfirm}
+              onCancel={() => setVisitorAvailabilityModalIsOpen(false)}
+              currentAvailabilities={visitorAvailabilities}
+              constraints={visitorAvailabilityConstraints}
+              duration={details.duration}
+            />
+          )}
         </>
       )}
     </Page>
