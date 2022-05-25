@@ -8,7 +8,7 @@ import {
   IEventCreationRequest,
   IEventCreationResponse,
   IEventSubscriptionRequest,
-  IEventIntervalsChoiceRequest,
+  IEventIntervalChoiceRequest,
 } from './types/events';
 
 const baseUrl = `${API_ROOT_PATH}/events`;
@@ -47,11 +47,11 @@ export const unsubscribeFromEvent = (id: Guid) =>
     }
   );
 
-export const chooseEventIntervals = (
+export const chooseEventInterval = (
   id: Guid,
-  intervals: IEventIntervalsChoiceRequest
+  interval: IEventIntervalChoiceRequest
 ) =>
-  axios.post<void>(`${baseUrl}/choose-interval`, intervals, {
+  axios.post<void>(`${baseUrl}/choose-interval`, interval, {
     params: {
       event_id: id,
     },

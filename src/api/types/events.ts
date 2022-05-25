@@ -59,5 +59,5 @@ export interface IEventSubscriptionRequest {
   availableAt: ITimeInterval[];
 }
 
-export interface IEventIntervalsChoiceRequest
+export interface IEventIntervalChoiceRequest
   extends Pick<IApiEvent, 'chosenInterval'> {}
