@@ -10,14 +10,16 @@
   background-color: transparent;
 }
 
-@mixin tile {
+@mixin tile($hover: false) {
   background-color: var(--canvas-primary);
   border: 1px solid transparent;
   border-radius: 4px;
 
-  &:hover {
-    background-color: var(--canvas-primary-highlighted);
-    border-color: var(--ui-button-hover);
+  @if $hover {
+    &:hover {
+      background-color: var(--canvas-primary-highlighted);
+      border-color: var(--ui-button-hover);
+    }
   }
 }
 
