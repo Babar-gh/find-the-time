@@ -41,6 +41,10 @@
     border-color: var(--ui-button);
   }
 
+  &:disabled {
+    cursor: not-allowed;
+  }
+
   &_theme {
     &_default {
       background-color: var(--canvas-secondary-deeper);
