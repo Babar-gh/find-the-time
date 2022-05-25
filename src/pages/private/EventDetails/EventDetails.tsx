@@ -85,22 +85,32 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
   }, [fetchDetails]);
 
   const handleDeleteButtonClick = async () => {
+    setIsLoading(true);
+
     try {
       await removeEvent(eventId as Guid);
 
+      setIsLoading(false);
+
       navigate(PRIVATE.Events);
     } catch {
-      // TODO: Replace with a proper error handling
+      setIsLoading(false);
+      // TODO: Add a proper error handling
     }
   };
 
   const handleUserRemoval = async (user: IUser) => {
+    setIsLoading(true);
+
     try {
       await removeUserFromEvent(eventId as Guid, user.id);
 
+      setIsLoading(false);
+
       fetchDetails();
     } catch {
-      // TODO: Replace with a proper error handling
+      setIsLoading(false);
+      // TODO: Add a proper error handling
     }
   };
 
@@ -130,23 +140,33 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
       end: eventEnd.format(DATETIME_DEFAULT),
     };
 
+    setIsLoading(true);
+
     try {
       await chooseEventInterval(eventId as Guid, { chosenInterval });
 
       setIntervalChoiceModalIsOpen(false);
+      setIsLoading(false);
+
       fetchDetails();
     } catch {
-      // TODO: Replace with a proper error handling
+      setIsLoading(false);
+      // TODO: Add a proper error handling
     }
   };
 
   const handleUnsubscribeButtonClick = async () => {
+    setIsLoading(true);
+
     try {
       await unsubscribeFromEvent(eventId as Guid);
 
+      setIsLoading(false);
+
       fetchDetails();
     } catch {
-      // TODO: Replace with a proper error handling
+      setIsLoading(false);
+      // TODO: Add a proper error handling
     }
   };
 
@@ -157,7 +177,7 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
           <div className={styles['Tiles']}>
             <OrganizedBy
               organizedBy={details.organizedBy}
-              isThisUser={role === 'organizer'}
+              isCurrentUser={role === 'organizer'}
             />
             <Location location={details.location} />
             <Duration duration={details.duration} />
