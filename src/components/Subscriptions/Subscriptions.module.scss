@@ -54,3 +54,10 @@ $row-gap: 8px;
   position: relative;
   height: $subscriptions-row-height;
 }
+
+.AvailabilityPickButtonContainer {
+  height: $subscriptions-row-height;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

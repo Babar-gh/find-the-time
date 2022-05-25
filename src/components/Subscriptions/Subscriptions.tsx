@@ -1,22 +1,28 @@
-import { IEvent } from 'types/events';
+import IconButton from 'ui-kit/IconButton';
 import { IUser } from 'types/users';
+import { Subscription } from 'types/events';
 import { TimeInterval } from 'types/common';
 import Interval from './components/Interval';
 import styles from './Subscriptions.module.scss';
 import User from './components/User';
 import { addIntersections, getConstraintText } from './helpers';
 
-interface IProps extends Pick<IEvent, 'subscriptions'> {
+interface IProps {
+  participants: Subscription[];
+  visitor?: Subscription;
   onUserRemoval?: (user: IUser) => void;
   onIntervalChoice?: (interval: TimeInterval) => void;
+  onAvailabilityPick?: (constrains: TimeInterval) => void;
 }
 
 const Subscriptions: React.VFC<IProps> = ({
-  subscriptions,
+  participants,
+  visitor,
   onUserRemoval,
   onIntervalChoice,
+  onAvailabilityPick,
 }) => {
-  const list = addIntersections(subscriptions);
+  const list = addIntersections(participants, visitor);
 
   return (
     <div className={styles['Root']}>
@@ -58,6 +64,16 @@ const Subscriptions: React.VFC<IProps> = ({
                 ))}
             </div>
           ))}
+          {onAvailabilityPick && (
+            <div className={styles['AvailabilityPickButtonContainer']}>
+              <IconButton
+                icon="Add"
+                elementProps={{
+                  onClick: () => onAvailabilityPick({ start: min, end: max }),
+                }}
+              />
+            </div>
+          )}
         </div>
       ))}
     </div>

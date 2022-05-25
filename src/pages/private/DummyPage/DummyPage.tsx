@@ -11,7 +11,7 @@ const DummyPage: React.FC = () => (
       <Scroll axis="horizontal">
         <div style={{ width: '100%', minWidth: '1000px' }}>
           <Subscriptions
-            subscriptions={[
+            participants={[
               {
                 user: {
                   id: 'cafcb524-40be-4a8d-801a-1919ed6ce72d' as Guid,
