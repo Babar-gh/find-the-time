@@ -5,13 +5,13 @@ import { IEvent } from 'types/events';
 import InfoTile from '../InfoTile';
 
 interface IProps extends Pick<IEvent, 'organizedBy'> {
-  isThisUser: boolean;
+  isCurrentUser: boolean;
 }
 
-const OrganizedBy: React.VFC<IProps> = ({ organizedBy, isThisUser }) => (
+const OrganizedBy: React.VFC<IProps> = ({ organizedBy, isCurrentUser }) => (
   <InfoTile heading="Organized By" icon="Person">
     <Text>{getDisplayName(organizedBy)}</Text>
-    {isThisUser && (
+    {isCurrentUser && (
       <>
         <Separator />
         <Text font="primaryItalic" size="small">
