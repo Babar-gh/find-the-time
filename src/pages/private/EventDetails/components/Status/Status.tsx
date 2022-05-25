@@ -9,13 +9,17 @@ interface IProps extends Pick<IEvent, 'chosenInterval'> {
   status: StatusType;
 }
 
+const notYetScheduledByRole = {
+  organizer: 'You can pick the time when everyone is subscribed!',
+  subscriber: 'The organizer will pick the time when everyone is subscribed!',
+  visitor: 'You can subscribe!',
+};
+
 const Status: React.VFC<IProps> = ({ chosenInterval, role, status }) => {
   const info = {
     notYetScheduled: getStatusInfo(
       'Not scheduled yet',
-      role === 'organizer'
-        ? 'You can pick the time when everyone is subscribed!'
-        : 'The event organizer will pick the time when everyone is subscribed!'
+      notYetScheduledByRole[role]
     ),
     pending: getStatusInfo(
       `Scheduled for ${dayjs(chosenInterval?.start).format('MMM D, YYYY')}`,
@@ -23,7 +27,7 @@ const Status: React.VFC<IProps> = ({ chosenInterval, role, status }) => {
     ),
     past: getStatusInfo(
       `Was scheduled for ${dayjs(chosenInterval?.start).format('MMM D, YYYY')}`,
-      `Ended ${dayjs(chosenInterval?.end).fromNow()} ago`
+      `Ended ${dayjs(chosenInterval?.end).fromNow()}`
     ),
   };
 
