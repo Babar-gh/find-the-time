@@ -1,16 +1,19 @@
+import { Dayjs } from 'dayjs';
 import { To, useNavigate, useParams } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
 import Button from 'ui-kit/Button';
 import Page from 'ui-kit/Page';
 import Scroll from 'ui-kit/Scroll';
 import Subscriptions from 'components/Subscriptions';
+import { DATETIME_DEFAULT } from 'constants/formats';
 import { getStatus, getUserRole } from 'helpers/events';
-import { Guid } from 'types/common';
+import { Guid, TimeInterval } from 'types/common';
 import { IEvent } from 'types/events';
 import { IUser } from 'types/users';
 import { PARAM, PRIVATE } from 'constants/routes';
 import { useAppSelector } from 'store/hooks';
 import {
+  chooseEventInterval,
   getEventDetails,
   removeEvent,
   removeUserFromEvent,
@@ -22,6 +25,7 @@ import styles from './EventDetails.module.scss';
 import Status from './components/Status';
 import OrganizedBy from './components/OrganizedBy';
 import Location from './components/Location';
+import IntervalChoiceModal from './components/IntervalChoiceModal';
 import InfoTile from './components/InfoTile';
 import Duration from './components/Duration';
 import Comment from './components/Comment';
@@ -44,6 +48,15 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
 
   const [details, setDetails] = useState<IEvent>();
   const [isLoading, setIsLoading] = useState<boolean>();
+
+  const [intervalChoiceModalIsOpen, setIntervalChoiceModalIsOpen] =
+    useState(false);
+  const [intervalChoiceConstraints, setIntervalChoiceConstraints] =
+    useState<TimeInterval>();
+
+  const [eventStart, setEventStart] = useState<Dayjs | null>(null);
+  const eventEnd =
+    details && eventStart ? eventStart.add(details.duration, 'minutes') : null;
 
   const account = useAppSelector((store) => store.account);
 
@@ -72,21 +85,69 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
   }, [fetchDetails]);
 
   const handleDeleteButtonClick = async () => {
-    await removeEvent(eventId as Guid);
+    try {
+      await removeEvent(eventId as Guid);
 
-    navigate(PRIVATE.Events);
+      navigate(PRIVATE.Events);
+    } catch {
+      // TODO: Replace with a proper error handling
+    }
   };
 
   const handleUserRemoval = async (user: IUser) => {
-    await removeUserFromEvent(eventId as Guid, user.id);
+    try {
+      await removeUserFromEvent(eventId as Guid, user.id);
 
-    fetchDetails();
+      fetchDetails();
+    } catch {
+      // TODO: Replace with a proper error handling
+    }
+  };
+
+  const handleIntervalChoice = ({ start, end }: TimeInterval) => {
+    if (!details) {
+      return;
+    }
+
+    const constraints = {
+      start,
+      end: end.subtract(details.duration, 'minutes'),
+    };
+
+    setIntervalChoiceConstraints(constraints);
+    setEventStart(constraints.start);
+
+    setIntervalChoiceModalIsOpen(true);
+  };
+
+  const handleIntervalChoiceModalConfirm = async () => {
+    if (!eventStart || !eventEnd) {
+      return;
+    }
+
+    const chosenInterval = {
+      start: eventStart.format(DATETIME_DEFAULT),
+      end: eventEnd.format(DATETIME_DEFAULT),
+    };
+
+    try {
+      await chooseEventInterval(eventId as Guid, { chosenInterval });
+
+      setIntervalChoiceModalIsOpen(false);
+      fetchDetails();
+    } catch {
+      // TODO: Replace with a proper error handling
+    }
   };
 
   const handleUnsubscribeButtonClick = async () => {
-    await unsubscribeFromEvent(eventId as Guid);
+    try {
+      await unsubscribeFromEvent(eventId as Guid);
 
-    fetchDetails();
+      fetchDetails();
+    } catch {
+      // TODO: Replace with a proper error handling
+    }
   };
 
   return (
@@ -94,7 +155,10 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
       {details && role && status && (
         <>
           <div className={styles['Tiles']}>
-            <OrganizedBy organizedBy={details.organizedBy} role={role} />
+            <OrganizedBy
+              organizedBy={details.organizedBy}
+              isThisUser={role === 'organizer'}
+            />
             <Location location={details.location} />
             <Duration duration={details.duration} />
             <Status
@@ -112,6 +176,11 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
                   onUserRemoval={
                     role === 'organizer' && status !== 'past'
                       ? handleUserRemoval
+                      : undefined
+                  }
+                  onIntervalChoice={
+                    role === 'organizer' && status === 'notYetScheduled'
+                      ? handleIntervalChoice
                       : undefined
                   }
                 />
@@ -136,6 +205,17 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
               </Button>
             )}
           </div>
+          <IntervalChoiceModal
+            isOpen={intervalChoiceModalIsOpen}
+            onConfirm={handleIntervalChoiceModalConfirm}
+            onCancel={() => setIntervalChoiceModalIsOpen(false)}
+            pickerProps={{
+              value: eventStart,
+              onChange: (value) => setEventStart(value),
+              constraints: intervalChoiceConstraints,
+            }}
+            eventEnd={eventEnd}
+          />
         </>
       )}
     </Page>
