@@ -1,11 +1,10 @@
 import { ComponentProps } from 'react';
 import { Dayjs } from 'dayjs';
 import DatePicker from 'ui-kit/DatePicker';
-import Modal from 'ui-kit/Modal';
-import Text from 'components/Text';
-import { DATETIME_PICKER } from 'constants/formats';
-import styles from './IntervalChoiceModal.module.scss';
+import Form from 'ui-kit/Form';
 import Input from 'ui-kit/Input';
+import Modal from 'ui-kit/Modal';
+import { DATETIME_PICKER } from 'constants/formats';
 
 interface IProps {
   isOpen: boolean;
@@ -30,16 +29,16 @@ const IntervalChoiceModal: React.VFC<IProps> = ({
     onCloseClick={onCancel}
     onBackdropClick={onCancel}
   >
-    <div className={styles['Row']}>
-      <Text>Start: </Text>
-      <DatePicker {...pickerProps} />
-    </div>
-    {eventEnd && (
-      <div className={styles['Row']}>
-        <Text>End: </Text>
-        <Input placeholder={eventEnd.format(DATETIME_PICKER)} disabled />
-      </div>
-    )}
+    <Form defaultPreventedOnSubmission layout="responsive">
+      <Form.Column>
+        <Form.Item label="Start" isRequired>
+          <DatePicker {...pickerProps} />
+        </Form.Item>
+        <Form.Item label="End">
+          <Input placeholder={eventEnd?.format(DATETIME_PICKER)} disabled />
+        </Form.Item>
+      </Form.Column>
+    </Form>
   </Modal>
 );
 
