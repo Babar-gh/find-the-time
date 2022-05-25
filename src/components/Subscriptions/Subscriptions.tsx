@@ -1,32 +1,33 @@
-import Text from 'components/Text';
-import { getDisplayName } from 'helpers/users';
 import { IEvent } from 'types/events';
 import { IUser } from 'types/users';
-import IconButton from 'ui-kit/IconButton';
+import { TimeInterval } from 'types/common';
 import Interval from './components/Interval';
-import { addIntersections, getConstraintText } from './helpers';
 import styles from './Subscriptions.module.scss';
+import User from './components/User';
+import { addIntersections, getConstraintText } from './helpers';
 
 interface IProps extends Pick<IEvent, 'subscriptions'> {
   onUserRemoval?: (user: IUser) => void;
+  onIntervalChoice?: (interval: TimeInterval) => void;
 }
 
-const Subscriptions: React.VFC<IProps> = ({ subscriptions, onUserRemoval }) => {
+const Subscriptions: React.VFC<IProps> = ({
+  subscriptions,
+  onUserRemoval,
+  onIntervalChoice,
+}) => {
   const list = addIntersections(subscriptions);
 
   return (
     <div className={styles['Root']}>
       <div className={styles['UserList']}>
         {list.map(({ user }, userIndex) => (
-          <div className={styles['UserName']} key={userIndex}>
-            <Text font="primaryBold">{getDisplayName(user)}</Text>
-            {user.id && user.id !== list[0].user.id && onUserRemoval && (
-              <IconButton
-                icon="Close"
-                elementProps={{ onClick: () => onUserRemoval(user) }}
-              />
-            )}
-          </div>
+          <User
+            key={userIndex}
+            user={user}
+            rows={{ current: userIndex, total: list.length }}
+            onRemoval={onUserRemoval}
+          />
         ))}
       </div>
       {list[0].availability.map(({ start: min, end: max }, columnIndex) => (
@@ -39,30 +40,24 @@ const Subscriptions: React.VFC<IProps> = ({ subscriptions, onUserRemoval }) => {
             <div className={styles['Min']}>{getConstraintText(min)}</div>
             <div className={styles['Max']}>{getConstraintText(max)}</div>
           </div>
-          {list.map(({ availability }, rowIndex) => {
-            const rowsTotal = list.length;
-            const isLastRow = rowIndex + 1 === rowsTotal;
-
-            return (
-              <div className={styles['UserIntervals']} key={rowIndex}>
-                {availability
-                  .filter(
-                    ({ start, end }) =>
-                      start.isSameOrAfter(min) && end.isSameOrBefore(max)
-                  )
-                  .map((interval, intervalIndex) => (
-                    <div key={intervalIndex}>
-                      <Interval
-                        interval={interval}
-                        column={{ start: min, end: max }}
-                        rows={{ current: rowIndex, total: rowsTotal }}
-                        color={isLastRow ? 'all' : 'user'}
-                      />
-                    </div>
-                  ))}
-              </div>
-            );
-          })}
+          {list.map(({ availability }, rowIndex) => (
+            <div className={styles['UserIntervals']} key={rowIndex}>
+              {availability
+                .filter(
+                  ({ start, end }) =>
+                    start.isSameOrAfter(min) && end.isSameOrBefore(max)
+                )
+                .map((interval, intervalIndex) => (
+                  <Interval
+                    key={intervalIndex}
+                    interval={interval}
+                    column={{ start: min, end: max }}
+                    rows={{ current: rowIndex, total: list.length }}
+                    onIntervalChoice={onIntervalChoice}
+                  />
+                ))}
+            </div>
+          ))}
         </div>
       ))}
     </div>

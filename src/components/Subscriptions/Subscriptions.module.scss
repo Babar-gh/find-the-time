@@ -1,4 +1,5 @@
-$row-height: 50px;
+@use '/src/styles/constants' as *;
+
 $row-gap: 8px;
 
 .Root {
@@ -16,17 +17,10 @@ $row-gap: 8px;
 }
 
 .UserList {
-  padding-top: $row-height + $row-gap;
+  padding-top: $subscriptions-row-height + $row-gap;
   align-items: flex-end;
   text-align: right;
   gap: $row-gap;
-}
-
-.UserName {
-  height: $row-height;
-  display: flex;
-  align-items: center;
-  gap: 8px;
 }
 
 .IntervalList {
@@ -41,7 +35,7 @@ $row-gap: 8px;
 
 .IntervalHeader {
   padding: 0 $row-gap;
-  height: $row-height;
+  height: $subscriptions-row-height;
   display: flex;
   justify-content: space-between;
 }
@@ -58,5 +52,5 @@ $row-gap: 8px;
 
 .UserIntervals {
   position: relative;
-  height: $row-height;
+  height: $subscriptions-row-height;
 }
