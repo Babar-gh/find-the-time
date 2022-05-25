@@ -1,17 +1,17 @@
+import Separator from 'ui-kit/Separator';
 import Text from 'components/Text';
 import { getDisplayName } from 'helpers/users';
-import { IEvent, Role } from 'types/events';
-import Separator from 'ui-kit/Separator';
+import { IEvent } from 'types/events';
 import InfoTile from '../InfoTile';
 
 interface IProps extends Pick<IEvent, 'organizedBy'> {
-  role: Role;
+  isThisUser: boolean;
 }
 
-const OrganizedBy: React.VFC<IProps> = ({ organizedBy, role }) => (
+const OrganizedBy: React.VFC<IProps> = ({ organizedBy, isThisUser }) => (
   <InfoTile heading="Organized By" icon="Person">
     <Text>{getDisplayName(organizedBy)}</Text>
-    {role === 'organizer' && (
+    {isThisUser && (
       <>
         <Separator />
         <Text font="primaryItalic" size="small">
