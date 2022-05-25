@@ -30,6 +30,14 @@ const populateButtonProps = (
   allProps.theme ??= fallbackTheme;
 };
 
+const disableBodyScroll = () => {
+  document.body.style.overflow = 'hidden';
+};
+
+const enableBodyScroll = () => {
+  document.body.style.overflow = 'visible';
+};
+
 const Modal: React.FC<IProps> = ({
   isOpen,
   onBackdropClick,
@@ -47,12 +55,10 @@ const Modal: React.FC<IProps> = ({
   populateButtonProps(cancelProps, onCancelClick, cancelText, 'secondary');
 
   useEffect(() => {
-    document.body.style.overflow = 'hidden';
+    isOpen ? disableBodyScroll() : enableBodyScroll();
 
-    return () => {
-      document.body.style.overflow = 'visible';
-    };
-  }, []);
+    return () => enableBodyScroll();
+  }, [isOpen]);
 
   return (
     <Backdrop {...{ isOpen, onBackdropClick }}>

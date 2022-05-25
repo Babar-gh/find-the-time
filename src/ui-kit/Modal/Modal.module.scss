@@ -39,6 +39,7 @@ $padding-scrollbar-side: 40px - 12px;
   padding-bottom: $padding-half;
   border-bottom: 1px solid var(--canvas-secondary-deeper);
   display: flex;
+  gap: 32px;
   justify-content: space-between;
 }
 
