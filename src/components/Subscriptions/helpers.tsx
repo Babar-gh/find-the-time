@@ -3,7 +3,7 @@ import Text from 'components/Text';
 import { DATE_SHORT, TIME_DEFAULT } from 'constants/formats';
 import { getIntersection } from 'utilities/intervals';
 import { Guid } from 'types/common';
-import { IEvent } from 'types/events';
+import { Subscription } from 'types/events';
 import { Rows } from './types';
 
 export const getConstraintText = (constraint: Dayjs, isSmall?: boolean) => {
@@ -17,8 +17,15 @@ export const getConstraintText = (constraint: Dayjs, isSmall?: boolean) => {
   );
 };
 
-export const addIntersections = (subscriptions: IEvent['subscriptions']) => {
-  const availabilities = subscriptions.map(
+export const addIntersections = (
+  participants: Subscription[],
+  visitor?: Subscription
+) => {
+  const withVisitor = visitor?.availability.length
+    ? [...participants, visitor]
+    : participants;
+
+  const availabilities = withVisitor.map(
     (subscription) => subscription.availability
   );
 
@@ -35,7 +42,7 @@ export const addIntersections = (subscriptions: IEvent['subscriptions']) => {
   );
 
   return [
-    ...subscriptions,
+    ...withVisitor,
     {
       user: { name: 'All Participants', email: '', id: '' as Guid },
       availability: intersections,

@@ -1,11 +1,14 @@
-import { IApiEvent, IApiUser } from 'api/types/events';
+import { IApiEvent } from 'api/types/events';
+import { IUser } from './users';
 import { TimeInterval } from './common';
 
+export type Subscription = {
+  user: IUser;
+  availability: TimeInterval[];
+};
+
 export interface IEvent extends Omit<IApiEvent, 'subscriptions'> {
-  subscriptions: {
-    user: IApiUser;
-    availability: TimeInterval[];
-  }[];
+  subscriptions: Subscription[];
 }
 
 export type Status = 'notYetScheduled' | 'pending' | 'past';
