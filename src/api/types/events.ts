@@ -1,7 +1,7 @@
 import { Guid } from 'types/common';
 import { ISearchConstraints, ISearchResult } from './common';
 
-interface ITimeInterval {
+export interface IApiTimeInterval {
   start: string;
   end: string;
 }
@@ -22,9 +22,9 @@ export interface IApiEvent {
   organizedBy: IApiUser;
   subscriptions: {
     user: IApiUser;
-    availability: ITimeInterval[];
+    availability: IApiTimeInterval[];
   }[];
-  chosenInterval: ITimeInterval | null;
+  chosenInterval: IApiTimeInterval | null;
 }
 
 type EventStatus = 'pending' | 'past';
@@ -48,7 +48,7 @@ export interface IEventDetailsResponse extends IApiEvent {}
 
 export interface IEventCreationRequest
   extends Pick<IApiEvent, 'title' | 'duration' | 'location' | 'comment'> {
-  initialIntervals: ITimeInterval[];
+  initialIntervals: IApiTimeInterval[];
 }
 
 export interface IEventCreationResponse {
@@ -56,7 +56,7 @@ export interface IEventCreationResponse {
 }
 
 export interface IEventSubscriptionRequest {
-  availableAt: ITimeInterval[];
+  availableAt: IApiTimeInterval[];
 }
 
 export interface IEventIntervalChoiceRequest
