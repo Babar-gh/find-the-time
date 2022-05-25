@@ -4,6 +4,7 @@ import { DATE_SHORT, TIME_DEFAULT } from 'constants/formats';
 import { getIntersection } from 'utilities/intervals';
 import { Guid } from 'types/common';
 import { IEvent } from 'types/events';
+import { Rows } from './types';
 
 export const getConstraintText = (constraint: Dayjs, isSmall?: boolean) => {
   const size = isSmall ? 'small' : 'regular';
@@ -41,3 +42,6 @@ export const addIntersections = (subscriptions: IEvent['subscriptions']) => {
     },
   ];
 };
+
+export const isFirstRow = (rows: Rows) => rows.current === 0;
+export const isLastRow = (rows: Rows) => rows.current === rows.total - 1;
