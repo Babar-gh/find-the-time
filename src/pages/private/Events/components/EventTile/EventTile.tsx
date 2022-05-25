@@ -38,7 +38,7 @@ const EventTile: React.VFC<IProps> = ({
   return (
     <article className={styles['Root']}>
       <h3 className={styles['Heading']}>
-        <Text font="primaryBold" color="secondary">
+        <Text clamp={1} font="primaryBold" color="secondary">
           {title}
         </Text>
       </h3>
@@ -54,7 +54,11 @@ const EventTile: React.VFC<IProps> = ({
           <Text clamp={1}>{location}</Text>
         </ListItem>
         <ListItem icon="Description">
-          <Text clamp={3}>{comment}</Text>
+          {comment !== '' ? (
+            <Text clamp={3}>{comment}</Text>
+          ) : (
+            <Text font="primaryItalic">No description</Text>
+          )}
         </ListItem>
         <ListItem icon="Timelapse">
           <Text>{`Will last ${dayjs
@@ -69,7 +73,7 @@ const EventTile: React.VFC<IProps> = ({
             </Text>
           )}
           {status === 'past' && (
-            <Text>Ended {dayjs(chosenInterval?.end).fromNow()} ago</Text>
+            <Text>Ended {dayjs(chosenInterval?.end).fromNow()}</Text>
           )}
         </ListItem>
       </ul>
