@@ -1,21 +1,28 @@
 import classNames from 'classnames/bind';
 import { useState } from 'react';
-import { getConstraintText } from 'components/Subscriptions/helpers';
+import IconButton from 'ui-kit/IconButton';
+import { getConstraintText, isLastRow } from 'components/Subscriptions/helpers';
 import { TimeInterval } from 'types/common';
+import { Rows } from '../../types';
 import styles from './Interval.module.scss';
 
 interface IProps {
   interval: TimeInterval;
   column: TimeInterval;
-  rows: { current: number; total: number };
-  color: 'user' | 'all';
+  rows: Rows;
+  onIntervalChoice?: (interval: TimeInterval) => void;
 }
 
 const ROW_HEIGHT = 58;
 
 const cn = classNames.bind(styles);
 
-const Interval: React.VFC<IProps> = ({ interval, column, rows, color }) => {
+const Interval: React.VFC<IProps> = ({
+  interval,
+  column,
+  rows,
+  onIntervalChoice,
+}) => {
   const [isPicked, setIsPicked] = useState(false);
 
   const { start, end } = interval;
@@ -26,9 +33,15 @@ const Interval: React.VFC<IProps> = ({ interval, column, rows, color }) => {
   const beforePercent = (start.diff(min) / minToMaxDuration) * 100;
   const durationPercent = (end.diff(start) / minToMaxDuration) * 100;
 
+  const isAllParticipants = isLastRow(rows);
+
   return (
     <div
-      className={cn('Root', `Root_color_${color}`, { Root_picked: isPicked })}
+      className={cn(
+        'Root',
+        `Root_color_${isAllParticipants ? 'all' : 'user'}`,
+        { Root_picked: isPicked }
+      )}
       style={{
         left: `${beforePercent}%`,
         width: `${durationPercent}%`,
@@ -36,6 +49,14 @@ const Interval: React.VFC<IProps> = ({ interval, column, rows, color }) => {
       onMouseEnter={() => setIsPicked(true)}
       onMouseLeave={() => setIsPicked(false)}
     >
+      {isAllParticipants && onIntervalChoice && (
+        <div className={styles['IntervalChoiceButtonContainer']}>
+          <IconButton
+            icon="EditCalendar"
+            elementProps={{ onClick: () => onIntervalChoice(interval) }}
+          />
+        </div>
+      )}
       <div className={cn('Details', { Details_shown: isPicked })}>
         <div className={styles['Start']}>{getConstraintText(start, true)}</div>
         <div className={styles['End']}>{getConstraintText(end, true)}</div>
