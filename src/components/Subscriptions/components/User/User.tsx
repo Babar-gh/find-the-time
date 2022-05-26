@@ -9,10 +9,11 @@ import styles from './User.module.scss';
 interface IProps {
   user: IUser;
   rows: Rows;
+  isCurrent: boolean;
   onRemoval?: (user: IUser) => void;
 }
 
-const User: React.VFC<IProps> = ({ user, rows, onRemoval }) => {
+const User: React.VFC<IProps> = ({ user, rows, isCurrent, onRemoval }) => {
   const notOrganizer = !isFirstRow(rows);
   const notAllParticipants = !isLastRow(rows);
 
@@ -20,7 +21,12 @@ const User: React.VFC<IProps> = ({ user, rows, onRemoval }) => {
 
   return (
     <div className={styles['Root']}>
-      <Text font="primaryBold">{getDisplayName(user)}</Text>
+      <Text
+        font={isCurrent ? 'primaryBold' : 'primary'}
+        color={isCurrent ? 'secondary' : 'primary'}
+      >
+        {getDisplayName(user)}
+      </Text>
       {removalButtonIsShown && (
         <IconButton
           icon="Close"
