@@ -13,6 +13,10 @@
       background-color: var(--ui-button);
     }
 
+    &_current {
+      background-color: var(--ui-link);
+    }
+
     &_all {
       background-color: var(--ui-switch-track-on);
     }
