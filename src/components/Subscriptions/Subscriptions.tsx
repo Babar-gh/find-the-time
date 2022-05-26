@@ -2,6 +2,7 @@ import IconButton from 'ui-kit/IconButton';
 import { IUser } from 'types/users';
 import { Subscription } from 'types/events';
 import { TimeInterval } from 'types/common';
+import { useAppSelector } from 'store/hooks';
 import Interval from './components/Interval';
 import styles from './Subscriptions.module.scss';
 import User from './components/User';
@@ -22,6 +23,8 @@ const Subscriptions: React.VFC<IProps> = ({
   onIntervalChoice,
   onAvailabilityPick,
 }) => {
+  const account = useAppSelector((store) => store.account);
+
   const list = addIntersections(participants, visitor);
 
   return (
@@ -32,6 +35,7 @@ const Subscriptions: React.VFC<IProps> = ({
             key={userIndex}
             user={user}
             rows={{ current: userIndex, total: list.length }}
+            isCurrent={user.id === account.id}
             onRemoval={onUserRemoval}
           />
         ))}
@@ -59,6 +63,7 @@ const Subscriptions: React.VFC<IProps> = ({
                     interval={interval}
                     column={{ start: min, end: max }}
                     rows={{ current: rowIndex, total: list.length }}
+                    isCurrentUser={list[rowIndex].user.id === account.id}
                     onIntervalChoice={onIntervalChoice}
                   />
                 ))}
