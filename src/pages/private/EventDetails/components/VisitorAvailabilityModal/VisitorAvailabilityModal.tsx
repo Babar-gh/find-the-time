@@ -6,6 +6,7 @@ import ErrorDisplay from 'ui-kit/ErrorDisplay';
 import Form from 'ui-kit/Form';
 import Modal from 'ui-kit/Modal';
 import { TimeInterval } from 'types/common';
+import { getInitialStart } from './helpers';
 import getValidationConstraints, {
   VisitorAvailabilityValidation,
 } from './constraints';
@@ -31,38 +32,34 @@ const VisitorAvailabilityModal: React.VFC<IProps> = ({
   const [end, setEnd] = useState<Dayjs | null>(null);
 
   useEffect(() => {
-    if (start === null) {
-      setStart(
-        currentAvailabilities.at(-1)?.end.add(1, 'minute') || constraints.start
-      );
-
-      if (end === null) {
-        setEnd(constraints.end);
-      }
+    if (!isOpen) {
+      setStart(null);
+      setEnd(null);
+      return;
     }
-  }, [start, end, constraints.start, constraints.end, currentAvailabilities]);
 
-  const picked = start && end ? { start, end } : null;
+    setStart(getInitialStart(constraints, currentAvailabilities));
+    setEnd(constraints.end);
+  }, [isOpen, constraints, currentAvailabilities]);
+
+  const pickedInterval = start && end ? { start, end } : null;
 
   const validationattributes = {
-    start: picked,
-    end: picked,
-    intervals: [...currentAvailabilities, picked],
+    start: pickedInterval,
+    end: pickedInterval,
+    intervals: [...currentAvailabilities, pickedInterval],
   };
 
-  const errors: VisitorAvailabilityValidation = picked
+  const errors: VisitorAvailabilityValidation = pickedInterval
     ? validate(validationattributes, getValidationConstraints(duration))
     : undefined;
 
   const handleOkClick = () => {
-    if (!picked) {
+    if (!pickedInterval || errors) {
       return;
     }
 
-    onConfirm(picked);
-
-    setStart(null);
-    setEnd(null);
+    onConfirm(pickedInterval);
   };
 
   return (
