@@ -115,12 +115,11 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
     try {
       await removeUserFromEvent(eventId as Guid, user.id);
 
-      setIsLoading(false);
-
       fetchDetails();
     } catch {
-      setIsLoading(false);
       // TODO: Add a proper error handling
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -156,12 +155,12 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
       await chooseEventInterval(eventId as Guid, { chosenInterval });
 
       setIntervalChoiceModalIsOpen(false);
-      setIsLoading(false);
 
       fetchDetails();
     } catch {
-      setIsLoading(false);
       // TODO: Add a proper error handling
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -171,12 +170,11 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
     try {
       await unsubscribeFromEvent(eventId as Guid);
 
-      setIsLoading(false);
-
       fetchDetails();
     } catch {
-      setIsLoading(false);
       // TODO: Add a proper error handling
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -193,12 +191,13 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
     try {
       await subscribeToEvent(eventId as Guid, { availableAt });
 
-      setIsLoading(false);
+      setVisitorAvailabilities([]);
 
       fetchDetails();
     } catch {
-      setIsLoading(false);
       // TODO: Add a proper error handling
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -210,7 +209,7 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
   const subscribeButtonIsShown =
     role === 'visitor' &&
     status === 'notYetScheduled' &&
-    visitorAvailabilities.length;
+    Boolean(visitorAvailabilities.length);
 
   const unsubscribeButtonIsShown =
     role === 'subscriber' && status === 'notYetScheduled';
