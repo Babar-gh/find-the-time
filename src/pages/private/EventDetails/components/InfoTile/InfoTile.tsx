@@ -15,7 +15,7 @@ const InfoTile: React.FC<IProps> = ({ icon, heading, children }) => {
         <div className={styles['HeaderIcon']}>
           <Icon type={icon} />
         </div>
-        <Text font="primaryBold" clamp={1}>
+        <Text font="primaryBold" color="secondary" clamp={1}>
           {heading}
         </Text>
       </div>
