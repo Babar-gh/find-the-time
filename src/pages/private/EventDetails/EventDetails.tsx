@@ -206,10 +206,16 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
     setVisitorAvailabilityModalIsOpen(true);
   };
 
+  const handleClearSelectionButtonClick = () => {
+    setVisitorAvailabilities([]);
+  };
+
   const subscribeButtonIsShown =
     role === 'visitor' &&
     status === 'notYetScheduled' &&
     Boolean(visitorAvailabilities.length);
+
+  const clearSelectionButtonIsShown = subscribeButtonIsShown;
 
   const unsubscribeButtonIsShown =
     role === 'subscriber' && status === 'notYetScheduled';
@@ -266,6 +272,14 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
             {subscribeButtonIsShown && (
               <Button elementProps={{ onClick: handleSubscribeButtonClick }}>
                 Subscribe
+              </Button>
+            )}
+            {clearSelectionButtonIsShown && (
+              <Button
+                elementProps={{ onClick: handleClearSelectionButtonClick }}
+                theme="secondary"
+              >
+                Clear selected
               </Button>
             )}
             {unsubscribeButtonIsShown && (
