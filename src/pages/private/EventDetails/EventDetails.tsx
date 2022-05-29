@@ -27,6 +27,7 @@ import InfoTile from './components/InfoTile';
 import IntervalChoiceModal from './components/IntervalChoiceModal';
 import Location from './components/Location';
 import OrganizedBy from './components/OrganizedBy';
+import ShareModal from './components/ShareModal';
 import Status from './components/Status';
 import styles from './EventDetails.module.scss';
 import VisitorAvailabilityModal from './components/VisitorAvailabilityModal/VisitorAvailabilityModal';
@@ -67,6 +68,8 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
   const [visitorAvailabilities, setVisitorAvailabilities] = useState<
   TimeInterval[]
   >([]);
+
+  const [shareModalIsOpen, setShareModalIsOpen] = useState(false);
 
   const account = useAppSelector((store) => store.account);
 
@@ -210,6 +213,8 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
     setVisitorAvailabilities([]);
   };
 
+  const handleShareButtonClick = () => setShareModalIsOpen(true);
+
   const subscribeButtonIsShown =
     role === 'visitor' &&
     status === 'notYetScheduled' &&
@@ -223,9 +228,47 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
   const deleteButtonIsShown = role === 'organizer' && status !== 'past';
 
   return (
-    <Page title={details?.title || ''} {...{ isLoading, navigateBackTo }}>
+    <Page
+      title={details?.title || ''}
+      isLoading={isLoading}
+      navigateBackTo={navigateBackTo}
+      headerAddon={
+        <Button
+          leftIcon="Share"
+          elementProps={{ onClick: handleShareButtonClick }}
+        >
+          Share
+        </Button>
+      }
+    >
       {details && role && status && (
         <>
+          <IntervalChoiceModal
+            isOpen={intervalChoiceModalIsOpen}
+            onConfirm={handleIntervalChoiceModalConfirm}
+            onCancel={() => setIntervalChoiceModalIsOpen(false)}
+            pickerProps={{
+              value: eventStart,
+              onChange: (value) => setEventStart(value),
+              constraints: intervalChoiceConstraints,
+            }}
+            eventEnd={eventEnd}
+          />
+          {visitorAvailabilityConstraints && (
+            <VisitorAvailabilityModal
+              isOpen={visitorAvailabilityModalIsOpen}
+              onConfirm={handleVisitorAvailabilityModalConfirm}
+              onCancel={() => setVisitorAvailabilityModalIsOpen(false)}
+              currentAvailabilities={visitorAvailabilities}
+              constraints={visitorAvailabilityConstraints}
+              duration={details.duration}
+            />
+          )}
+          <ShareModal
+            isOpen={shareModalIsOpen}
+            onCopy={() => setShareModalIsOpen(false)}
+            onCancel={() => setShareModalIsOpen(false)}
+          />
           <div className={styles['Tiles']}>
             <OrganizedBy
               organizedBy={details.organizedBy}
@@ -299,27 +342,6 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
               </Button>
             )}
           </div>
-          <IntervalChoiceModal
-            isOpen={intervalChoiceModalIsOpen}
-            onConfirm={handleIntervalChoiceModalConfirm}
-            onCancel={() => setIntervalChoiceModalIsOpen(false)}
-            pickerProps={{
-              value: eventStart,
-              onChange: (value) => setEventStart(value),
-              constraints: intervalChoiceConstraints,
-            }}
-            eventEnd={eventEnd}
-          />
-          {visitorAvailabilityConstraints && (
-            <VisitorAvailabilityModal
-              isOpen={visitorAvailabilityModalIsOpen}
-              onConfirm={handleVisitorAvailabilityModalConfirm}
-              onCancel={() => setVisitorAvailabilityModalIsOpen(false)}
-              currentAvailabilities={visitorAvailabilities}
-              constraints={visitorAvailabilityConstraints}
-              duration={details.duration}
-            />
-          )}
         </>
       )}
     </Page>
