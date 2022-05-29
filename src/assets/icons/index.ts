@@ -24,6 +24,7 @@ import { ReactComponent as Person } from './Person.svg';
 import { ReactComponent as Remove } from './Remove.svg';
 import { ReactComponent as Search } from './Search.svg';
 import { ReactComponent as Settings } from './Settings.svg';
+import { ReactComponent as Share } from './Share.svg';
 import { ReactComponent as SortByAlpha } from './SortByAlpha.svg';
 import { ReactComponent as Timelapse } from './Timelapse.svg';
 
@@ -54,6 +55,7 @@ export default {
   Remove,
   Search,
   Settings,
+  Share,
   SortByAlpha,
   Timelapse,
 };
