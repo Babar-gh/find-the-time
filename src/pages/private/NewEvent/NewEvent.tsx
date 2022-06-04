@@ -161,6 +161,7 @@ const NewEvent: React.VFC = () => {
                 </div>
               </Form.CustomItem>
               <Form.Item
+                id="title"
                 label="Title"
                 errorMessage={titleIsTouched ? errors?.title : undefined}
                 isRequired
@@ -175,6 +176,7 @@ const NewEvent: React.VFC = () => {
                 />
               </Form.Item>
               <Form.Item
+                id="location"
                 label="Location"
                 errorMessage={locationIsTouched ? errors?.location : undefined}
                 isRequired
@@ -188,7 +190,7 @@ const NewEvent: React.VFC = () => {
                   }}
                 />
               </Form.Item>
-              <Form.Item label="Description">
+              <Form.Item id="description" label="Description">
                 <Input
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
@@ -204,7 +206,7 @@ const NewEvent: React.VFC = () => {
                 </div>
               </Form.CustomItem>
               <Form.Row>
-                <Form.Item label="Hours" isRequired>
+                <Form.Item id="hours" label="Hours" isRequired>
                   <Input
                     type="number"
                     min="0"
@@ -216,7 +218,7 @@ const NewEvent: React.VFC = () => {
                     }}
                   />
                 </Form.Item>
-                <Form.Item label="Minutes" isRequired>
+                <Form.Item id="minutes" label="Minutes" isRequired>
                   <Input
                     type="number"
                     min="0"
@@ -268,7 +270,11 @@ const NewEvent: React.VFC = () => {
                     getStartPickerChangeHandler,
                     getEndPickerChangeHandler
                   ).map(({ formItemProps, picker }, pickerIndex) => (
-                    <Form.Item {...formItemProps} key={pickerIndex}>
+                    <Form.Item
+                      {...formItemProps}
+                      key={pickerIndex}
+                      id={`picker-${intervalIndex}-${pickerIndex}`}
+                    >
                       {picker}
                     </Form.Item>
                   ))}

@@ -31,10 +31,10 @@ const IntervalChoiceModal: React.VFC<IProps> = ({
   >
     <Form defaultPreventedOnSubmission layout="responsive">
       <Form.Column>
-        <Form.Item label="Start" isRequired>
+        <Form.Item id="start" label="Start" isRequired>
           <DatePicker {...pickerProps} />
         </Form.Item>
-        <Form.Item label="End">
+        <Form.Item id="end" label="End">
           <Input placeholder={eventEnd?.format(DATETIME_PICKER)} disabled />
         </Form.Item>
       </Form.Column>

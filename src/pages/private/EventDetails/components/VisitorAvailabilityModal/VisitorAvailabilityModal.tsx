@@ -76,14 +76,19 @@ const VisitorAvailabilityModal: React.VFC<IProps> = ({
       </ErrorDisplay>
       <Form defaultPreventedOnSubmission layout="responsive">
         <Form.Column>
-          <Form.Item label="Start" errorMessage={errors?.start} isRequired>
+          <Form.Item
+            id="start"
+            label="Start"
+            errorMessage={errors?.start}
+            isRequired
+          >
             <DatePicker
               value={start}
               onChange={setStart}
               constraints={constraints}
             />
           </Form.Item>
-          <Form.Item label="End" errorMessage={errors?.end} isRequired>
+          <Form.Item id="end" label="End" errorMessage={errors?.end} isRequired>
             <DatePicker
               value={end}
               onChange={setEnd}

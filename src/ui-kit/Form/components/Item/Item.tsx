@@ -1,6 +1,5 @@
 import classNames from 'classnames/bind';
-import { uniqueId } from 'lodash';
-import { cloneElement, ReactNode, useRef } from 'react';
+import { cloneElement, ReactNode } from 'react';
 import Text from 'components/Text';
 import { InputElement } from 'ui-kit/Input';
 import styles from './Item.module.scss';
@@ -9,6 +8,7 @@ import useLabelWidth from './hooks/useLabelWidth';
 interface IProps {
   _formLayout?: 'vertical' | 'horizontal';
   _placement?: 'inColumn' | 'inRow' | 'firstInRow';
+  id: string;
   label: string;
   isRequired?: boolean;
   errorMessage?: string;
@@ -21,13 +21,13 @@ const cn = classNames.bind(styles);
 const Item: React.VFC<IProps> = ({
   _formLayout = 'vertical',
   _placement = 'inColumn',
+  id,
   label,
   isRequired,
   errorMessage,
   addons,
   children: child,
 }) => {
-  const { current: id } = useRef(uniqueId());
   const { ref, width } = useLabelWidth(_formLayout);
 
   const validationStatus = errorMessage ? 'error' : undefined;

@@ -77,6 +77,7 @@ const CredentialsForm: React.VFC<IProps> = ({
     <Form defaultPreventedOnSubmission layout="vertical">
       <Form.Column>
         <Form.Item
+          id="email"
           label="Email"
           errorMessage={emailIsTouched ? errors?.email : undefined}
         >
@@ -92,6 +93,7 @@ const CredentialsForm: React.VFC<IProps> = ({
           />
         </Form.Item>
         <Form.Item
+          id="password"
           label="Password"
           errorMessage={passwordIsTouched ? errors?.password : undefined}
         >
