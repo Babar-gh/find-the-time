@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import { ComponentProps, forwardRef, InputHTMLAttributes } from 'react';
-import Icon from 'components/Icon';
+import Icon from 'ui-kit/Icon';
 import styles from './Input.module.scss';
 
 interface IProps

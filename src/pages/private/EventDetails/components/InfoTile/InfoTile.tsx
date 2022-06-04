@@ -1,5 +1,5 @@
 import { ComponentProps } from 'react';
-import Icon from 'components/Icon';
+import Icon from 'ui-kit/Icon';
 import Text from 'components/Text';
 import styles from './InfoTile.module.scss';
 

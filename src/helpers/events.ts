@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { ComponentProps } from 'react';
-import Icon from 'components/Icon';
+import Icon from 'ui-kit/Icon';
 import { IEvent, Role, Status } from 'types/events';
 import { IState } from 'store/slices/account/account';
 

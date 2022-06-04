@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { ComponentProps } from 'react';
 import Text from 'components/Text';
-import Icon from 'components/Icon';
+import Icon from 'ui-kit/Icon';
 import { getDisplayName } from 'helpers/users';
 import { getStatus, getStatusIcon } from 'helpers/events';
 import { IEvent } from 'types/events';

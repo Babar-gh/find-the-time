@@ -1,4 +1,4 @@
-import Icon from 'components/Icon';
+import Icon from 'ui-kit/Icon';
 import styles from './Logo.module.scss';
 
 const Logo: React.VFC = () => {

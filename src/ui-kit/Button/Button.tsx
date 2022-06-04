@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import { ButtonHTMLAttributes } from 'react';
-import Icon from 'components/Icon';
+import Icon from 'ui-kit/Icon';
 import Link from 'ui-kit/Link';
 import Text from 'components/Text';
 import { LinkTypeSpecificProps } from 'ui-kit/Link/Link';
