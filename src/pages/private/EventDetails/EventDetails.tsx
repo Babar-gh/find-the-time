@@ -312,7 +312,7 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
               </Scroll>
             </InfoTile>
           </div>
-          <div>
+          <div className={styles['Buttons']}>
             {subscribeButtonIsShown && (
               <Button elementProps={{ onClick: handleSubscribeButtonClick }}>
                 Subscribe
