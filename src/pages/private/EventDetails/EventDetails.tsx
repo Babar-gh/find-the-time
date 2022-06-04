@@ -243,20 +243,20 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
     >
       {details && role && status && (
         <>
-          <IntervalChoiceModal
-            isOpen={intervalChoiceModalIsOpen}
-            onConfirm={handleIntervalChoiceModalConfirm}
-            onCancel={() => setIntervalChoiceModalIsOpen(false)}
-            pickerProps={{
-              value: eventStart,
-              onChange: (value) => setEventStart(value),
-              constraints: intervalChoiceConstraints,
-            }}
-            eventEnd={eventEnd}
-          />
-          {visitorAvailabilityConstraints && (
+          {intervalChoiceModalIsOpen && (
+            <IntervalChoiceModal
+              onConfirm={handleIntervalChoiceModalConfirm}
+              onCancel={() => setIntervalChoiceModalIsOpen(false)}
+              pickerProps={{
+                value: eventStart,
+                onChange: (value) => setEventStart(value),
+                constraints: intervalChoiceConstraints,
+              }}
+              eventEnd={eventEnd}
+            />
+          )}
+          {visitorAvailabilityConstraints && visitorAvailabilityModalIsOpen && (
             <VisitorAvailabilityModal
-              isOpen={visitorAvailabilityModalIsOpen}
               onConfirm={handleVisitorAvailabilityModalConfirm}
               onCancel={() => setVisitorAvailabilityModalIsOpen(false)}
               currentAvailabilities={visitorAvailabilities}
@@ -264,11 +264,12 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
               duration={details.duration}
             />
           )}
-          <ShareModal
-            isOpen={shareModalIsOpen}
-            onCopy={() => setShareModalIsOpen(false)}
-            onCancel={() => setShareModalIsOpen(false)}
-          />
+          {shareModalIsOpen && (
+            <ShareModal
+              onCopy={() => setShareModalIsOpen(false)}
+              onCancel={() => setShareModalIsOpen(false)}
+            />
+          )}
           <div className={styles['Tiles']}>
             <OrganizedBy
               organizedBy={details.organizedBy}

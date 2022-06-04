@@ -141,7 +141,6 @@ const NewEvent: React.VFC = () => {
 
   return (
     <Modal
-      isOpen
       title="Create a New Event"
       onOkClick={handleOkClick}
       okText="Create"

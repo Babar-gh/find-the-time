@@ -1,6 +1,6 @@
 import validate from 'validate.js';
 import { Dayjs } from 'dayjs';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import DatePicker from 'ui-kit/DatePicker';
 import ErrorDisplay from 'ui-kit/ErrorDisplay';
 import Form from 'ui-kit/Form';
@@ -12,7 +12,6 @@ import getValidationConstraints, {
 } from './constraints';
 
 interface IProps {
-  isOpen: boolean;
   onConfirm: (availabile: TimeInterval) => void;
   onCancel: () => void;
   constraints: TimeInterval;
@@ -21,26 +20,16 @@ interface IProps {
 }
 
 const VisitorAvailabilityModal: React.VFC<IProps> = ({
-  isOpen,
   onConfirm,
   onCancel,
   constraints,
   currentAvailabilities,
   duration,
 }) => {
-  const [start, setStart] = useState<Dayjs | null>(null);
-  const [end, setEnd] = useState<Dayjs | null>(null);
-
-  useEffect(() => {
-    if (!isOpen) {
-      setStart(null);
-      setEnd(null);
-      return;
-    }
-
-    setStart(getInitialStart(constraints, currentAvailabilities));
-    setEnd(constraints.end);
-  }, [isOpen, constraints, currentAvailabilities]);
+  const [start, setStart] = useState<Dayjs | null>(
+    getInitialStart(constraints, currentAvailabilities)
+  );
+  const [end, setEnd] = useState<Dayjs | null>(constraints.end);
 
   const pickedInterval = start && end ? { start, end } : null;
 
@@ -65,7 +54,6 @@ const VisitorAvailabilityModal: React.VFC<IProps> = ({
   return (
     <Modal
       title="Choose When You're Available"
-      isOpen={isOpen}
       onOkClick={handleOkClick}
       onCancelClick={onCancel}
       onCloseClick={onCancel}

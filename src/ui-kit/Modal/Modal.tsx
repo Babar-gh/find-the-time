@@ -7,7 +7,7 @@ import Scroll from 'ui-kit/Scroll';
 import styles from './Modal.module.scss';
 
 interface IProps
-  extends Pick<ComponentProps<typeof Backdrop>, 'isOpen' | 'onBackdropClick'> {
+  extends Pick<ComponentProps<typeof Backdrop>, 'onBackdropClick'> {
   title: string;
   onCloseClick: MouseEventHandler;
   onOkClick: MouseEventHandler;
@@ -39,7 +39,6 @@ const enableBodyScroll = () => {
 };
 
 const Modal: React.FC<IProps> = ({
-  isOpen,
   onBackdropClick,
   title,
   onCloseClick,
@@ -55,13 +54,13 @@ const Modal: React.FC<IProps> = ({
   populateButtonProps(cancelProps, onCancelClick, cancelText, 'secondary');
 
   useEffect(() => {
-    isOpen ? disableBodyScroll() : enableBodyScroll();
+    disableBodyScroll();
 
     return () => enableBodyScroll();
-  }, [isOpen]);
+  }, []);
 
   return (
-    <Backdrop {...{ isOpen, onBackdropClick }}>
+    <Backdrop onBackdropClick={onBackdropClick} isOpen>
       <div className={styles['Root']}>
         <div className={styles['Header']}>
           <Heading>{title}</Heading>

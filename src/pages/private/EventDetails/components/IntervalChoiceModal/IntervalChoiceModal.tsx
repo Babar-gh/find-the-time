@@ -7,7 +7,6 @@ import Modal from 'ui-kit/Modal';
 import { DATETIME_PICKER } from 'constants/formats';
 
 interface IProps {
-  isOpen: boolean;
   onConfirm: () => Promise<void>;
   onCancel: () => void;
   pickerProps: ComponentProps<typeof DatePicker>;
@@ -15,7 +14,6 @@ interface IProps {
 }
 
 const IntervalChoiceModal: React.VFC<IProps> = ({
-  isOpen,
   onConfirm,
   onCancel,
   pickerProps,
@@ -23,7 +21,6 @@ const IntervalChoiceModal: React.VFC<IProps> = ({
 }) => (
   <Modal
     title="Choose When Event Happens"
-    isOpen={isOpen}
     onOkClick={onConfirm}
     onCancelClick={onCancel}
     onCloseClick={onCancel}
