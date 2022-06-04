@@ -1,19 +1,36 @@
+import classNames from 'classnames/bind';
 import dayjs from 'dayjs';
 import { ComponentProps } from 'react';
 import Text from 'components/Text';
 import Icon from 'ui-kit/Icon';
 import { getDisplayName } from 'helpers/users';
 import { getStatus, getStatusIcon } from 'helpers/events';
-import { IEvent } from 'types/events';
+import { IEvent, Status } from 'types/events';
 import styles from './EventTile.module.scss';
+
+const cn = classNames.bind(styles);
+
+type Color = 'accentPrimary' | 'accentSecondary' | 'faded';
+type MappedColors = { [Key in Status]: Color };
+
+const colorsMappedToStatus: MappedColors = {
+  notYetScheduled: 'accentPrimary',
+  pending: 'accentSecondary',
+  past: 'faded',
+};
 
 interface IListItemProps {
   icon: ComponentProps<typeof Icon>['type'];
+  color?: 'default' | Color;
 }
 
-const ListItem: React.FC<IListItemProps> = ({ icon, children }) => {
+const ListItem: React.FC<IListItemProps> = ({
+  icon,
+  color = 'default',
+  children,
+}) => {
   return (
-    <li className={styles['ListItem']}>
+    <li className={cn('ListItem', `ListItem_color_${color}`)}>
       <div className={styles['ListItemIconContainer']}>
         <Icon isCentered={false} type={icon} />
       </div>
@@ -61,19 +78,26 @@ const EventTile: React.VFC<IProps> = ({
           )}
         </ListItem>
         <ListItem icon="Timelapse">
-          <Text>{`Will last ${dayjs
+          <Text>{`${status === 'past' ? 'Lasted' : 'Will last'} ${dayjs
             .duration(duration, 'minutes')
             .humanize()}`}</Text>
         </ListItem>
-        <ListItem icon={getStatusIcon(status)}>
-          {status === 'notYetScheduled' && <Text>Not scheduled yet</Text>}
+        <ListItem
+          icon={getStatusIcon(status)}
+          color={colorsMappedToStatus[status]}
+        >
+          {status === 'notYetScheduled' && (
+            <Text color="inherit">Not scheduled yet</Text>
+          )}
           {status === 'pending' && (
-            <Text>
+            <Text color="inherit">
               Scheduled for {dayjs(chosenInterval?.start).format('MMM D, YYYY')}
             </Text>
           )}
           {status === 'past' && (
-            <Text>Ended {dayjs(chosenInterval?.end).fromNow()}</Text>
+            <Text color="inherit">
+              Ended {dayjs(chosenInterval?.end).fromNow()}
+            </Text>
           )}
         </ListItem>
       </ul>

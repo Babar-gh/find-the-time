@@ -20,10 +20,27 @@
   &:not(:last-child) {
     margin-bottom: 16px;
   }
+
+  &_color {
+    &_default {
+      color: var(--text-primary);
+    }
+
+    &_accentPrimary {
+      color: var(--ui-link);
+    }
+
+    &_accentSecondary {
+      color: var(--ui-switch-track-on);
+    }
+
+    &_faded {
+      color: var(--ui-switch-track-off);
+    }
+  }
 }
 
 .ListItemIconContainer {
-  color: var(--text-primary);
   margin-right: 8px;
 }
 
