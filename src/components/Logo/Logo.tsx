@@ -1,3 +1,4 @@
+import Text from 'components/Text';
 import Icon from 'ui-kit/Icon';
 import styles from './Logo.module.scss';
 
@@ -9,7 +10,9 @@ const Logo: React.VFC = () => {
         isCentered={false}
         className={styles['Icon']}
       />
-      <span className={styles['Text']}>Find the Time</span>
+      <Text font="brand" size="big" color="inherit" clamp={1}>
+        Find the Time
+      </Text>
     </div>
   );
 };
