@@ -1,8 +1,19 @@
 @use '/src/styles/constants' as *;
+@use '/src/styles/mixins' as *;
 
 .Root {
   height: $subscriptions-row-height;
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.Name {
+  @include apply-to(Tablet, Laptop, Desktop) {
+    max-width: 200px;
+  }
+
+  @include apply-to(Mobile) {
+    max-width: 120px;
+  }
 }

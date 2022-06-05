@@ -21,12 +21,15 @@ const User: React.VFC<IProps> = ({ user, rows, isCurrent, onRemoval }) => {
 
   return (
     <div className={styles['Root']}>
-      <Text
-        font={isCurrent ? 'primaryBold' : 'primary'}
-        color={isCurrent ? 'secondary' : 'primary'}
-      >
-        {getDisplayName(user)}
-      </Text>
+      <p className={styles['Name']}>
+        <Text
+          font={isCurrent ? 'primaryBold' : 'primary'}
+          color={isCurrent ? 'secondary' : 'primary'}
+          clamp={1}
+        >
+          {getDisplayName(user)}
+        </Text>
+      </p>
       {removalButtonIsShown && (
         <IconButton
           icon="Close"
