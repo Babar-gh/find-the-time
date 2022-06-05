@@ -72,5 +72,9 @@
         -webkit-line-clamp: $i;
       }
     }
+
+    &_1 {
+      word-break: break-all;
+    }
   }
 }
