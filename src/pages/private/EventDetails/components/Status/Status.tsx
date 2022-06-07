@@ -23,7 +23,7 @@ const Status: React.VFC<IProps> = ({ chosenInterval, role, status }) => {
     ),
     pending: getStatusInfo(
       `Scheduled for ${dayjs(chosenInterval?.start).format('MMM D, YYYY')}`,
-      `Will start in ${dayjs(chosenInterval?.start).toNow()}`
+      `Will start ${dayjs(chosenInterval?.start).fromNow()}`
     ),
     past: getStatusInfo(
       `Was scheduled for ${dayjs(chosenInterval?.start).format('MMM D, YYYY')}`,
