@@ -1,6 +1,6 @@
 import { Dayjs } from 'dayjs';
 import { To, useNavigate, useParams } from 'react-router-dom';
-import { useCallback, useEffect, useState } from 'react';
+import { ComponentProps, useCallback, useEffect, useState } from 'react';
 import Button from 'ui-kit/Button';
 import Page from 'ui-kit/Page';
 import Scroll from 'ui-kit/Scroll';
@@ -20,6 +20,7 @@ import {
   subscribeToEvent,
   unsubscribeFromEvent,
 } from 'api/events';
+import ConfirmationModal from 'components/ConfirmationModal';
 import { LocationState } from '../NotFound';
 import Comment from './components/Comment';
 import Duration from './components/Duration';
@@ -71,6 +72,9 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
 
   const [shareModalIsOpen, setShareModalIsOpen] = useState(false);
 
+  const [confirmationModalProps, setConfirmationModalProps] =
+    useState<ComponentProps<typeof ConfirmationModal> | null>(null);
+
   const account = useAppSelector((store) => store.account);
 
   const role = details ? getUserRole(details, account) : null;
@@ -97,7 +101,7 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
     fetchDetails();
   }, [fetchDetails]);
 
-  const handleDeleteButtonClick = async () => {
+  const handleDeleteConfirmation = async () => {
     setIsLoading(true);
 
     try {
@@ -112,7 +116,15 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
     }
   };
 
-  const handleUserRemoval = async (user: IUser) => {
+  const handleDeleteButtonClick = () =>
+    setConfirmationModalProps({
+      title: 'Remove Event',
+      action: 'remove this event',
+      onConfirm: handleDeleteConfirmation,
+      onCancel: () => setConfirmationModalProps(null),
+    });
+
+  const removeUser = async (user: IUser) => {
     setIsLoading(true);
 
     try {
@@ -125,6 +137,14 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
       setIsLoading(false);
     }
   };
+
+  const handleUserRemoval = (user: IUser) =>
+    setConfirmationModalProps({
+      title: 'Remove Participant',
+      action: 'remove this user from participation in the event',
+      onConfirm: () => removeUser(user),
+      onCancel: () => setConfirmationModalProps(null),
+    });
 
   const handleIntervalChoice = ({ start, end }: TimeInterval) => {
     if (!details) {
@@ -167,7 +187,7 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
     }
   };
 
-  const handleUnsubscribeButtonClick = async () => {
+  const handleUnsubscribeConfirmation = async () => {
     setIsLoading(true);
 
     try {
@@ -180,6 +200,14 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
       setIsLoading(false);
     }
   };
+
+  const handleUnsubscribeButtonClick = () =>
+    setConfirmationModalProps({
+      title: 'Unsubscribe',
+      action: 'revoke your participation in this event',
+      onConfirm: handleUnsubscribeConfirmation,
+      onCancel: () => setConfirmationModalProps(null),
+    });
 
   const handleVisitorAvailabilityModalConfirm = (availabile: TimeInterval) => {
     setVisitorAvailabilityModalIsOpen(false);
@@ -269,6 +297,9 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
               onCopy={() => setShareModalIsOpen(false)}
               onCancel={() => setShareModalIsOpen(false)}
             />
+          )}
+          {confirmationModalProps && (
+            <ConfirmationModal {...confirmationModalProps} />
           )}
           <div className={styles['Tiles']}>
             <OrganizedBy
