@@ -44,7 +44,7 @@ $padding-scrollbar-side: 40px - 12px;
 }
 
 .Content {
-  padding: $padding-half $padding-scrollbar-side 0 $padding;
+  padding: $padding-half $padding-scrollbar-side $padding-half $padding;
 }
 
 .Buttons {
