@@ -19,15 +19,17 @@ const User: React.VFC<IProps> = ({ user, rows, isCurrent, onRemoval }) => {
 
   const removalButtonIsShown = notAllParticipants && notOrganizer && onRemoval;
 
+  const displayName = getDisplayName(user);
+
   return (
     <div className={styles['Root']}>
-      <p className={styles['Name']}>
+      <p className={styles['Name']} title={displayName}>
         <Text
           font={isCurrent ? 'primaryBold' : 'primary'}
           color={isCurrent ? 'secondary' : 'primary'}
           clamp={1}
         >
-          {getDisplayName(user)}
+          {displayName}
         </Text>
       </p>
       {removalButtonIsShown && (
