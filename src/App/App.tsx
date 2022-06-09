@@ -3,6 +3,7 @@ import { lazy, Suspense } from 'react';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
+import Account from 'pages/private/Account';
 import AuthLayout from 'components/AuthLayout';
 import ErrorBoundary from 'components/ErrorBoundary';
 import GeneralError from 'pages/private/GeneralError';
@@ -50,9 +51,7 @@ const App: React.VFC = () => {
 
   /* TODO: Replace stubs with proper:
     - password recovery page
-    - about page
-    - account details page
-    - settings page */
+    - about page */
 
   return (
     <ErrorBoundary>
@@ -64,7 +63,7 @@ const App: React.VFC = () => {
         </Route>
         <Route element={privateOutlet}>
           <Route path={PRIVATE.About} element={<DummyPage />} />
-          <Route path={PRIVATE.Account} element={<DummyPage />} />
+          <Route path={PRIVATE.Account} element={<Account />} />
           <Route path={PRIVATE.Events} element={<Events />}>
             <Route path={PRIVATE.CreateEvent} element={<NewEvent />} />
           </Route>
@@ -72,7 +71,6 @@ const App: React.VFC = () => {
             path={`${PRIVATE.Events}/:${PARAM.EventId}`}
             element={<EventDetails navigateBackTo={PRIVATE.Events} />}
           />
-          <Route path={PRIVATE.Settings} element={<DummyPage />} />
           <Route path={PRIVATE.Error} element={<GeneralError />} />
           <Route path={PRIVATE.NotFound} element={<NotFound />} />
         </Route>
