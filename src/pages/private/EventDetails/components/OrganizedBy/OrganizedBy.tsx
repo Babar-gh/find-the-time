@@ -2,7 +2,7 @@ import Separator from 'ui-kit/Separator';
 import Text from 'components/Text';
 import { getDisplayName } from 'helpers/users';
 import { IEvent } from 'types/events';
-import InfoTile from '../InfoTile';
+import InfoTile from 'components/InfoTile';
 
 interface IProps extends Pick<IEvent, 'organizedBy'> {
   isCurrentUser: boolean;

@@ -21,10 +21,10 @@ import {
   unsubscribeFromEvent,
 } from 'api/events';
 import ConfirmationModal from 'components/ConfirmationModal';
+import InfoTile from 'components/InfoTile';
 import { LocationState } from '../NotFound';
 import Comment from './components/Comment';
 import Duration from './components/Duration';
-import InfoTile from './components/InfoTile';
 import IntervalChoiceModal from './components/IntervalChoiceModal';
 import Location from './components/Location';
 import OrganizedBy from './components/OrganizedBy';

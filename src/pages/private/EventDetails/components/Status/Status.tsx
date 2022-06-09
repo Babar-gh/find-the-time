@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { getStatusIcon } from 'helpers/events';
 import { IEvent, Role, Status as StatusType } from 'types/events';
-import InfoTile from '../InfoTile';
+import InfoTile from 'components/InfoTile';
 import { getStatusInfo } from './helpers';
 
 interface IProps extends Pick<IEvent, 'chosenInterval'> {

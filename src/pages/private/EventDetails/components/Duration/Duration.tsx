@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import Text from 'components/Text';
 import { IEvent } from 'types/events';
-import InfoTile from '../InfoTile';
+import InfoTile from 'components/InfoTile';
 
 interface IProps extends Pick<IEvent, 'duration'> {}
 
