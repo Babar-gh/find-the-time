@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { validate } from 'validate.js';
 import Button from 'ui-kit/Button';
 import Form from 'ui-kit/Form';
 import InfoTile from 'components/InfoTile';
@@ -7,8 +8,9 @@ import Modal from 'ui-kit/Modal';
 import Page from 'ui-kit/Page';
 import Text from 'components/Text';
 import { changeUserName, refreshUserToken } from 'api/users';
-import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { updateFromNewToken } from 'store/slices/account';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
+import { constraints, NameChangeValidation } from './constraints';
 import styles from './Account.module.scss';
 
 const Account: React.VFC = () => {
@@ -22,7 +24,16 @@ const Account: React.VFC = () => {
 
   const [isLoading, setIsLoading] = useState(false);
 
+  const errors: NameChangeValidation = validate(
+    { name: nameInput },
+    constraints
+  );
+
   const handleModalOkClick = async () => {
+    if (errors) {
+      return;
+    }
+
     setNameChangeModalIsOpen(false);
 
     setIsLoading(true);
@@ -42,7 +53,7 @@ const Account: React.VFC = () => {
     <Page title="Your Account" isLoading={isLoading}>
       {nameChangeModalIsOpen && (
         <Modal
-          title="Change name"
+          title="Change Name"
           onOkClick={handleModalOkClick}
           onCloseClick={() => setNameChangeModalIsOpen(false)}
           onCancelClick={() => setNameChangeModalIsOpen(false)}
@@ -50,7 +61,7 @@ const Account: React.VFC = () => {
         >
           <Form defaultPreventedOnSubmission layout="responsive">
             <Form.Column>
-              <Form.Item id="name" label="Your name">
+              <Form.Item id="name" label="New Name" errorMessage={errors?.name}>
                 <Input
                   value={nameInput}
                   onChange={({ target }) => setNameInput(target.value)}
