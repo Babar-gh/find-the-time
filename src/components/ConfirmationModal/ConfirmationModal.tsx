@@ -2,14 +2,14 @@ import Text from 'components/Text';
 import Modal from 'ui-kit/Modal';
 
 interface IProps {
-  title: string;
+  title?: string;
   action: string;
   onConfirm: () => void;
   onCancel: () => void;
 }
 
 const ConfirmationModal: React.VFC<IProps> = ({
-  title,
+  title = 'Confirm Action',
   action,
   onConfirm,
   onCancel,
