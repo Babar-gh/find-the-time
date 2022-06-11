@@ -256,7 +256,8 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
   const unsubscribeButtonIsShown =
     role === 'subscriber' && status === 'notYetScheduled';
 
-  const deleteButtonIsShown = role === 'organizer' && status !== 'past';
+  const deleteButtonIsShown =
+    role === 'organizer' && status === 'notYetScheduled';
 
   return (
     <Page
