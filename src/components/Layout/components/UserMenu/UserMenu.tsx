@@ -37,16 +37,9 @@ const UserMenu: React.FC = () => {
         <Menu.Item
           id="account"
           elementProps={{ type: 'RouterLink', to: PRIVATE.Account }}
-          icon="AccountCircle"
-        >
-          Your account
-        </Menu.Item>
-        <Menu.Item
-          id="settings"
-          elementProps={{ type: 'RouterLink', to: PRIVATE.Settings }}
           icon="Settings"
         >
-          Settings
+          Manage account
         </Menu.Item>
         <Menu.Item
           id="logout"
