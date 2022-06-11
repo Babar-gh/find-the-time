@@ -102,6 +102,7 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
   }, [fetchDetails]);
 
   const handleDeleteConfirmation = async () => {
+    setConfirmationModalProps(null);
     setIsLoading(true);
 
     try {
@@ -125,6 +126,7 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
     });
 
   const removeUser = async (user: IUser) => {
+    setConfirmationModalProps(null);
     setIsLoading(true);
 
     try {
@@ -188,6 +190,7 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
   };
 
   const handleUnsubscribeConfirmation = async () => {
+    setConfirmationModalProps(null);
     setIsLoading(true);
 
     try {
