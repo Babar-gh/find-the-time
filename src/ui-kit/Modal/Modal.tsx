@@ -9,13 +9,13 @@ import styles from './Modal.module.scss';
 interface IProps
   extends Pick<ComponentProps<typeof Backdrop>, 'onBackdropClick'> {
   title: string;
-  onCloseClick: MouseEventHandler;
   onOkClick: MouseEventHandler;
   okText?: string;
   okProps?: ComponentProps<typeof Button>;
   onCancelClick: MouseEventHandler;
   cancelText?: string;
   cancelProps?: ComponentProps<typeof Button>;
+  onCloseClick?: MouseEventHandler;
 }
 
 const populateButtonProps = (
@@ -39,19 +39,22 @@ const enableBodyScroll = () => {
 };
 
 const Modal: React.FC<IProps> = ({
-  onBackdropClick,
   title,
-  onCloseClick,
   onOkClick,
   okText = 'OK',
   okProps = {},
   onCancelClick,
   cancelText = 'Cancel',
   cancelProps = {},
+  onCloseClick,
+  onBackdropClick,
   children,
 }) => {
   populateButtonProps(okProps, onOkClick, okText, 'primary');
   populateButtonProps(cancelProps, onCancelClick, cancelText, 'secondary');
+
+  const handleCloseClick = onCloseClick || onCancelClick;
+  const handleBackdropClick = onBackdropClick || onCancelClick;
 
   useEffect(() => {
     disableBodyScroll();
@@ -60,11 +63,14 @@ const Modal: React.FC<IProps> = ({
   }, []);
 
   return (
-    <Backdrop onBackdropClick={onBackdropClick} isOpen>
+    <Backdrop onBackdropClick={handleBackdropClick} isOpen>
       <div className={styles['Root']}>
         <div className={styles['Header']}>
           <Heading>{title}</Heading>
-          <IconButton icon="Close" elementProps={{ onClick: onCloseClick }} />
+          <IconButton
+            icon="Close"
+            elementProps={{ onClick: handleCloseClick }}
+          />
         </div>
         <Scroll>
           <div className={styles['Content']}>{children}</div>
