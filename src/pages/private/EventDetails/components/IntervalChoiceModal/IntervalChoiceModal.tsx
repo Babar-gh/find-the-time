@@ -23,8 +23,6 @@ const IntervalChoiceModal: React.VFC<IProps> = ({
     title="Choose When Event Happens"
     onOkClick={onConfirm}
     onCancelClick={onCancel}
-    onCloseClick={onCancel}
-    onBackdropClick={onCancel}
   >
     <Form defaultPreventedOnSubmission layout="responsive">
       <Form.Column>

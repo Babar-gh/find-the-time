@@ -14,13 +14,7 @@ const ConfirmationModal: React.VFC<IProps> = ({
   onConfirm,
   onCancel,
 }) => (
-  <Modal
-    title={title}
-    onOkClick={onConfirm}
-    onCancelClick={onCancel}
-    onCloseClick={onCancel}
-    onBackdropClick={onCancel}
-  >
+  <Modal title={title} onOkClick={onConfirm} onCancelClick={onCancel}>
     <Text>You are about to {action}. Do you want to proceed?</Text>
   </Modal>
 );

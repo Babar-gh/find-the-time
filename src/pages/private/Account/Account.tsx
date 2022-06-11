@@ -55,9 +55,7 @@ const Account: React.VFC = () => {
         <Modal
           title="Change Name"
           onOkClick={handleModalOkClick}
-          onCloseClick={() => setNameChangeModalIsOpen(false)}
           onCancelClick={() => setNameChangeModalIsOpen(false)}
-          onBackdropClick={() => setNameChangeModalIsOpen(false)}
         >
           <Form defaultPreventedOnSubmission layout="responsive">
             <Form.Column>

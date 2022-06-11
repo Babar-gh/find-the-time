@@ -145,8 +145,6 @@ const NewEvent: React.VFC = () => {
       onOkClick={handleOkClick}
       okText="Create"
       onCancelClick={returnToPage}
-      onCloseClick={returnToPage}
-      onBackdropClick={returnToPage}
     >
       <Loader isShown={isLoading}>
         <div className={styles['Container']}>

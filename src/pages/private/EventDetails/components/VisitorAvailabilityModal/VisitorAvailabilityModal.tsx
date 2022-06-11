@@ -56,8 +56,6 @@ const VisitorAvailabilityModal: React.VFC<IProps> = ({
       title="Choose When You're Available"
       onOkClick={handleOkClick}
       onCancelClick={onCancel}
-      onCloseClick={onCancel}
-      onBackdropClick={onCancel}
     >
       <ErrorDisplay isShown={Boolean(errors?.intervals)}>
         {errors?.intervals || ''}

@@ -18,8 +18,6 @@ const ShareModal: React.VFC<IProps> = ({ onCopy, onCancel }) => {
       }}
       okText="Copy"
       onCancelClick={onCancel}
-      onCloseClick={onCancel}
-      onBackdropClick={onCancel}
     >
       <Input icon="Share" value={eventUrl} />
     </Modal>
