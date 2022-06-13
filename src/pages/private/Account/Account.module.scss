@@ -5,3 +5,11 @@
   gap: 16px;
   margin: 0 auto;
 }
+
+.Name {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}

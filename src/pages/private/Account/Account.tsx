@@ -17,7 +17,9 @@ const Account: React.VFC = () => {
   const dispatch = useAppDispatch();
 
   const { email, name, isDemo } = useAppSelector((store) => store.account);
+
   const nameIsSpecified = name !== '';
+  const nameChangeVerb = nameIsSpecified ? 'Change' : 'Set';
 
   const [nameChangeModalIsOpen, setNameChangeModalIsOpen] = useState(false);
   const [nameInput, setNameInput] = useState(name);
@@ -52,7 +54,7 @@ const Account: React.VFC = () => {
     <Page title="Your Account" isLoading={isLoading}>
       {nameChangeModalIsOpen && (
         <Modal
-          title="Change Name"
+          title={`${nameChangeVerb} Name`}
           onOkClick={handleModalOkClick}
           onCancelClick={() => setNameChangeModalIsOpen(false)}
         >
@@ -73,20 +75,24 @@ const Account: React.VFC = () => {
           <Text>{email}</Text>
         </InfoTile>
         <InfoTile heading="Name" icon="Person">
-          {nameIsSpecified ? (
-            <Text>{name}</Text>
-          ) : (
-            <Text font="primaryItalic">Not specified</Text>
-          )}
+          <div className={styles['Name']}>
+            {nameIsSpecified ? (
+              <Text clamp={1}>{name}</Text>
+            ) : (
+              <Text font="primaryItalic">Not specified</Text>
+            )}
+            <Button
+              elementProps={{ onClick: () => setNameChangeModalIsOpen(true) }}
+            >
+              {nameChangeVerb}
+            </Button>
+          </div>
         </InfoTile>
         {isDemo && (
           <InfoTile heading="Demo" icon="Info">
             <Text>This is a demo account</Text>
           </InfoTile>
         )}
-        <Button
-          elementProps={{ onClick: () => setNameChangeModalIsOpen(true) }}
-        >{`${nameIsSpecified ? 'Change' : 'Set'} name`}</Button>
       </div>
     </Page>
   );
