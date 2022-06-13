@@ -6,6 +6,7 @@ interface IProps {
   action: string;
   onConfirm: () => void;
   onCancel: () => void;
+  isDangerous?: boolean;
 }
 
 const ConfirmationModal: React.VFC<IProps> = ({
@@ -13,8 +14,14 @@ const ConfirmationModal: React.VFC<IProps> = ({
   action,
   onConfirm,
   onCancel,
+  isDangerous = false,
 }) => (
-  <Modal title={title} onOkClick={onConfirm} onCancelClick={onCancel}>
+  <Modal
+    title={title}
+    onOkClick={onConfirm}
+    okProps={isDangerous ? { theme: 'danger' } : undefined}
+    onCancelClick={onCancel}
+  >
     <Text>You are about to {action}. Do you want to proceed?</Text>
   </Modal>
 );
