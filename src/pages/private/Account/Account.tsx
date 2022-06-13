@@ -23,6 +23,7 @@ const Account: React.VFC = () => {
 
   const [nameChangeModalIsOpen, setNameChangeModalIsOpen] = useState(false);
   const [nameInput, setNameInput] = useState(name);
+  const [nameInputIsTouched, setNameInputIsTouched] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -32,6 +33,8 @@ const Account: React.VFC = () => {
   );
 
   const handleModalOkClick = async () => {
+    setNameInputIsTouched(true);
+
     if (errors) {
       return;
     }
@@ -60,10 +63,17 @@ const Account: React.VFC = () => {
         >
           <Form defaultPreventedOnSubmission layout="responsive">
             <Form.Column>
-              <Form.Item id="name" label="New Name" errorMessage={errors?.name}>
+              <Form.Item
+                id="name"
+                label="New Name"
+                errorMessage={nameInputIsTouched ? errors?.name : undefined}
+              >
                 <Input
                   value={nameInput}
                   onChange={({ target }) => setNameInput(target.value)}
+                  onBlur={({ target }) => {
+                    target.value !== '' && setNameInputIsTouched(true);
+                  }}
                 />
               </Form.Item>
             </Form.Column>

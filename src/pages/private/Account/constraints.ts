@@ -1,11 +1,14 @@
+import { NAME_MAX_LENGTH, NAME_MIN_LENGTH } from 'constants/account';
 import { ValidationErrors } from 'initValidatejs';
 
 export const constraints = {
   name: {
     presence: true,
     length: {
-      minimum: 3,
-      tooShort: '^At least %{count} characters',
+      minimum: NAME_MIN_LENGTH,
+      tooShort: '^Shorter %{count} characters',
+      maximum: NAME_MAX_LENGTH,
+      tooLong: '^Longer than %{count} characters',
     },
   },
 };
