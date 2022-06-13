@@ -18,4 +18,4 @@ export const logUserIn = (credentials: IUserLoginRequest) =>
 export const refreshUserToken = () => axios.get<Token>(`${baseUrl}/refresh`);
 
 export const changeUserName = (newName: IUserNameChangeRequest) =>
-  axios.post<void>(`${baseUrl}/change`, newName);
+  axios.post<Token>(`${baseUrl}/change`, newName);

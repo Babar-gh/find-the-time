@@ -7,7 +7,7 @@ import Input from 'ui-kit/Input';
 import Modal from 'ui-kit/Modal';
 import Page from 'ui-kit/Page';
 import Text from 'components/Text';
-import { changeUserName, refreshUserToken } from 'api/users';
+import { changeUserName } from 'api/users';
 import { updateFromNewToken } from 'store/slices/account';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { constraints, NameChangeValidation } from './constraints';
@@ -38,10 +38,9 @@ const Account: React.VFC = () => {
 
     setIsLoading(true);
     try {
-      await changeUserName({ name: nameInput });
+      const { data: updatedToken } = await changeUserName({ name: nameInput });
 
-      const { data: tokenWithNewName } = await refreshUserToken();
-      dispatch(updateFromNewToken(tokenWithNewName));
+      dispatch(updateFromNewToken(updatedToken));
     } catch {
       // TODO: Add a proper error handling
     } finally {
