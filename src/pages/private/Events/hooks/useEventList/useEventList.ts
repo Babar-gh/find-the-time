@@ -1,10 +1,13 @@
 import { useEffect, useReducer } from 'react';
+import { useSnackbar } from 'notistack';
 import { searchEvents } from 'api/events';
 import { IEventSearchRequest } from 'api/types/events';
 import { reducer } from './reducer';
 import { IState, Payload } from './types';
 
 const useEventList = (pageSize: number) => {
+  const { enqueueSnackbar } = useSnackbar();
+
   const initialState: IState = {
     pagination: { pageSize, pageNumber: 0 },
     sorter: {
@@ -52,14 +55,14 @@ const useEventList = (pageSize: number) => {
         const response = await searchEvents(request);
         parseResponse(response.data);
       } catch {
-        // TODO: Replace with a proper error handling
+        enqueueSnackbar('We couldn’t fetch your events', { variant: 'error' });
       }
 
       setIsLoading(false);
     };
 
     fetchEvents();
-  }, [state.pagination, state.filter, state.sorter]);
+  }, [state.pagination, state.filter, state.sorter, enqueueSnackbar]);
 
   return {
     ...state,

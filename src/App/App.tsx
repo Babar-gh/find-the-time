@@ -2,6 +2,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { lazy, Suspense } from 'react';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { Navigate, Route, Routes } from 'react-router-dom';
+import { SnackbarProvider } from 'notistack';
 import { ThemeProvider } from '@mui/material/styles';
 import Account from 'pages/private/Account';
 import AuthLayout from 'components/AuthLayout';
@@ -39,13 +40,15 @@ const App: React.VFC = () => {
 
   const privateOutlet = (
     <ThemeProvider theme={theme.muiCurrent}>
-      <LocalizationProvider dateAdapter={AdapterDayjs} locale="en-gb">
-        <Layout theme={theme}>
-          <Suspense fallback={<Page title="" isLoading />}>
-            <PrivateRoute />
-          </Suspense>
-        </Layout>
-      </LocalizationProvider>
+      <SnackbarProvider>
+        <LocalizationProvider dateAdapter={AdapterDayjs} locale="en-gb">
+          <Layout theme={theme}>
+            <Suspense fallback={<Page title="" isLoading />}>
+              <PrivateRoute />
+            </Suspense>
+          </Layout>
+        </LocalizationProvider>
+      </SnackbarProvider>
     </ThemeProvider>
   );
 

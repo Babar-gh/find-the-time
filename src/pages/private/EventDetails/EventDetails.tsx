@@ -1,6 +1,7 @@
 import { Dayjs } from 'dayjs';
 import { To, useNavigate, useParams } from 'react-router-dom';
 import { ComponentProps, useCallback, useEffect, useState } from 'react';
+import { useSnackbar } from 'notistack';
 import Button from 'ui-kit/Button';
 import Page from 'ui-kit/Page';
 import Scroll from 'ui-kit/Scroll';
@@ -47,6 +48,8 @@ const notFoundPageConfig: LocationState = {
 };
 
 const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
+  const { enqueueSnackbar } = useSnackbar();
+
   const navigate = useNavigate();
 
   const { eventId } = useParams<PARAM.EventId>();
@@ -113,7 +116,7 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
       navigate(PRIVATE.Events);
     } catch {
       setIsLoading(false);
-      // TODO: Add a proper error handling
+      enqueueSnackbar('We couldn’t delete the event', { variant: 'error' });
     }
   };
 
@@ -134,7 +137,7 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
 
       fetchDetails();
     } catch {
-      // TODO: Add a proper error handling
+      enqueueSnackbar('We couldn’t remove this user', { variant: 'error' });
     } finally {
       setIsLoading(false);
     }
@@ -183,7 +186,7 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
 
       fetchDetails();
     } catch {
-      // TODO: Add a proper error handling
+      enqueueSnackbar('We couldn’t schedule the event', { variant: 'error' });
     } finally {
       setIsLoading(false);
     }
@@ -198,7 +201,7 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
 
       fetchDetails();
     } catch {
-      // TODO: Add a proper error handling
+      enqueueSnackbar('We couldn’t unsubscribe you', { variant: 'error' });
     } finally {
       setIsLoading(false);
     }
@@ -229,7 +232,7 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
 
       fetchDetails();
     } catch {
-      // TODO: Add a proper error handling
+      enqueueSnackbar('We couldn’t subscribe you', { variant: 'error' });
     } finally {
       setIsLoading(false);
     }
@@ -303,7 +306,7 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
             />
           )}
           {confirmationModalProps && (
-            <ConfirmationModal {...confirmationModalProps} />
+            <ConfirmationModal {...confirmationModalProps} isDangerous />
           )}
           <div className={styles['Tiles']}>
             <OrganizedBy
