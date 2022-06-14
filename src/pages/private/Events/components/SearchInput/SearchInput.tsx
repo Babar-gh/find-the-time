@@ -21,7 +21,12 @@ const SearchInput: React.VFC<IProps> = ({ filter, onFilterChange }) => {
 
   return (
     <div className={styles['Root']}>
-      <Input theme="alternative" icon="Search" onChange={handleSearchChange} />
+      <Input
+        theme="alternative"
+        icon="Search"
+        placeholder="Enter event name"
+        onChange={handleSearchChange}
+      />
     </div>
   );
 };
