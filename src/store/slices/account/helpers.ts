@@ -1,4 +1,3 @@
-import { Buffer } from 'buffer';
 import { Token } from 'types/common';
 import { IState } from './account';
 
@@ -17,8 +16,8 @@ const parseUserToken = (token: Token) => {
   const [, base64Url] = token.split('.');
   const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
   const jsonPayload = decodeURIComponent(
-    Buffer.from(base64, 'base64')
-      .toString()
+    window
+      .atob(base64)
       .split('')
       .map((c) => `%${`00${c.charCodeAt(0).toString(16)}`.slice(-2)}`)
       .join('')
