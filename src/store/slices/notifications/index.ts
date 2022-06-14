@@ -2,4 +2,5 @@ import { reducer, actions } from './notifications';
 
 export default reducer;
 
-export const { notifyOnSuccess, notifyOnError } = actions;
+export const { notify, notifyOnSuccess } = actions;
+export { notifyOnNetworkError } from './thunks';
