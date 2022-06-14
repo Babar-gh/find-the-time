@@ -44,7 +44,13 @@ const FilterControls: React.VFC<IProps> = ({ filter, onFilterChange }) => {
       align={align}
       width="wide"
       closeOnClick={false}
-      trigger={<IconButton icon="FilterList" {...{ isHighlighted }} />}
+      trigger={
+        <IconButton
+          icon="FilterList"
+          isHighlighted={isHighlighted}
+          elementProps={{ title: 'Filters' }}
+        />
+      }
     >
       <Menu selectedId={getNonNullableId(filter.status)}>
         {getSelectStatusMenuItem(null, 'Show all')}

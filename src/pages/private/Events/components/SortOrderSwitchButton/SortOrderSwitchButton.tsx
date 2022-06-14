@@ -16,7 +16,12 @@ const SortOrderSwitchButton: React.VFC<IProps> = ({
 
   const handleClick = () => onSorterChange({ direction });
 
-  return <IconButton icon={icon} elementProps={{ onClick: handleClick }} />;
+  return (
+    <IconButton
+      icon={icon}
+      elementProps={{ onClick: handleClick, title: 'Sort direction' }}
+    />
+  );
 };
 
 export default SortOrderSwitchButton;

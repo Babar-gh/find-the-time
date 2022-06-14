@@ -39,6 +39,7 @@ const SortByMenu: React.VFC<IProps> = ({ sorter, onSorterChange }) => {
         <IconButton
           icon="SortByAlpha"
           isHighlighted={sorter.sortBy !== 'created'}
+          elementProps={{ title: 'Sort by' }}
         />
       }
     >
