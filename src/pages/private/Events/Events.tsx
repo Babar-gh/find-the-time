@@ -28,6 +28,9 @@ const Events: React.VFC = () => {
 
   const { setSentinelRef } = useIntersection<HTMLElement>(list.getNextPage);
 
+  const pageIsLoading = list.isLoading && list.pagination.pageNumber === 0;
+  const tileIsLoading = list.isLoading && list.pagination.pageNumber > 0;
+
   return (
     <>
       <Suspense fallback={<Backdrop isOpen />}>
@@ -43,6 +46,7 @@ const Events: React.VFC = () => {
             Create new event
           </Button>
         }
+        isLoading={pageIsLoading}
       >
         <div className={styles['Controls']}>
           <SearchInput {...filterProps} />
@@ -70,7 +74,7 @@ const Events: React.VFC = () => {
               </li>
             );
           })}
-          {list.isLoading && (
+          {tileIsLoading && (
             <Loader isShown={true}>
               <li className={cn('ListItem', 'ListItem_loader')} />
             </Loader>
