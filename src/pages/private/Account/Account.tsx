@@ -89,7 +89,9 @@ const Account: React.VFC = () => {
             {nameIsSpecified ? (
               <Text clamp={1}>{name}</Text>
             ) : (
-              <Text font="primaryItalic">Not specified</Text>
+              <Text font="primaryItalic">
+                You haven’t told us your name yet.
+              </Text>
             )}
             <Button
               elementProps={{ onClick: () => setNameChangeModalIsOpen(true) }}
