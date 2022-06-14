@@ -4,19 +4,13 @@ import { useAppSelector } from 'store/hooks';
 
 const useNotifications = () => {
   const { enqueueSnackbar } = useSnackbar();
-  const { success, error } = useAppSelector((store) => store.notifications);
+
+  const notifications = useAppSelector((store) => store.notifications);
+  const last = [...notifications].pop();
 
   useEffect(() => {
-    if (success.at(-1)) {
-      enqueueSnackbar(success.at(-1), { variant: 'success' });
-    }
-  }, [success, enqueueSnackbar]);
-
-  useEffect(() => {
-    if (error.at(-1)) {
-      enqueueSnackbar(error.at(-1), { variant: 'error' });
-    }
-  }, [error, enqueueSnackbar]);
+    last && enqueueSnackbar(last.message, { variant: last.variant });
+  }, [last, enqueueSnackbar]);
 };
 
 export default useNotifications;
