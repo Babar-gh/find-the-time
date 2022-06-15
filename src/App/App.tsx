@@ -25,7 +25,6 @@ import AuthRoute from './components/AuthRoute';
 const Events = lazy(() => import('pages/private/Events'));
 const NewEvent = lazy(() => import('pages/private/NewEvent'));
 const EventDetails = lazy(() => import('pages/private/EventDetails'));
-const DummyPage = lazy(() => import('pages/private/DummyPage'));
 
 const dummyAuthPage = <Text size="big">TBD</Text>;
 
