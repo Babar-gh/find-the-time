@@ -1,7 +1,6 @@
 import { Dayjs } from 'dayjs';
 import { To, useNavigate, useParams } from 'react-router-dom';
 import { ComponentProps, useCallback, useEffect, useState } from 'react';
-import { useSnackbar } from 'notistack';
 import Button from 'ui-kit/Button';
 import Page from 'ui-kit/Page';
 import Scroll from 'ui-kit/Scroll';
@@ -12,7 +11,8 @@ import { Guid, TimeInterval } from 'types/common';
 import { IEvent } from 'types/events';
 import { IUser } from 'types/users';
 import { PARAM, PRIVATE } from 'constants/routes';
-import { useAppSelector } from 'store/hooks';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
+import { notifyOnNetworkError } from 'store/slices/notifications';
 import {
   chooseEventInterval,
   getEventDetails,
@@ -48,7 +48,7 @@ const notFoundPageConfig: LocationState = {
 };
 
 const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
-  const { enqueueSnackbar } = useSnackbar();
+  const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
 
@@ -114,9 +114,10 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
       setIsLoading(false);
 
       navigate(PRIVATE.Events);
-    } catch {
+    } catch (error) {
       setIsLoading(false);
-      enqueueSnackbar('We couldn’t delete the event', { variant: 'error' });
+
+      dispatch(notifyOnNetworkError('delete the event', error));
     }
   };
 
@@ -136,8 +137,8 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
       await removeUserFromEvent(eventId as Guid, user.id);
 
       fetchDetails();
-    } catch {
-      enqueueSnackbar('We couldn’t remove this user', { variant: 'error' });
+    } catch (error) {
+      dispatch(notifyOnNetworkError('remove this user', error));
     } finally {
       setIsLoading(false);
     }
@@ -185,8 +186,8 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
       setIntervalChoiceModalIsOpen(false);
 
       fetchDetails();
-    } catch {
-      enqueueSnackbar('We couldn’t schedule the event', { variant: 'error' });
+    } catch (error) {
+      dispatch(notifyOnNetworkError('schedule the event', error));
     } finally {
       setIsLoading(false);
     }
@@ -200,8 +201,8 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
       await unsubscribeFromEvent(eventId as Guid);
 
       fetchDetails();
-    } catch {
-      enqueueSnackbar('We couldn’t unsubscribe you', { variant: 'error' });
+    } catch (error) {
+      dispatch(notifyOnNetworkError('unsubscribe you', error));
     } finally {
       setIsLoading(false);
     }
@@ -231,8 +232,8 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
       setVisitorAvailabilities([]);
 
       fetchDetails();
-    } catch {
-      enqueueSnackbar('We couldn’t subscribe you', { variant: 'error' });
+    } catch (error) {
+      dispatch(notifyOnNetworkError('subscribe you', error));
     } finally {
       setIsLoading(false);
     }

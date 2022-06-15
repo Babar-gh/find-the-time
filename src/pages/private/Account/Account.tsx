@@ -8,6 +8,7 @@ import Modal from 'ui-kit/Modal';
 import Page from 'ui-kit/Page';
 import Text from 'components/Text';
 import { changeUserName } from 'api/users';
+import { notifyOnNetworkError } from 'store/slices/notifications';
 import { updateFromNewToken } from 'store/slices/account';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { constraints, NameChangeValidation } from './constraints';
@@ -46,8 +47,10 @@ const Account: React.VFC = () => {
       const { data: updatedToken } = await changeUserName({ name: nameInput });
 
       dispatch(updateFromNewToken(updatedToken));
-    } catch {
-      // TODO: Add a proper error handling
+    } catch (error) {
+      dispatch(
+        notifyOnNetworkError(`${nameChangeVerb.toLowerCase()} your name`, error)
+      );
     } finally {
       setIsLoading(false);
     }
