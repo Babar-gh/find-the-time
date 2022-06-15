@@ -11,6 +11,7 @@ import GeneralError from 'pages/private/GeneralError';
 import Layout from 'components/Layout';
 import Login from 'pages/auth/Login';
 import NotFound from 'pages/private/NotFound';
+import About from 'pages/private/About';
 import Page from 'ui-kit/Page';
 import Registration from 'pages/auth/Registration';
 import Text from 'components/Text';
@@ -60,8 +61,7 @@ const App: React.VFC = () => {
   );
 
   /* TODO: Replace stubs with proper:
-    - password recovery page
-    - about page */
+    - password recovery page */
 
   return wrapWithProviders(
     <Routes>
@@ -71,7 +71,7 @@ const App: React.VFC = () => {
         <Route path={AUTH.ResetPassword} element={dummyAuthPage} />
       </Route>
       <Route element={privateOutlet}>
-        <Route path={PRIVATE.About} element={<DummyPage />} />
+        <Route path={PRIVATE.About} element={<About />} />
         <Route path={PRIVATE.Account} element={<Account />} />
         <Route path={PRIVATE.Events} element={<Events />}>
           <Route path={PRIVATE.CreateEvent} element={<NewEvent />} />
