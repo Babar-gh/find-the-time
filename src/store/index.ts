@@ -9,6 +9,12 @@ export const store = configureStore({
     account,
     notifications,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      thunk: {
+        extraArgument: '',
+      },
+    }),
 });
 
 export type AppDispatch = typeof store.dispatch;
