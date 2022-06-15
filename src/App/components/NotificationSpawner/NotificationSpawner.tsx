@@ -2,7 +2,7 @@ import { useSnackbar } from 'notistack';
 import { useEffect } from 'react';
 import { useAppSelector } from 'store/hooks';
 
-const useNotifications = () => {
+const NotificationSpawner: React.FC = ({ children }) => {
   const { enqueueSnackbar } = useSnackbar();
 
   const notifications = useAppSelector((store) => store.notifications);
@@ -11,6 +11,8 @@ const useNotifications = () => {
   useEffect(() => {
     last && enqueueSnackbar(last.message, { variant: last.variant });
   }, [last, enqueueSnackbar]);
+
+  return <>{children}</>;
 };
 
-export default useNotifications;
+export default NotificationSpawner;

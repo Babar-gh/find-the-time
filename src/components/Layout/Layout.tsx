@@ -6,7 +6,6 @@ import ThemeSwitchButton from 'components/ThemeSwitchButton';
 import useBreakpointCheck from 'hooks/useBreakpointCheck';
 import useTheme from 'App/hooks/useTheme';
 import { ReactComponent as MenuIcon } from 'assets/icons/Menu.svg';
-import useNotifications from './hooks/useNotifications';
 import UserMenu from './components/UserMenu';
 import NavMenu from './components/NavMenu';
 import styles from './Layout.module.scss';
@@ -16,8 +15,6 @@ interface IProps {
 }
 
 const Layout: React.FC<IProps> = ({ theme, children }) => {
-  useNotifications();
-
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
   const bp = useBreakpointCheck();
 
