@@ -12,11 +12,11 @@ export const notificationsSlice = createSlice({
   initialState,
   reducers: {
     notify: (state, action: PayloadAction<INotificationConfig>) => {
-      state = [...state, action.payload];
+      state.push(action.payload);
     },
 
     notifyOnSuccess: (state, action: PayloadAction<string>) => {
-      state = [...state, { message: action.payload, variant: 'success' }];
+      state.push({ message: action.payload, variant: 'success' });
     },
   },
 });
