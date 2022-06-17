@@ -5,6 +5,7 @@ import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
 import App from 'App';
 import history from 'browserHistory';
 import reportWebVitals from 'reportWebVitals';
+import { BASENAME } from 'constants/routes';
 import { store } from 'store';
 import './initAxios';
 import './initDayjs';
@@ -14,7 +15,7 @@ import './index.css';
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <HistoryRouter history={history}>
+      <HistoryRouter history={history} basename={BASENAME}>
         <App />
       </HistoryRouter>
     </Provider>

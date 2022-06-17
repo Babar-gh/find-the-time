@@ -1,3 +1,5 @@
+export const BASENAME = '/find-the-time';
+
 export enum AUTH {
   Login = '/login',
   Registration = '/registration',

@@ -1,7 +1,7 @@
 import * as jwt from 'jwt';
 import history from 'browserHistory';
 import { AppThunk } from 'store';
-import { AUTH } from 'constants/routes';
+import { AUTH, BASENAME } from 'constants/routes';
 import { LocationState } from 'components/CredentialsForm';
 import { Token } from 'types/common';
 import { parseUserToken } from './helpers';
@@ -23,6 +23,8 @@ export const signOut = (): AppThunk => (dispatch) => {
 
   dispatch(clear());
 
-  const state: LocationState = { returnUrl: history.location.pathname };
-  history.push(AUTH.Login, state);
+  const returnUrl = history.location.pathname.replace(BASENAME, '');
+  const state: LocationState = { returnUrl };
+
+  history.push(`${BASENAME}${AUTH.Login}`, state);
 };
