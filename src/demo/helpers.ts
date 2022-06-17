@@ -25,7 +25,7 @@ export const getDemoEvent = (
 ) => {
   const { subscriptions, ...scheduleRest } = sample(schedules) || schedules[0];
 
-  const participants = shuffle(extras).slice(subscriptions.length - 1);
+  const participants = shuffle(extras).slice(0, subscriptions.length - 1);
 
   if (demoOwnerIsOrganizer) {
     participants.unshift(demoOwner);
