@@ -6,8 +6,15 @@
   margin: 0 auto;
 }
 
+.Paragraph {
+  margin: 16px;
+}
+
 .List {
+  margin: 16px;
+  padding-left: 16px;
   display: flex;
   flex-direction: column;
   gap: 16px;
+  color: var(--text-primary);
 }

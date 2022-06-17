@@ -7,10 +7,14 @@ const About: React.VFC = () => (
   <Page title="About">
     <div className={styles['Root']}>
       <InfoTile heading="What’s this app?" icon="EventAvailable">
-        <Text font="primaryBold">Find the Time</Text>
-        <Text> is a simple and straightforward app for scheduling events.</Text>
+        <p className={styles['Paragraph']}>
+          <Text font="primaryBold">Find the Time</Text>
+          <Text>
+            {' '}
+            is a simple and straightforward app for scheduling events.
+          </Text>
+        </p>
       </InfoTile>
-
       <InfoTile heading="How does it work?" icon="Info">
         <ul className={styles['List']}>
           <li>
