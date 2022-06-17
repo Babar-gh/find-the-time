@@ -1,5 +1,6 @@
 import InfoTile from 'components/InfoTile';
 import Text from 'components/Text';
+import Link from 'ui-kit/Link';
 import Page from 'ui-kit/Page';
 import styles from './About.module.scss';
 
@@ -46,6 +47,30 @@ const About: React.VFC = () => (
             </Text>
           </li>
         </ul>
+      </InfoTile>
+      <InfoTile heading="Links" icon="Description">
+        <p className={styles['Paragraph']}>
+          <Text>Developed by</Text>
+          <br />
+          <Link
+            type="HTMLAnchor"
+            href={'https://github.com/Babar-gh'}
+            target="_blank"
+          >
+            github.com/Babar-gh
+          </Link>
+        </p>
+        <p className={styles['Paragraph']}>
+          <Text>Repository</Text>
+          <br />
+          <Link
+            type="HTMLAnchor"
+            href={'https://github.com/Babar-gh/find-the-time'}
+            target="_blank"
+          >
+            github.com/Babar-gh/find-the-time
+          </Link>
+        </p>
       </InfoTile>
     </div>
   </Page>
