@@ -1,6 +1,7 @@
 {
   "name": "find-the-time-private",
   "version": "0.1.0",
+  "homepage": "https://babar-gh.github.io/find-the-time",
   "private": true,
   "dependencies": {
     "@date-io/dayjs": "^2.13.1",
@@ -34,6 +35,7 @@
     "@types/react-dom": "^17.0.11",
     "@types/react-transition-group": "^4.4.4",
     "eslint": "^8.6.0",
+    "gh-pages": "^4.0.0",
     "sass": "^1.48.0",
     "stylelint": "^14.2.0",
     "stylelint-config-standard-scss": "^3.0.0",
@@ -45,7 +47,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
