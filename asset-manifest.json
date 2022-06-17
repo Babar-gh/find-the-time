@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/find-the-time/static/css/main.197a185c.css",
-    "main.js": "/find-the-time/static/js/main.7ad052bb.js",
+    "main.js": "/find-the-time/static/js/main.0802d93e.js",
     "static/css/646.1d8714ff.chunk.css": "/find-the-time/static/css/646.1d8714ff.chunk.css",
     "static/js/646.d0c6ea0d.chunk.js": "/find-the-time/static/js/646.d0c6ea0d.chunk.js",
     "static/css/42.cdf37a09.chunk.css": "/find-the-time/static/css/42.cdf37a09.chunk.css",
@@ -52,7 +52,7 @@
     "static/media/Add.svg": "/find-the-time/static/media/Add.f2831e294a4553ddc971919e10ad4572.svg",
     "static/media/Remove.svg": "/find-the-time/static/media/Remove.365743344b634c49a1168b5114b4eeab.svg",
     "main.197a185c.css.map": "/find-the-time/static/css/main.197a185c.css.map",
-    "main.7ad052bb.js.map": "/find-the-time/static/js/main.7ad052bb.js.map",
+    "main.0802d93e.js.map": "/find-the-time/static/js/main.0802d93e.js.map",
     "646.1d8714ff.chunk.css.map": "/find-the-time/static/css/646.1d8714ff.chunk.css.map",
     "646.d0c6ea0d.chunk.js.map": "/find-the-time/static/js/646.d0c6ea0d.chunk.js.map",
     "42.cdf37a09.chunk.css.map": "/find-the-time/static/css/42.cdf37a09.chunk.css.map",
@@ -64,6 +64,6 @@
   },
   "entrypoints": [
     "static/css/main.197a185c.css",
-    "static/js/main.7ad052bb.js"
+    "static/js/main.0802d93e.js"
   ]
 }
