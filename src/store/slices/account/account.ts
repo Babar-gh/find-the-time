@@ -3,7 +3,7 @@ import * as jwt from 'jwt';
 import { Guid } from 'types/common';
 import { IUser } from 'types/users';
 import { parseUserToken } from './helpers';
-import { signIn, signUp } from './asyncThunks';
+import { signIn, signUp, signUpDemo } from './asyncThunks';
 
 export interface IState extends IUser {
   isDemo: boolean;
@@ -36,7 +36,7 @@ export const accountSlice = createSlice({
 
   extraReducers: (builder) => {
     builder.addMatcher(
-      isAnyOf(signIn.fulfilled, signUp.fulfilled),
+      isAnyOf(signIn.fulfilled, signUp.fulfilled, signUpDemo.fulfilled),
       (_state, { payload: newAccountData }) => {
         if (newAccountData) {
           return newAccountData;
