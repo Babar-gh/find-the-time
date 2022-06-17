@@ -8,7 +8,7 @@ import Form from 'ui-kit/Form';
 import Input from 'ui-kit/Input';
 import Loader from 'ui-kit/Loader';
 import Text from 'components/Text';
-import { signIn, signUp } from 'store/slices/account';
+import { signIn, signUp, signUpDemo } from 'store/slices/account';
 import { useAppDispatch } from 'store/hooks';
 import { constraints, CredentialsValidation } from './constraints';
 import { LocationState } from './types';
@@ -49,6 +49,17 @@ const CredentialsForm: React.VFC<IProps> = ({
     constraints
   );
 
+  const redirectOnSuccess = () => {
+    if (!jwt.checkIfExists()) {
+      setSubmitHasFailed(true);
+    }
+
+    const { returnUrl } = (location.state as LocationState) || {};
+
+    setSubmitHasFailed(false);
+    navigate(returnUrl || '/');
+  };
+
   const handleButtonClick: MouseEventHandler = async (_e) => {
     if (errors) {
       setEmailIsTouched(true);
@@ -62,15 +73,16 @@ const CredentialsForm: React.VFC<IProps> = ({
     await dispatch(actionToDispatch({ email, password }));
 
     setIsLoading(false);
+    redirectOnSuccess();
+  };
 
-    if (jwt.checkIfExists()) {
-      const { returnUrl } = (location.state as LocationState) || {};
+  const handleDemoButtonClick: MouseEventHandler = async (_e) => {
+    setIsLoading(true);
 
-      setSubmitHasFailed(false);
-      navigate(returnUrl || '/');
-    } else {
-      setSubmitHasFailed(true);
-    }
+    await dispatch(signUpDemo());
+
+    setIsLoading(false);
+    redirectOnSuccess();
   };
 
   const form = (
@@ -109,13 +121,25 @@ const CredentialsForm: React.VFC<IProps> = ({
             autoComplete="current-password"
           />
         </Form.Item>
-        <Button
-          elementProps={{
-            onClick: handleButtonClick,
-          }}
-        >
-          {buttonText}
-        </Button>
+        <Form.CustomItem>
+          <div className={styles['ButtonContainer']}>
+            <Button
+              elementProps={{
+                onClick: handleButtonClick,
+              }}
+            >
+              {buttonText}
+            </Button>
+            <Button
+              theme="secondaryInverted"
+              elementProps={{
+                onClick: handleDemoButtonClick,
+              }}
+            >
+              Enter demo
+            </Button>
+          </div>
+        </Form.CustomItem>
       </Form.Column>
     </Form>
   );
