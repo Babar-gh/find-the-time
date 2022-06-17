@@ -18,11 +18,14 @@ export const getDemoUser = (): IApiUser => {
   };
 };
 
-export const getDemoEvent = (demoOwner: IApiUser, extras: IApiUser[]) => {
+export const getDemoEvent = (
+  demoOwner: IApiUser,
+  extras: IApiUser[],
+  demoOwnerIsOrganizer: boolean
+) => {
   const { subscriptions, ...scheduleRest } = sample(schedules) || schedules[0];
 
   const participants = shuffle(extras).slice(subscriptions.length - 1);
-  const demoOwnerIsOrganizer = Math.random() >= 0.5;
 
   if (demoOwnerIsOrganizer) {
     participants.unshift(demoOwner);
@@ -54,8 +57,9 @@ export const getDemoContent = (): IDemoUserCreationRequest => {
   const [loginUser, ...users] = [...new Array(PARTICIPANTS_MAX)].map(() =>
     getDemoUser()
   );
-  const events = [...new Array(EVENTS_QUANTITY)].map(() =>
-    getDemoEvent(loginUser, users)
+
+  const events = [...new Array(EVENTS_QUANTITY)].map((_, index, { length }) =>
+    getDemoEvent(loginUser, users, index > length / 2)
   );
 
   return {
