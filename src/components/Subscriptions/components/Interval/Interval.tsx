@@ -12,6 +12,7 @@ interface IProps {
   rows: Rows;
   isCurrentUser: boolean;
   isAllParticipants: boolean;
+  isScheduledFor: boolean;
   onIntervalChoice?: (interval: TimeInterval) => void;
 }
 
@@ -25,6 +26,7 @@ const Interval: React.VFC<IProps> = ({
   rows,
   isCurrentUser,
   isAllParticipants,
+  isScheduledFor,
   onIntervalChoice,
 }) => {
   const [isPicked, setIsPicked] = useState(false);
@@ -41,9 +43,11 @@ const Interval: React.VFC<IProps> = ({
     <div
       className={cn('Root', {
         Root_picked: isPicked,
-        Root_color_user: !isCurrentUser && !isAllParticipants,
-        Root_color_current: isCurrentUser,
-        Root_color_all: isAllParticipants,
+        Root_color_participant:
+          !isCurrentUser && !isAllParticipants && !isScheduledFor,
+        Root_color_currentUser: isCurrentUser,
+        Root_color_allParticipants: isAllParticipants,
+        Root_color_scheduledFor: isScheduledFor,
       })}
       style={{
         left: `${beforePercent}%`,

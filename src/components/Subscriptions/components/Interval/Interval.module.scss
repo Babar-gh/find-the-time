@@ -9,16 +9,20 @@
   cursor: pointer;
 
   &_color {
-    &_user {
+    &_participant {
       background-color: var(--ui-button);
     }
 
-    &_current {
+    &_currentUser {
       background-color: var(--ui-link);
     }
 
-    &_all {
+    &_allParticipants {
       background-color: var(--ui-switch-track-on);
+    }
+
+    &_scheduledFor {
+      background-color: var(--text-primary);
     }
   }
 

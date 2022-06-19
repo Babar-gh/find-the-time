@@ -11,7 +11,7 @@ import {
   addScheduledFor,
   getConstraintText,
 } from './helpers';
-import { ALL_PARTICIPANTS_ID } from './constants';
+import { ALL_PARTICIPANTS_ID, SCHEDULED_FOR_ID } from './constants';
 
 interface IProps {
   participants: Subscription[];
@@ -59,7 +59,7 @@ const Subscriptions: React.VFC<IProps> = ({
             <div className={styles['Min']}>{getConstraintText(min)}</div>
             <div className={styles['Max']}>{getConstraintText(max)}</div>
           </div>
-          {list.map(({ availability }, rowIndex) => (
+          {list.map(({ availability, user }, rowIndex) => (
             <div className={styles['UserIntervals']} key={rowIndex}>
               {availability
                 .filter(
@@ -72,10 +72,9 @@ const Subscriptions: React.VFC<IProps> = ({
                     interval={interval}
                     column={{ start: min, end: max }}
                     rows={{ current: rowIndex, total: list.length }}
-                    isCurrentUser={list[rowIndex].user.id === account.id}
-                    isAllParticipants={
-                      list[rowIndex].user.id === ALL_PARTICIPANTS_ID
-                    }
+                    isCurrentUser={user.id === account.id}
+                    isAllParticipants={user.id === ALL_PARTICIPANTS_ID}
+                    isScheduledFor={user.id === SCHEDULED_FOR_ID}
                     onIntervalChoice={onIntervalChoice}
                   />
                 ))}
