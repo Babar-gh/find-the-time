@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import { useState } from 'react';
 import IconButton from 'ui-kit/IconButton';
-import { getConstraintText, isLastRow } from 'components/Subscriptions/helpers';
+import { getConstraintText } from 'components/Subscriptions/helpers';
 import { TimeInterval } from 'types/common';
 import { Rows } from '../../types';
 import styles from './Interval.module.scss';
@@ -11,6 +11,7 @@ interface IProps {
   column: TimeInterval;
   rows: Rows;
   isCurrentUser: boolean;
+  isAllParticipants: boolean;
   onIntervalChoice?: (interval: TimeInterval) => void;
 }
 
@@ -23,6 +24,7 @@ const Interval: React.VFC<IProps> = ({
   column,
   rows,
   isCurrentUser,
+  isAllParticipants,
   onIntervalChoice,
 }) => {
   const [isPicked, setIsPicked] = useState(false);
@@ -34,8 +36,6 @@ const Interval: React.VFC<IProps> = ({
 
   const beforePercent = (start.diff(min) / minToMaxDuration) * 100;
   const durationPercent = (end.diff(start) / minToMaxDuration) * 100;
-
-  const isAllParticipants = isLastRow(rows);
 
   return (
     <div

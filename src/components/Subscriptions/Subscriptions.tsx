@@ -7,6 +7,7 @@ import Interval from './components/Interval';
 import styles from './Subscriptions.module.scss';
 import User from './components/User';
 import { addIntersections, getConstraintText } from './helpers';
+import { ALL_PARTICIPANTS_ID } from './constants';
 
 interface IProps {
   participants: Subscription[];
@@ -34,8 +35,9 @@ const Subscriptions: React.VFC<IProps> = ({
           <User
             key={userIndex}
             user={user}
-            rows={{ current: userIndex, total: list.length }}
             isCurrent={user.id === account.id}
+            isOrganizer={user.id === list[0].user.id}
+            isAllParticipants={user.id === ALL_PARTICIPANTS_ID}
             onRemoval={onUserRemoval}
           />
         ))}
@@ -64,6 +66,9 @@ const Subscriptions: React.VFC<IProps> = ({
                     column={{ start: min, end: max }}
                     rows={{ current: rowIndex, total: list.length }}
                     isCurrentUser={list[rowIndex].user.id === account.id}
+                    isAllParticipants={
+                      list[rowIndex].user.id === ALL_PARTICIPANTS_ID
+                    }
                     onIntervalChoice={onIntervalChoice}
                   />
                 ))}

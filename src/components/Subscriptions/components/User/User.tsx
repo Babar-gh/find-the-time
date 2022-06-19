@@ -1,23 +1,25 @@
-import { isFirstRow, isLastRow } from 'components/Subscriptions/helpers';
 import Text from 'components/Text';
 import { getDisplayName } from 'helpers/users';
 import { IUser } from 'types/users';
 import IconButton from 'ui-kit/IconButton';
-import { Rows } from '../../types';
 import styles from './User.module.scss';
 
 interface IProps {
   user: IUser;
-  rows: Rows;
   isCurrent: boolean;
+  isOrganizer: boolean;
+  isAllParticipants: boolean;
   onRemoval?: (user: IUser) => void;
 }
 
-const User: React.VFC<IProps> = ({ user, rows, isCurrent, onRemoval }) => {
-  const notOrganizer = !isFirstRow(rows);
-  const notAllParticipants = !isLastRow(rows);
-
-  const removalButtonIsShown = notAllParticipants && notOrganizer && onRemoval;
+const User: React.VFC<IProps> = ({
+  user,
+  isCurrent,
+  isOrganizer,
+  isAllParticipants,
+  onRemoval,
+}) => {
+  const removalButtonIsShown = !isAllParticipants && !isOrganizer && onRemoval;
 
   const displayName = getDisplayName(user);
 

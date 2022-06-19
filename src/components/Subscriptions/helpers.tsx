@@ -2,9 +2,8 @@ import { Dayjs } from 'dayjs';
 import Text from 'components/Text';
 import { DATE_SHORT, TIME_DEFAULT } from 'constants/formats';
 import { getIntersection } from 'utilities/intervals';
-import { Guid } from 'types/common';
 import { Subscription } from 'types/events';
-import { Rows } from './types';
+import { ALL_PARTICIPANTS_ID } from './constants';
 
 export const getConstraintText = (constraint: Dayjs, isSmall?: boolean) => {
   const size = isSmall ? 'small' : 'regular';
@@ -44,11 +43,8 @@ export const addIntersections = (
   return [
     ...withVisitor,
     {
-      user: { name: 'All Participants', email: '', id: '' as Guid },
+      user: { name: 'All Participants', email: '', id: ALL_PARTICIPANTS_ID },
       availability: intersections,
     },
   ];
 };
-
-export const isFirstRow = (rows: Rows) => rows.current === 0;
-export const isLastRow = (rows: Rows) => rows.current === rows.total - 1;
