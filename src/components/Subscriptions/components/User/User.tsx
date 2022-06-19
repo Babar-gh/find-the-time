@@ -9,6 +9,7 @@ interface IProps {
   isCurrent: boolean;
   isOrganizer: boolean;
   isAllParticipants: boolean;
+  isScheduledFor: boolean;
   onRemoval?: (user: IUser) => void;
 }
 
@@ -17,9 +18,11 @@ const User: React.VFC<IProps> = ({
   isCurrent,
   isOrganizer,
   isAllParticipants,
+  isScheduledFor,
   onRemoval,
 }) => {
-  const removalButtonIsShown = !isAllParticipants && !isOrganizer && onRemoval;
+  const removalButtonIsShown =
+    onRemoval && !isOrganizer && !isAllParticipants && !isScheduledFor;
 
   const displayName = getDisplayName(user);
 

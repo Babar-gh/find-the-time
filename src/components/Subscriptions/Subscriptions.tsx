@@ -45,6 +45,7 @@ const Subscriptions: React.VFC<IProps> = ({
             isCurrent={user.id === account.id}
             isOrganizer={user.id === list[0].user.id}
             isAllParticipants={user.id === ALL_PARTICIPANTS_ID}
+            isScheduledFor={user.id === SCHEDULED_FOR_ID}
             onRemoval={onUserRemoval}
           />
         ))}
