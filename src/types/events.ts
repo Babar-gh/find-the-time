@@ -7,8 +7,10 @@ export type Subscription = {
   availability: TimeInterval[];
 };
 
-export interface IEvent extends Omit<IApiEvent, 'subscriptions'> {
+export interface IEvent
+  extends Omit<IApiEvent, 'subscriptions' | 'chosenInterval'> {
   subscriptions: Subscription[];
+  chosenInterval: TimeInterval | null;
 }
 
 export type Status = 'notYetScheduled' | 'pending' | 'past';
