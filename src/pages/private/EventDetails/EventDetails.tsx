@@ -23,6 +23,8 @@ import {
 } from 'api/events';
 import ConfirmationModal from 'components/ConfirmationModal';
 import InfoTile from 'components/InfoTile';
+import { convertToIEvent } from 'types/converters/toClientTypes';
+import { convertToIApiTimeInterval } from 'types/converters/toApiTypes';
 import { LocationState } from '../NotFound';
 import Comment from './components/Comment';
 import Duration from './components/Duration';
@@ -33,8 +35,6 @@ import ShareModal from './components/ShareModal';
 import Status from './components/Status';
 import styles from './EventDetails.module.scss';
 import VisitorAvailabilityModal from './components/VisitorAvailabilityModal/VisitorAvailabilityModal';
-import { convertToIApiTimeIntervalArray } from './helpers';
-import { convertToIEvent } from './helpers';
 
 interface IProps {
   navigateBackTo: To;
@@ -222,7 +222,9 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
   };
 
   const handleSubscribeButtonClick = async () => {
-    const availableAt = convertToIApiTimeIntervalArray(visitorAvailabilities);
+    const availableAt = visitorAvailabilities.map((interval) =>
+      convertToIApiTimeInterval(interval)
+    );
 
     setIsLoading(true);
 

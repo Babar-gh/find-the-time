@@ -89,15 +89,13 @@ const EventTile: React.VFC<IProps> = ({
           {status === 'notYetScheduled' && (
             <Text color="inherit">Not scheduled yet</Text>
           )}
-          {status === 'pending' && (
+          {status === 'pending' && chosenInterval && (
             <Text color="inherit">
-              Scheduled for {dayjs(chosenInterval?.start).format('MMM D, YYYY')}
+              Scheduled for {chosenInterval.start.format('MMM D, YYYY')}
             </Text>
           )}
-          {status === 'past' && (
-            <Text color="inherit">
-              Ended {dayjs(chosenInterval?.end).fromNow()}
-            </Text>
+          {status === 'past' && chosenInterval && (
+            <Text color="inherit">Ended {chosenInterval.end.fromNow()}</Text>
           )}
         </ListItem>
       </ul>

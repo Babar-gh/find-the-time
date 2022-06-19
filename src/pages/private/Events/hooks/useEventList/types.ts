@@ -1,8 +1,8 @@
 import { IEventSearchRequest, IEventSearchResponse } from 'api/types/events';
+import { IEvent } from 'types/events';
 
-export interface IState
-  extends IEventSearchRequest,
-  Pick<IEventSearchResponse, 'items'> {
+export interface IState extends IEventSearchRequest {
+  items: Omit<IEvent, 'subscriptions'>[];
   totalItems: IEventSearchResponse['totalItems'] | null;
   pageSize: number;
   isLoading: boolean;

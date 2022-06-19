@@ -1,4 +1,3 @@
-import dayjs from 'dayjs';
 import { getStatusIcon } from 'helpers/events';
 import { IEvent, Role, Status as StatusType } from 'types/events';
 import InfoTile from 'components/InfoTile';
@@ -22,12 +21,12 @@ const Status: React.VFC<IProps> = ({ chosenInterval, role, status }) => {
       notYetScheduledByRole[role]
     ),
     pending: getStatusInfo(
-      `Scheduled for ${dayjs(chosenInterval?.start).format('MMM D, YYYY')}`,
-      `Will start ${dayjs(chosenInterval?.start).fromNow()}`
+      `Scheduled for ${chosenInterval?.start.format('MMM D, YYYY')}`,
+      `Will start ${chosenInterval?.start.fromNow()}`
     ),
     past: getStatusInfo(
-      `Was scheduled for ${dayjs(chosenInterval?.start).format('MMM D, YYYY')}`,
-      `Ended ${dayjs(chosenInterval?.end).fromNow()}`
+      `Was scheduled for ${chosenInterval?.start.format('MMM D, YYYY')}`,
+      `Ended ${chosenInterval?.end.fromNow()}`
     ),
   };
 

@@ -1,3 +1,4 @@
+import { convertToTimeInterval } from 'types/converters/toClientTypes';
 import { Action, IState } from './types';
 
 export const reducer = (state: IState, action: Action): IState => {
@@ -39,13 +40,22 @@ export const reducer = (state: IState, action: Action): IState => {
     }
 
     case 'parseResponse': {
+      const newItems = action.payload.items.map(
+        ({ chosenInterval: chosenIntervalRaw, ...restRaw }) => ({
+          chosenInterval: chosenIntervalRaw
+            ? convertToTimeInterval(chosenIntervalRaw)
+            : null,
+          ...restRaw,
+        })
+      );
+
       return {
         ...state,
         totalItems: action.payload.totalItems,
         items:
           state.pagination.pageNumber === 0
-            ? [...action.payload.items]
-            : [...state.items, ...action.payload.items],
+            ? [...newItems]
+            : [...state.items, ...newItems],
       };
     }
 

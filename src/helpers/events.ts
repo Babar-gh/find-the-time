@@ -9,7 +9,7 @@ export const getStatus = (chosenInterval: IEvent['chosenInterval']): Status => {
     return 'notYetScheduled';
   }
 
-  return dayjs(chosenInterval.end).isAfter(dayjs()) ? 'pending' : 'past';
+  return chosenInterval.end.isAfter(dayjs()) ? 'pending' : 'past';
 };
 
 type MappedIcons = { [Key in Status]: ComponentProps<typeof Icon>['type'] };
