@@ -330,6 +330,7 @@ const EventDetails: React.VFC<IProps> = ({ navigateBackTo }) => {
               <Scroll axis="horizontal">
                 <Subscriptions
                   participants={details.subscriptions}
+                  scheduledFor={details.chosenInterval}
                   visitor={{
                     user: account,
                     availability: visitorAvailabilities,

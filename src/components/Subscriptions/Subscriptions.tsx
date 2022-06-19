@@ -1,16 +1,21 @@
 import IconButton from 'ui-kit/IconButton';
 import { IUser } from 'types/users';
-import { Subscription } from 'types/events';
+import { IEvent, Subscription } from 'types/events';
 import { TimeInterval } from 'types/common';
 import { useAppSelector } from 'store/hooks';
 import Interval from './components/Interval';
 import styles from './Subscriptions.module.scss';
 import User from './components/User';
-import { addIntersections, getConstraintText } from './helpers';
+import {
+  addIntersections,
+  addScheduledFor,
+  getConstraintText,
+} from './helpers';
 import { ALL_PARTICIPANTS_ID } from './constants';
 
 interface IProps {
   participants: Subscription[];
+  scheduledFor: IEvent['chosenInterval'];
   visitor?: Subscription;
   onUserRemoval?: (user: IUser) => void;
   onIntervalChoice?: (interval: TimeInterval) => void;
@@ -19,6 +24,7 @@ interface IProps {
 
 const Subscriptions: React.VFC<IProps> = ({
   participants,
+  scheduledFor,
   visitor,
   onUserRemoval,
   onIntervalChoice,
@@ -26,7 +32,8 @@ const Subscriptions: React.VFC<IProps> = ({
 }) => {
   const account = useAppSelector((store) => store.account);
 
-  const list = addIntersections(participants, visitor);
+  const withIntersections = addIntersections(participants, visitor);
+  const list = addScheduledFor(withIntersections, scheduledFor);
 
   return (
     <div className={styles['Root']}>
