@@ -2,6 +2,7 @@ import classNames from 'classnames/bind';
 import dayjs from 'dayjs';
 import { ComponentProps } from 'react';
 import Text from 'components/Text';
+import Separator from 'ui-kit/Separator';
 import Icon from 'ui-kit/Icon';
 import { getDisplayName } from 'helpers/users';
 import { getStatus, getStatusIcon } from 'helpers/events';
@@ -77,6 +78,11 @@ const EventTile: React.VFC<IProps> = ({
             <Text font="primaryItalic">No description</Text>
           )}
         </ListItem>
+      </ul>
+      <div className={styles['SeparatorContainer']}>
+        <Separator theme="default" />
+      </div>
+      <ul className={styles['List']}>
         <ListItem icon="Timelapse">
           <Text>{`${status === 'past' ? 'Lasted' : 'Will last'} ${dayjs
             .duration(duration, 'minutes')
@@ -91,7 +97,7 @@ const EventTile: React.VFC<IProps> = ({
           )}
           {status === 'pending' && chosenInterval && (
             <Text color="inherit">
-              Scheduled for {chosenInterval.start.format('MMM D, YYYY')}
+              Scheduled for {chosenInterval.start.format('MMM D')}
             </Text>
           )}
           {status === 'past' && chosenInterval && (

@@ -43,7 +43,7 @@ export const addIntersections = (
   return [
     ...withVisitor,
     {
-      user: { name: 'All Participants', email: '', id: ALL_PARTICIPANTS_ID },
+      user: { name: 'All participants', email: '', id: ALL_PARTICIPANTS_ID },
       availability: intersections,
     },
   ];
@@ -60,7 +60,7 @@ export const addScheduledFor = (
   return [
     ...rows,
     {
-      user: { name: 'Scheduled For', email: '', id: SCHEDULED_FOR_ID },
+      user: { name: 'Scheduled for', email: '', id: SCHEDULED_FOR_ID },
       availability: [scheduledFor],
     },
   ];

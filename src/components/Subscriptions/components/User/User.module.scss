@@ -2,8 +2,10 @@
 @use '/src/styles/mixins' as *;
 
 .Root {
+  min-width: 110px;
   height: $subscriptions-row-height;
   display: flex;
+  justify-content: flex-end;
   align-items: center;
   gap: 8px;
 }

@@ -14,7 +14,7 @@
     }
 
     &_currentUser {
-      background-color: var(--ui-link);
+      background-color: var(--subscription-interval-current);
     }
 
     &_allParticipants {
@@ -22,7 +22,7 @@
     }
 
     &_scheduledFor {
-      background-color: var(--text-primary);
+      background-color: var(--subscription-interval-scheduled);
     }
   }
 

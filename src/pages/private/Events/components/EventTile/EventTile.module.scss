@@ -1,4 +1,6 @@
 .Root {
+  box-sizing: border-box;
+  height: 100%;
   padding: 16px;
   display: flex;
   flex-direction: column;
@@ -6,6 +8,11 @@
 
 .Heading {
   margin: 0 0 16px;
+}
+
+.SeparatorContainer {
+  margin-top: auto;
+  padding: 8px 0;
 }
 
 .List {
