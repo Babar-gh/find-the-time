@@ -12,7 +12,9 @@ const About: React.VFC = () => (
           <Text font="primaryBold">Find the Time</Text>
           <Text>
             {' '}
-            is a simple and straightforward app for scheduling events.
+            is a simple and straightforward app for event scheduling. With it
+            you can choose the time that works best for everyone you’ve invited
+            based on when they are available.
           </Text>
         </p>
       </InfoTile>
