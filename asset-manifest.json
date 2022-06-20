@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/find-the-time/static/css/main.197a185c.css",
-    "main.js": "/find-the-time/static/js/main.0802d93e.js",
-    "static/css/646.1d8714ff.chunk.css": "/find-the-time/static/css/646.1d8714ff.chunk.css",
-    "static/js/646.d0c6ea0d.chunk.js": "/find-the-time/static/js/646.d0c6ea0d.chunk.js",
+    "main.css": "/find-the-time/static/css/main.499814bd.css",
+    "main.js": "/find-the-time/static/js/main.7efc399d.js",
+    "static/css/646.823b212e.chunk.css": "/find-the-time/static/css/646.823b212e.chunk.css",
+    "static/js/646.afcb3dcb.chunk.js": "/find-the-time/static/js/646.afcb3dcb.chunk.js",
     "static/css/42.cdf37a09.chunk.css": "/find-the-time/static/css/42.cdf37a09.chunk.css",
-    "static/js/42.53b9e1d5.chunk.js": "/find-the-time/static/js/42.53b9e1d5.chunk.js",
-    "static/css/145.41e55dab.chunk.css": "/find-the-time/static/css/145.41e55dab.chunk.css",
-    "static/js/145.57cf508d.chunk.js": "/find-the-time/static/js/145.57cf508d.chunk.js",
+    "static/js/42.1971dc95.chunk.js": "/find-the-time/static/js/42.1971dc95.chunk.js",
+    "static/css/523.2f69ef5c.chunk.css": "/find-the-time/static/css/523.2f69ef5c.chunk.css",
+    "static/js/523.219ac601.chunk.js": "/find-the-time/static/js/523.219ac601.chunk.js",
     "static/js/787.cb479c23.chunk.js": "/find-the-time/static/js/787.cb479c23.chunk.js",
     "static/js/853.3da7ffd9.chunk.js": "/find-the-time/static/js/853.3da7ffd9.chunk.js",
     "static/media/roboto-v29-latin_cyrillic-300italic.woff": "/find-the-time/static/media/roboto-v29-latin_cyrillic-300italic.92944630dd960c4d0fcc.woff",
@@ -51,19 +51,19 @@
     "static/media/Menu.svg": "/find-the-time/static/media/Menu.28aa1d09e6bc2b72ae9417d6de3cdd3c.svg",
     "static/media/Add.svg": "/find-the-time/static/media/Add.f2831e294a4553ddc971919e10ad4572.svg",
     "static/media/Remove.svg": "/find-the-time/static/media/Remove.365743344b634c49a1168b5114b4eeab.svg",
-    "main.197a185c.css.map": "/find-the-time/static/css/main.197a185c.css.map",
-    "main.0802d93e.js.map": "/find-the-time/static/js/main.0802d93e.js.map",
-    "646.1d8714ff.chunk.css.map": "/find-the-time/static/css/646.1d8714ff.chunk.css.map",
-    "646.d0c6ea0d.chunk.js.map": "/find-the-time/static/js/646.d0c6ea0d.chunk.js.map",
+    "main.499814bd.css.map": "/find-the-time/static/css/main.499814bd.css.map",
+    "main.7efc399d.js.map": "/find-the-time/static/js/main.7efc399d.js.map",
+    "646.823b212e.chunk.css.map": "/find-the-time/static/css/646.823b212e.chunk.css.map",
+    "646.afcb3dcb.chunk.js.map": "/find-the-time/static/js/646.afcb3dcb.chunk.js.map",
     "42.cdf37a09.chunk.css.map": "/find-the-time/static/css/42.cdf37a09.chunk.css.map",
-    "42.53b9e1d5.chunk.js.map": "/find-the-time/static/js/42.53b9e1d5.chunk.js.map",
-    "145.41e55dab.chunk.css.map": "/find-the-time/static/css/145.41e55dab.chunk.css.map",
-    "145.57cf508d.chunk.js.map": "/find-the-time/static/js/145.57cf508d.chunk.js.map",
+    "42.1971dc95.chunk.js.map": "/find-the-time/static/js/42.1971dc95.chunk.js.map",
+    "523.2f69ef5c.chunk.css.map": "/find-the-time/static/css/523.2f69ef5c.chunk.css.map",
+    "523.219ac601.chunk.js.map": "/find-the-time/static/js/523.219ac601.chunk.js.map",
     "787.cb479c23.chunk.js.map": "/find-the-time/static/js/787.cb479c23.chunk.js.map",
     "853.3da7ffd9.chunk.js.map": "/find-the-time/static/js/853.3da7ffd9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.197a185c.css",
-    "static/js/main.0802d93e.js"
+    "static/css/main.499814bd.css",
+    "static/js/main.7efc399d.js"
   ]
 }
