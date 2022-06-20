@@ -9,7 +9,6 @@
 - The people you invited will narrow your intervals according to their availability.
 - When everybody subscribed, you will be shown the time frames when everybody is available.
 - Now all that’s left is for you to pick when your event will happen within these frames!
--
 
 ## Demo
 
