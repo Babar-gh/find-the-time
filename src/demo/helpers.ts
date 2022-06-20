@@ -1,5 +1,7 @@
+import dayjs from 'dayjs';
 import { sample, shuffle } from 'lodash';
 import { v4 as getUuid } from 'uuid';
+import { DATETIME_DEFAULT } from 'constants/formats';
 import { Guid } from 'types/common';
 import { IApiUser } from 'api/types/events';
 import { adjectives, names } from './templates/users';
@@ -21,9 +23,11 @@ export const getDemoUser = (): IApiUser => {
 export const getDemoEvent = (
   demoOwner: IApiUser,
   extras: IApiUser[],
-  demoOwnerIsOrganizer: boolean
+  demoOwnerIsOrganizer: boolean,
+  isScheduled: boolean
 ) => {
-  const { subscriptions, ...scheduleRest } = sample(schedules) || schedules[0];
+  const { subscriptions, chosenInterval, duration } =
+    sample(schedules) || schedules[0];
 
   const participants = shuffle(extras).slice(0, subscriptions.length - 1);
 
@@ -39,7 +43,11 @@ export const getDemoEvent = (
       availability,
     })),
     organizedBy: participants[0],
-    ...scheduleRest,
+    created: dayjs()
+      .subtract(Math.random() * 10000, 'minutes')
+      .format(DATETIME_DEFAULT),
+    chosenInterval: isScheduled ? chosenInterval : null,
+    duration,
   };
 
   const randomInfo = sample(info) || info[0];
@@ -59,7 +67,7 @@ export const getDemoContent = (): IDemoUserCreationRequest => {
   );
 
   const events = [...new Array(EVENTS_QUANTITY)].map((_, index, { length }) =>
-    getDemoEvent(loginUser, users, index > length / 2)
+    getDemoEvent(loginUser, users, index > length / 2, index % 2 === 0)
   );
 
   return {
